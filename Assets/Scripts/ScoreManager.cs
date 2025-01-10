@@ -5,7 +5,6 @@ using Zenject;
 using static UnityEngine.Rendering.VolumeComponent;
 using Unity.VisualScripting;
 
-
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private int Score;
@@ -84,7 +83,7 @@ public class ScoreManager : MonoBehaviour
         isTrackingTime = true;
         float startTime = Time.time;
 
-        while (true)
+        while (this != null && gameObject.activeSelf)
         {
             await UniTask.Yield();
             SurvivedTime = Mathf.FloorToInt(Time.time - startTime);
@@ -115,6 +114,7 @@ public class ScoreManager : MonoBehaviour
         File.WriteAllText(filePath, json);
         Debug.Log("Scores saved to file.");
     }
+
     public void LoadScoresFromFile(string filePath)
     {
         if (File.Exists(filePath))
@@ -144,27 +144,27 @@ public class ScoreManager : MonoBehaviour
     {
         int baseScore = 0;
 
-        baseScore += DestroyedUFO * 1500; // За каждую уничтоженную тарелку
-        baseScore += DestroyedAsteroids * 500; // За каждый уничтоженный астероид
-        baseScore += FiredBullets * 50; // За каждый выстрел
-        baseScore += Reloads * 250; // За каждую перезарядку
-        baseScore += FiredLasers * 100; // За каждый выстрел лазером
-        baseScore += Mathf.FloorToInt(LaserTime) * 100; // За каждую секунду выстрела лазером
-        baseScore += MaxSpeed * 100; // За каждую единицу максимальной скорости
-        baseScore += Travelled * 10; // За каждую единицу пройденного расстояния
-        baseScore += SurvivedTime * 75; // За каждую секунду выживания
+        baseScore += DestroyedUFO * 1500;
+        baseScore += DestroyedAsteroids * 500;
+        baseScore += FiredBullets * 50;
+        baseScore += Reloads * 250;
+        baseScore += FiredLasers * 100;
+        baseScore += Mathf.FloorToInt(LaserTime) * 100;
+        baseScore += MaxSpeed * 100;
+        baseScore += Travelled * 10;
+        baseScore += SurvivedTime * 75;
+
         int difficultyMultiplier = _difficultyLevel.CurrentDifficulty switch
         {
             DifficultyManager.Difficulty.Easy => 1,
             DifficultyManager.Difficulty.Medium => 2,
             DifficultyManager.Difficulty.Hard => 3,
-            _ => 1 
+            _ => 1
         };
 
         Score = baseScore * difficultyMultiplier;
         Debug.Log($"Score calculated: {Score}");
     }
-
 
     [System.Serializable]
     public class ScoreData
@@ -180,6 +180,4 @@ public class ScoreManager : MonoBehaviour
         public int Travelled;
         public int SurvivedTime;
     }
-
 }
-

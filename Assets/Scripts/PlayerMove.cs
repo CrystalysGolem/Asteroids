@@ -13,11 +13,21 @@ public class PlayerMove : MonoBehaviour
     public float maxAchievedSpeed = 0f;
     public float travelledDistance = 0f;
 
+    private int speedReductionCount = 0;
+    private const int maxSpeedReduction = 2;
+
     [Inject] private ScoreManager scoreManager;
 
     private void Start()
     {
         mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main Camera not found!");
+            enabled = false;
+            return;
+        }
+
         savedPosition = transform.position;
         HandleMovement().Forget();
     }
@@ -26,7 +36,7 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 previousPosition = transform.position;
 
-        while (true)
+        while (this != null && gameObject.activeSelf)
         {
             Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             Vector3 targetVelocity = new Vector3(input.x, input.y, 0f).normalized * maxSpeed;
@@ -40,7 +50,11 @@ public class PlayerMove : MonoBehaviour
                 currentVelocity = Vector3.MoveTowards(currentVelocity, Vector3.zero, deceleration * Time.deltaTime);
             }
 
-            currentVelocity = Vector3.ClampMagnitude(currentVelocity, maxSpeed);
+            if (currentVelocity.magnitude > maxSpeed)
+            {
+                currentVelocity = Vector3.ClampMagnitude(currentVelocity, maxSpeed);
+            }
+
             transform.position += currentVelocity * Time.deltaTime;
 
             float currentSpeed = currentVelocity.magnitude;
@@ -56,6 +70,11 @@ public class PlayerMove : MonoBehaviour
             previousPosition = transform.position;
 
             Vector3 mousePosition = Input.mousePosition;
+            if (mousePosition.x < 0 || mousePosition.y < 0 || mousePosition.x > Screen.width || mousePosition.y > Screen.height)
+            {
+                mousePosition = transform.position + currentVelocity.normalized;
+            }
+
             mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
             Vector3 direction = (mousePosition - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -64,6 +83,22 @@ public class PlayerMove : MonoBehaviour
             savedPosition = transform.position;
 
             await UniTask.Yield();
+        }
+    }
+
+    public void ReduceSpeedAndAcceleration()
+    {
+        if (speedReductionCount < maxSpeedReduction)
+        {
+            maxSpeed *= 0.75f;
+            acceleration *= 0.75f;
+            deceleration *= 0.75f;
+            speedReductionCount++;
+            Debug.Log($"Speed and acceleration reduced. Current maxSpeed: {maxSpeed}, acceleration: {acceleration}");
+        }
+        else
+        {
+            Debug.Log("Maximum speed reduction reached.");
         }
     }
 }

@@ -10,17 +10,20 @@ public class Projectile : MonoBehaviour
         float timeAlive = 0f;
         float currentForce = force;
 
-        while (timeAlive < lifetime)
+        direction = Quaternion.Euler(0f, 0f, 90f) * direction;
+
+        while (this != null && gameObject.activeSelf && timeAlive < lifetime)
         {
             transform.position += direction * currentForce * Time.deltaTime;
 
             float factor = Mathf.Lerp(1f, 2f / 3f, timeAlive / lifetime);
             currentForce = force * factor;
-
             timeAlive += Time.deltaTime;
             await UniTask.Yield();
         }
-        Destroy(gameObject);
+
+        if (this != null && gameObject.activeSelf)
+            Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

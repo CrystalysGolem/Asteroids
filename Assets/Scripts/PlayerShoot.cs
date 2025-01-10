@@ -15,7 +15,6 @@ public class PlayerShoot : MonoBehaviour
 
     private int currentAmmo;
     private bool canShoot = true;
-    private bool alternateSpawn = false;
     private bool isReloading = false;
     private bool isObjectActive = false;
     private bool isObjectOnCooldown = false;
@@ -24,26 +23,21 @@ public class PlayerShoot : MonoBehaviour
     private void Start()
     {
         currentAmmo = maxAmmo;
-        ShootBullet().Forget();
+        HandleShooting().Forget();
         HandleObjectActivation().Forget();
     }
 
-    private async UniTaskVoid ShootBullet()
+    private async UniTaskVoid HandleShooting()
     {
-        while (true)
+        while (this != null && gameObject.activeSelf)
         {
             if (Input.GetMouseButton(0) && canShoot && currentAmmo > 0 && !isReloading)
             {
                 canShoot = false;
 
-                Vector3 spawnOffset = alternateSpawn ? new Vector3(-0.4f, 0f, 0f) : new Vector3(0.4f, 0f, 0f);
-                Vector3 spawnPosition = transform.position + spawnOffset;
-                alternateSpawn = !alternateSpawn;
-
+                Vector3 spawnPosition = transform.position + transform.right * 0.5f;
                 GameObject bullet = Instantiate(bulletPrefab, spawnPosition, transform.rotation);
-                Vector3 direction = Quaternion.Euler(0, 0, 90) * transform.right;
-                bullet.GetComponent<Projectile>().Launch(direction, shootingForce);
-
+                bullet.GetComponent<Projectile>().Launch(transform.right, shootingForce);
                 currentAmmo--;
 
                 if (currentAmmo == 0)
@@ -55,18 +49,18 @@ public class PlayerShoot : MonoBehaviour
                 canShoot = true;
             }
 
-            if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.K)) && currentAmmo < maxAmmo && !isReloading)
+            if (Input.GetKeyDown(KeyCode.R) && currentAmmo < maxAmmo && !isReloading)
             {
                 await Reload();
             }
 
-            await UniTask.Yield();
+            await UniTask.Delay(10);
         }
     }
 
     private async UniTaskVoid HandleObjectActivation()
     {
-        while (true)
+        while (this != null && gameObject.activeSelf)
         {
             if (Input.GetMouseButtonDown(1) && !isObjectActive && !isObjectOnCooldown)
             {
@@ -86,7 +80,7 @@ public class PlayerShoot : MonoBehaviour
                 }
             }
 
-            await UniTask.Yield();
+            await UniTask.Delay(10);
         }
     }
 
@@ -107,20 +101,32 @@ public class PlayerShoot : MonoBehaviour
 
     private async UniTask StartObjectCooldown(float cooldownDuration)
     {
-        isObjectOnCooldown = true;
-        Debug.Log($"Object cooldown started for {cooldownDuration} seconds.");
-        await UniTask.Delay((int)(cooldownDuration * 1000));
-        isObjectOnCooldown = false;
-        Debug.Log("Object cooldown complete!");
+        if (this != null && gameObject.activeSelf)
+        {
+            isObjectOnCooldown = true;
+            Debug.Log($"Object cooldown started for {cooldownDuration:F1} seconds.");
+            await UniTask.Delay((int)(cooldownDuration * 1000));
+            isObjectOnCooldown = false;
+            Debug.Log("Object cooldown complete!");
+        }
     }
 
     private async UniTask Reload()
     {
-        isReloading = true;
-        Debug.Log("Reloading...");
-        await UniTask.Delay((int)(reloadTime * 1000));
-        currentAmmo = maxAmmo;
-        isReloading = false;
-        Debug.Log("Reload complete!");
+        if (this != null && gameObject.activeSelf)
+        {
+            isReloading = true;
+            Debug.Log("Reloading...");
+            await UniTask.Delay((int)(reloadTime * 1000));
+            currentAmmo = maxAmmo;
+            isReloading = false;
+            Debug.Log("Reload complete!");
+        }
+    }
+
+    public void IncreaseFireRateCooldown()
+    {
+        shootCooldown *= 1.5f;
+        Debug.Log($"Fire rate cooldown increased. Current cooldown: {shootCooldown}");
     }
 }

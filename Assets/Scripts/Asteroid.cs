@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IInvincible
 {
     private Vector3 targetPosition;
     private Vector3 currentDirection;
@@ -10,6 +11,7 @@ public class Asteroid : MonoBehaviour
     private float rotationSpeed = 50f;
     private float lifetime = 15f;
     private int health = 1;
+
     public bool IsInvincible { get; set; }
 
     [Inject] private PlayerTeleport playerTeleport;
@@ -19,10 +21,16 @@ public class Asteroid : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (playerTeleport == null || playerMovement == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         SetInitialPosition();
         ApplyDifficulty();
         StartMove(moveSpeed, rotationSpeed);
@@ -59,16 +67,16 @@ public class Asteroid : MonoBehaviour
         int side = Random.Range(0, 4);
         switch (side)
         {
-            case 0: // Top
+            case 0:
                 transform.position = new Vector3(Random.Range(-xBoundary, xBoundary), yBoundary, 0f);
                 break;
-            case 1: // Bottom
+            case 1:
                 transform.position = new Vector3(Random.Range(-xBoundary, xBoundary), -yBoundary, 0f);
                 break;
-            case 2: // Left
+            case 2:
                 transform.position = new Vector3(-xBoundary, Random.Range(-yBoundary, yBoundary), 0f);
                 break;
-            case 3: // Right
+            case 3:
                 transform.position = new Vector3(xBoundary, Random.Range(-yBoundary, yBoundary), 0f);
                 break;
         }
@@ -89,15 +97,23 @@ public class Asteroid : MonoBehaviour
 
     private async UniTaskVoid MoveToTarget()
     {
-        while (true)
+        while (this != null && gameObject.activeSelf)
         {
             if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
             {
                 targetPosition += currentDirection * 5f;
             }
+
             currentDirection = (targetPosition - transform.position).normalized;
             transform.position += currentDirection * moveSpeed * Time.deltaTime;
             transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+
+            if (!IsWithinBounds())
+            {
+                gameObject.SetActive(false);
+                break;
+            }
+
             await UniTask.Yield();
         }
     }
@@ -105,30 +121,38 @@ public class Asteroid : MonoBehaviour
     private async UniTaskVoid StartLifeCountdown()
     {
         await UniTask.Delay((int)(lifetime * 1000));
-        gameObject.SetActive(false);
+        if (this != null && gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private async UniTaskVoid HandleHitVisuals()
     {
-        SetInvincibility(true);
+        IsInvincible = true;
+
         float blinkDuration = 0.5f;
         float blinkInterval = 0.1f;
         float elapsedTime = 0f;
 
-        while (elapsedTime < blinkDuration)
+        while (elapsedTime < blinkDuration && this != null && gameObject.activeSelf)
         {
             spriteRenderer.enabled = !spriteRenderer.enabled;
             await UniTask.Delay((int)(blinkInterval * 1000));
             elapsedTime += blinkInterval;
         }
 
-        spriteRenderer.enabled = true;
-        SetInvincibility(true);
+        if (this != null && gameObject.activeSelf)
+        {
+            spriteRenderer.enabled = true;
+        }
+
+        IsInvincible = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("PP") && !GetInvincibility())
+        if (collision.CompareTag("Projectile") && !IsInvincible)
         {
             health--;
             if (health <= 0)
@@ -142,14 +166,11 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    public void SetInvincibility(bool state)
+    private bool IsWithinBounds()
     {
-        IsInvincible = state;
-    }
+        float xBoundary = playerTeleport.xBoundary;
+        float yBoundary = playerTeleport.yBoundary;
 
-    public bool GetInvincibility()
-    {
-        return IsInvincible;
+        return Mathf.Abs(transform.position.x) <= xBoundary && Mathf.Abs(transform.position.y) <= yBoundary;
     }
-
 }

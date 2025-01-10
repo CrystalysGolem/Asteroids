@@ -24,7 +24,7 @@ public class PlayerTeleport : MonoBehaviour
 
     private async UniTaskVoid CheckPosition()
     {
-        while (true)
+        while (this != null && gameObject.activeSelf)
         {
             Vector3 position = transform.position;
 

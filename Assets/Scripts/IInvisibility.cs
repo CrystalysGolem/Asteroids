@@ -1,4 +1,4 @@
 public interface IInvincible
 {
-    bool IsInvincible { get; }
+    bool IsInvincible { get; set; }
 }
