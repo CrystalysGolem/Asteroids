@@ -61,19 +61,21 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.25f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerPart.cs" />
+    <Compile Include="Assets\Scripts\Enemy\UFO.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\UFO.cs" />
-    <Compile Include="Assets\Scripts\Player Health.cs" />
-    <Compile Include="Assets\Scripts\Asteroid.cs" />
-    <Compile Include="Assets\Scripts\PlayerShoot.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
+    <Compile Include="Assets\Scripts\Interface\IEnemy.cs" />
+    <Compile Include="Assets\Scripts\Player\Player Health.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerPart.cs" />
+    <Compile Include="Assets\Scripts\EnemyFabric.cs" />
+    <Compile Include="Assets\Scripts\Player\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Interface\IInvisibility.cs" />
     <Compile Include="Assets\Scripts\DifficultyManager.cs" />
-    <Compile Include="Assets\Scripts\GameInstaller.cs" />
-    <Compile Include="Assets\Scripts\PlayerMove.cs" />
-    <Compile Include="Assets\Scripts\PlayerTeleport.cs" />
-    <Compile Include="Assets\Scripts\Projectile.cs" />
-    <Compile Include="Assets\Scripts\Validator.cs" />
-    <Compile Include="Assets\Scripts\IInvisibility.cs" />
+    <Compile Include="Assets\Scripts\Zenject\Validator.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerTeleport.cs" />
+    <Compile Include="Assets\Scripts\Zenject\GameInstaller.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Asteroid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
