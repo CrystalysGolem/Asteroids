@@ -144,14 +144,14 @@ namespace Zenject
         }
 
         protected ScopeConcreteIdArgConditionCopyNonLazyBinder FromIFactoryBase<TContract>(
-            Action<ConcreteBinderGeneric<IFactory<TContract>>> factoryBindGenerator)
+            Action<ConcreteBinderGeneric<IAFactory<TContract>>> factoryBindGenerator)
         {
             // Use a random ID so that our provider is the only one that can find it and so it doesn't
             // conflict with anything else
             var factoryId = Guid.NewGuid();
 
             // Important to use NoFlush here otherwise the main binding will finalize early
-            var subBinder = BindContainer.BindNoFlush<IFactory<TContract>>()
+            var subBinder = BindContainer.BindNoFlush<IAFactory<TContract>>()
                 .WithId(factoryId);
 
             factoryBindGenerator(subBinder);

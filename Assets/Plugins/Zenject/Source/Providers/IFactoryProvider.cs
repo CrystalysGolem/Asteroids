@@ -65,7 +65,7 @@ namespace Zenject
             Assert.That(typeof(TContract).DerivesFromOrEqual(context.MemberType));
 
             // Do this even when validating in case it has its own dependencies
-            var factory = Container.ResolveId(typeof(IFactory<TContract>), FactoryId);
+            var factory = Container.ResolveId(typeof(IAFactory<TContract>), FactoryId);
 
             injectAction = null;
             if (Container.IsValidating)
@@ -76,7 +76,7 @@ namespace Zenject
             }
             else
             {
-                buffer.Add(((IFactory<TContract>)factory).Create());
+                buffer.Add(((IAFactory<TContract>)factory).Create());
             }
         }
     }

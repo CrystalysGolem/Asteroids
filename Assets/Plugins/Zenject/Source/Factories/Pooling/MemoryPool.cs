@@ -1,7 +1,7 @@
 namespace Zenject
 {
     // Zero parameters
-    public class MemoryPool<TValue> : MemoryPoolBase<TValue>, IMemoryPool<TValue>, IFactory<TValue>
+    public class MemoryPool<TValue> : MemoryPoolBase<TValue>, IMemoryPool<TValue>, IAFactory<TValue>
     {
         public TValue Spawn()
         {
@@ -27,7 +27,7 @@ namespace Zenject
             // Optional
         }
 
-        TValue IFactory<TValue>.Create()
+        TValue IAFactory<TValue>.Create()
         {
             return Spawn();
         }

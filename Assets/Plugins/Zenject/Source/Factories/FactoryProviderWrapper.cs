@@ -2,7 +2,7 @@ using ModestTree;
 
 namespace Zenject
 {
-    public class FactoryProviderWrapper<TContract> : IFactory<TContract>
+    public class FactoryProviderWrapper<TContract> : IAFactory<TContract>
     {
         readonly IProvider _provider;
         readonly InjectContext _injectContext;

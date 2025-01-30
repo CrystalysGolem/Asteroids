@@ -4,7 +4,7 @@ namespace Zenject
 {
     // Here we assume that each spawned object does the work of returning itself to the pool
     // in its own Dispose method
-    public class PoolWrapperFactory<T> : IFactory<T>
+    public class PoolWrapperFactory<T> : IAFactory<T>
         where T : IDisposable
     {
         readonly IMemoryPool<T> _pool;

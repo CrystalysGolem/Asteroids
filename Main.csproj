@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Interface\IInvisibility.cs" />
     <Compile Include="Assets\Scripts\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\Zenject\Validator.cs" />
+    <Compile Include="Assets\Scripts\Enemy\AsteroidFactory.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerTeleport.cs" />
     <Compile Include="Assets\Scripts\Zenject\GameInstaller.cs" />

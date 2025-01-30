@@ -4,7 +4,7 @@ namespace Zenject
     {
     }
 
-    public interface IFactory<out TValue> : IFactory
+    public interface IAFactory<out TValue> : IFactory
     {
         TValue Create();
     }

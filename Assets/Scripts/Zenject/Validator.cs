@@ -9,10 +9,13 @@ public class Validator : MonoBehaviour
     [Inject] private ScoreManager _scoreManager;
     [Inject] private DifficultyManager _difficultyManager;
     [Inject] private DifficultyManager _enemyFabric;
+    [Inject] private AsteroidFactory _asteroidFactory;
 
     private void Start()
     {
         ValidateDependencies();
+        _asteroidFactory.Initialize();
+
     }
 
     private void ValidateDependencies()
@@ -31,6 +34,10 @@ public class Validator : MonoBehaviour
 
         if (_difficultyManager == null)
             ThrowMissingDependency(nameof(DifficultyManager));
+
+        if (_asteroidFactory == null)
+            ThrowMissingDependency(nameof(AsteroidFactory));
+
 
         Debug.Log("All dependencies have been successfully validated!");
     }

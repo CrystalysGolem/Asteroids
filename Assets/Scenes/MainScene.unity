@@ -152,7 +152,6 @@ Transform:
   - {fileID: 1035164766}
   - {fileID: 1366034585}
   - {fileID: 666436678}
-  - {fileID: 1773457744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376717912
@@ -885,8 +884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc5afc197be4ea459ee4cd86c30329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UFOPref: {fileID: 0}
-  AsteroidPref: {fileID: 0}
+  UFOPref: {fileID: 5759501544903698259, guid: 7116107a9c56aa34d93ce0052cbeef84, type: 3}
+  AsteroidPref: {fileID: 3710982357794215485, guid: 54f3b6d45c8d9e649a760d2f97abba71, type: 3}
 --- !u!114 &657288107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1481,51 +1480,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 561767652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 120}
---- !u!1 &1773457743
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1773457744}
-  - component: {fileID: 1773457745}
-  m_Layer: 0
-  m_Name: EnemyFabric
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1773457744
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773457743}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 152088119}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1773457745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773457743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5681763162121f042a2f7c76d586ea42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxEnemiesPerPrefab: 0300000003000000
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

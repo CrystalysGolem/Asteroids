@@ -41,7 +41,7 @@ namespace Zenject
     public class MemoryPoolBase<TContract> : IValidatable, IMemoryPool, IDisposable
     {
         Stack<TContract> _inactiveItems;
-        IFactory<TContract> _factory;
+        IAFactory<TContract> _factory;
         MemoryPoolSettings _settings;
         DiContainer _container;
 
@@ -49,7 +49,7 @@ namespace Zenject
 
         [Inject]
         void Construct(
-            IFactory<TContract> factory,
+            IAFactory<TContract> factory,
             DiContainer container,
             [InjectOptional]
             MemoryPoolSettings settings)

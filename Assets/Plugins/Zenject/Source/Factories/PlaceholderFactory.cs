@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 namespace Zenject
 {
     // Zero parameters
-    public class PlaceholderFactory<TValue> : PlaceholderFactoryBase<TValue>, IFactory<TValue>
+    public class PlaceholderFactory<TValue> : PlaceholderFactoryBase<TValue>, IAFactory<TValue>
     {
         // Note: Most of the time you should not override this method and should instead
         // use BindFactory<>.FromIFactory if you want to do some custom logic
