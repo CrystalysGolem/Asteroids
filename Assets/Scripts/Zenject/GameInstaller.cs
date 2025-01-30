@@ -13,10 +13,5 @@ public class GameInstaller : MonoInstaller
         Container.Bind<PlayerMove>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerShoot>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerTeleport>().FromComponentInHierarchy().AsSingle();
-
-        Container.BindFactory<UFO, UFO.Factory>().FromComponentInHierarchy();
-        Container.BindFactory<Asteroid, Asteroid.Factory>().FromComponentInHierarchy();
-        Container.Bind<EnemySpawner>().AsSingle();
-
     }
 }

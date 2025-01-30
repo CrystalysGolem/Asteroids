@@ -21,10 +21,6 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
 
     private SpriteRenderer spriteRenderer;
 
-    public class Factory : PlaceholderFactory<UFO>
-    {
-    }
-
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

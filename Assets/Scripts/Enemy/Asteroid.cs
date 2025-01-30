@@ -24,10 +24,6 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
 
     private SpriteRenderer spriteRenderer;
 
-    public class Factory : PlaceholderFactory<Asteroid>
-    {
-    }
-
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

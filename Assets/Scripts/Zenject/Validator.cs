@@ -32,9 +32,6 @@ public class Validator : MonoBehaviour
         if (_difficultyManager == null)
             ThrowMissingDependency(nameof(DifficultyManager));
 
-        if (_enemyFabric == null)
-            ThrowMissingDependency(nameof(EnemySpawner));
-
         Debug.Log("All dependencies have been successfully validated!");
     }
 
