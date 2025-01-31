@@ -8,14 +8,12 @@ public class Validator : MonoBehaviour
     [Inject] private PlayerTeleport _playerTeleport;
     [Inject] private ScoreManager _scoreManager;
     [Inject] private DifficultyManager _difficultyManager;
-    [Inject] private DifficultyManager _enemyFabric;
-    [Inject] private AsteroidFactory _asteroidFactory;
+    [Inject] private PrefabFactory _prefabFactory;
+    [Inject] private ObjectPoolService _objectPoolService;
 
-    private void Start()
+    public void Start()
     {
         ValidateDependencies();
-        _asteroidFactory.Initialize();
-
     }
 
     private void ValidateDependencies()
@@ -35,9 +33,11 @@ public class Validator : MonoBehaviour
         if (_difficultyManager == null)
             ThrowMissingDependency(nameof(DifficultyManager));
 
-        if (_asteroidFactory == null)
-            ThrowMissingDependency(nameof(AsteroidFactory));
+        if (_prefabFactory == null)
+            ThrowMissingDependency(nameof(PrefabFactory));
 
+        if (_objectPoolService == null)
+            ThrowMissingDependency(nameof(ObjectPoolService));
 
         Debug.Log("All dependencies have been successfully validated!");
     }

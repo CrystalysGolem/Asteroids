@@ -5,14 +5,13 @@ using Zenject;
 
 public class Asteroid : MonoBehaviour, IInvincible, IEnemy
 {
-    private Vector3 targetPosition;
-    private Vector3 currentDirection;
-    private float moveSpeed = 10f;
-    private float rotationSpeed = 50f;
-    private float lifetime = 15f;
-    private int health = 1;
+    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private Vector3 currentDirection;
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 50f;
+    [SerializeField] private int health = 1;
 
-    public bool IsInvincible { get; set; }
+    [SerializeField] public bool IsInvincible { get; set; }
 
     [Inject] private PlayerTeleport playerTeleport;
     [Inject] private PlayerMove playerMovement;
@@ -31,6 +30,7 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
         if (playerTeleport == null || playerMovement == null)
         {
             gameObject.SetActive(false);
+            Debug.Log("Asteroid hided.");
             return;
         }
 
@@ -41,7 +41,6 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
         SetInitialPosition();
         ApplyDifficulty();
         StartMove(moveSpeed, rotationSpeed);
-        StartLifeCountdown().Forget();
     }
 
 
@@ -129,15 +128,6 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
             }
 
             await UniTask.Yield();
-        }
-    }
-
-    private async UniTaskVoid StartLifeCountdown()
-    {
-        await UniTask.Delay((int)(lifetime * 1000));
-        if (this != null && gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
         }
     }
 

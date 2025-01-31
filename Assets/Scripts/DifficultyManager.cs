@@ -1,9 +1,15 @@
+using System.ComponentModel;
 using UnityEngine;
+using Zenject;
 
-public class DifficultyManager : MonoBehaviour
+public class DifficultyManager : IInitializable
 {
-    [Header("Current Difficulty Level")]
-    [SerializeField] private Difficulty currentDifficulty = Difficulty.Easy;
+    private Difficulty currentDifficulty = Difficulty.Easy;
+
+    public void Initialize()
+    {
+    }
+
 
     public enum Difficulty
     {

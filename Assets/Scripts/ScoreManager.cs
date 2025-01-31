@@ -2,9 +2,8 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.IO;
 using Zenject;
-using Unity.VisualScripting;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : IInitializable
 {
     [SerializeField] private int Score;
     [SerializeField] private int DestroyedUFO;
@@ -18,6 +17,12 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int SurvivedTime;
 
     [Inject] private DifficultyManager _difficultyLevel;
+
+    public void Initialize()
+    {
+        ResetScores();
+    }
+
 
     private bool isTrackingTime = false;
 
@@ -82,11 +87,8 @@ public class ScoreManager : MonoBehaviour
         isTrackingTime = true;
         float startTime = Time.time;
 
-        while (this != null && gameObject.activeSelf)
-        {
-            await UniTask.Yield();
-            SurvivedTime = Mathf.FloorToInt(Time.time - startTime);
-        }
+        await UniTask.Yield();
+        SurvivedTime = Mathf.FloorToInt(Time.time - startTime);
     }
 
     public void StopTrackingTime()

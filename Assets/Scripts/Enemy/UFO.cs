@@ -4,13 +4,12 @@ using Zenject;
 
 public class UFO : MonoBehaviour, IInvincible, IEnemy
 {
-    private Vector3 targetPosition;
-    private float moveSpeed = 7.5f;
-    private float rotationSpeed = 50f;
-    private float lifetime = 15f;
-    private int health;
+    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private float moveSpeed = 7.5f;
+    [SerializeField] private float rotationSpeed = 50f;
+    [SerializeField] private int health;
 
-    public bool IsInvincible { get; set; }
+    [SerializeField] public bool IsInvincible { get; set; }
 
     [Inject] private PlayerMove playerMovement;
     [Inject] private PlayerTeleport playerTeleport;
@@ -37,8 +36,8 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
     public void StartUP()
     {
         SetHealthByDifficulty();
+        SetInitialPosition();  
         StartMove(moveSpeed, rotationSpeed);
-        StartLifeCountdown().Forget();
     }
 
     private void SetHealthByDifficulty()
@@ -61,11 +60,40 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
         }
     }
 
+    private void SetInitialPosition()
+    {
+        float xBoundary = playerTeleport.xBoundary;
+        float yBoundary = playerTeleport.yBoundary;
+        Vector3 screenTopRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
+        Vector3 screenBottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
+        float xMax = screenTopRight.x;
+        float yMax = screenTopRight.y;
+        float xMin = screenBottomLeft.x;
+        float yMin = screenBottomLeft.y;
+        int side = Random.Range(0, 4);
+        switch (side)
+        {
+            case 0:
+                transform.position = new Vector3(Random.Range(xMin, xMax), yMax, 0f);
+                break;
+            case 1:
+                transform.position = new Vector3(Random.Range(xMin, xMax), yMin, 0f);
+                break;
+            case 2:
+                transform.position = new Vector3(xMin, Random.Range(yMin, yMax), 0f);
+                break;
+            case 3:
+                transform.position = new Vector3(xMax, Random.Range(yMin, yMax), 0f);
+                break;
+        }
+
+        targetPosition = playerMovement.savedPosition + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
+    }
+
     public void StartMove(float moveSpeed, float rotationSpeed)
     {
         this.moveSpeed = moveSpeed;
         this.rotationSpeed = rotationSpeed;
-        targetPosition = playerMovement != null ? playerMovement.savedPosition : Vector3.zero;
         MoveToTarget().Forget();
     }
 
@@ -81,27 +109,19 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
     {
         if (this == null || !gameObject.activeSelf) return;
 
-        float xBoundary = playerTeleport.xBoundary;
-        float yBoundary = playerTeleport.yBoundary;
-
-        int side = Random.Range(0, 4);
-        switch (side)
+        while (this != null && gameObject.activeSelf)
         {
-            case 0: transform.position = new Vector3(Random.Range(-xBoundary, xBoundary), yBoundary, 0f); break;
-            case 1: transform.position = new Vector3(Random.Range(-xBoundary, xBoundary), -yBoundary, 0f); break;
-            case 2: transform.position = new Vector3(-xBoundary, Random.Range(-yBoundary, yBoundary), 0f); break;
-            case 3: transform.position = new Vector3(xBoundary, Random.Range(-yBoundary, yBoundary), 0f); break;
-        }
+            if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
+            {
+                targetPosition = playerMovement.savedPosition + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
+            }
 
-        while (this != null && gameObject.activeSelf && IsWithinBounds())
-        {
             if (IsInvincible)
             {
-                await UniTask.Yield(); 
+                await UniTask.Yield();
                 continue;
             }
 
-            targetPosition = playerMovement != null ? playerMovement.savedPosition : Vector3.zero;
             Vector3 direction = (targetPosition - transform.position).normalized;
             transform.position += direction * moveSpeed * Time.deltaTime;
             transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
@@ -113,14 +133,6 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
             gameObject.SetActive(false);
     }
 
-    private async UniTaskVoid StartLifeCountdown()
-    {
-        if (this == null || !gameObject.activeSelf) return;
-
-        await UniTask.Delay((int)(lifetime * 1000));
-        if (this != null && gameObject.activeSelf)
-            gameObject.SetActive(false);
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
