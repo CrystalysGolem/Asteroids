@@ -61,24 +61,17 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.25f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Enemy\UFO.cs" />
-    <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
-    <Compile Include="Assets\Scripts\Interface\IEnemy.cs" />
     <Compile Include="Assets\Scripts\Player\Player Health.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerPart.cs" />
-    <Compile Include="Assets\Scripts\EnemyFabric.cs" />
     <Compile Include="Assets\Scripts\Player\Projectile.cs" />
-    <Compile Include="Assets\Scripts\Interface\IInvisibility.cs" />
-    <Compile Include="Assets\Scripts\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\Zenject\Validator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerTeleport.cs" />
     <Compile Include="Assets\Scripts\Zenject\GameInstaller.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Asteroid.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Main.asmdef" />
+    <None Include="Assets\Scripts\Player\Player.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1355,6 +1348,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="NewAssembly.csproj">
+      <Project>{0345BDFF-9C74-1CB3-61F1-39E786227316}</Project>
+      <Name>NewAssembly</Name>
+    </ProjectReference>
+    <ProjectReference Include="Main.csproj">
+      <Project>{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}</Project>
+      <Name>Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="Interfaces.csproj">
+      <Project>{A4C48274-1542-453B-E279-B7A7C25DF06E}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="Zenject-ReflectionBaking-Editor.csproj">
       <Project>{5D096955-219E-4403-4C2D-966C25E55274}</Project>
       <Name>Zenject-ReflectionBaking-Editor</Name>

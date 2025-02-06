@@ -4,6 +4,8 @@ using Zenject;
 
 public class UFO : MonoBehaviour, IInvincible, IEnemy
 {
+    public class Factory : PlaceholderFactory<UFO> { }
+
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private float rotationSpeed = 50f;

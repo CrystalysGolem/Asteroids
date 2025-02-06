@@ -5,6 +5,8 @@ using Zenject;
 
 public class Asteroid : MonoBehaviour, IInvincible, IEnemy
 {
+    public class Factory : PlaceholderFactory<Asteroid> { }
+
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private Vector3 currentDirection;
     [SerializeField] private float moveSpeed = 10f;

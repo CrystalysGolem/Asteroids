@@ -1,10 +1,11 @@
 using UnityEngine;
 using Zenject;
+using System.Collections.Generic;
 
 public class GameInstaller : MonoInstaller
 {
-    public GameObject UFOPref;
-    public GameObject AsteroidPref;
+    [SerializeField] private GameObject asteroidPrefab;
+    [SerializeField] private GameObject ufoPrefab;
 
     public override void InstallBindings()
     {
@@ -12,14 +13,14 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ScoreManager>().AsSingle();
         Container.Bind<PlayerMove>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerTeleport>().FromComponentInHierarchy().AsSingle();
-
-        Container.Bind<GameObject>().WithId("UFOPref").FromInstance(UFOPref);
-        Container.Bind<GameObject>().WithId("AsteroidPref").FromInstance(AsteroidPref);
-
         Container.Bind<PlayerShoot>().FromComponentInHierarchy().AsSingle();
         Container.Bind<ObjectPoolService>().AsSingle().NonLazy();
         Container.Bind<PrefabFactory>().AsSingle();
-        Container.Bind<SpawnManager>().AsSingle();
+
+        // Передаем префабы при создании SpawnManager
+        Container.Bind<SpawnManager>()
+            .AsSingle()
+            .WithArguments(asteroidPrefab, ufoPrefab);
     }
 
     public override void Start()
@@ -27,5 +28,4 @@ public class GameInstaller : MonoInstaller
         var spawnManager = Container.Resolve<SpawnManager>();
         spawnManager.Initialize();
     }
-
 }

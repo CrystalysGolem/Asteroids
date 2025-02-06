@@ -1,16 +1,11 @@
 using UnityEngine;
 using Zenject;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 
-public class PrefabFactory : IInitializable
+public class PrefabFactory
 {
     private readonly ObjectPoolService _objectPoolService;
-
-    [Inject(Id = "UFOPref")]
-    private GameObject UFOPref;
-
-    [Inject(Id = "AsteroidPref")]
-    private GameObject AsteroidPref;
 
     [Inject]
     public PrefabFactory(ObjectPoolService objectPoolService)
@@ -18,25 +13,29 @@ public class PrefabFactory : IInitializable
         _objectPoolService = objectPoolService;
     }
 
-    public void Initialize()
+    public void Initialize(List<SpawnConfig> spawnConfigs)
     {
         Debug.Log("PrefabFactory initialized.");
         _objectPoolService.Initialize();
-        _objectPoolService.RegisterPrefab(UFOPref, 10);
-        _objectPoolService.RegisterPrefab(AsteroidPref, 20);
-    }
 
-    public void InitializeSpawnLoop(GameObject prefab, float spawnInterval, int spawnCount)
-    {
-        SpawnPrefabLoop(prefab, spawnInterval, spawnCount).Forget();
-    }
-
-    private async UniTaskVoid SpawnPrefabLoop(GameObject prefab, float spawnInterval, int spawnCount)
-    {
-        for (int i = 0; i < spawnCount; i++)
+        foreach (var config in spawnConfigs)
         {
-            await UniTask.Delay((int)(spawnInterval * 1000));
-            SpawnPrefab(prefab);
+            _objectPoolService.RegisterPrefab(config.Prefab, config.PoolSize);
+            InitializeSpawnLoop(config);
+        }
+    }
+
+    private void InitializeSpawnLoop(SpawnConfig config)
+    {
+        SpawnPrefabLoop(config).Forget();
+    }
+
+    private async UniTaskVoid SpawnPrefabLoop(SpawnConfig config)
+    {
+        for (int i = 0; i < config.SpawnCount; i++)
+        {
+            await UniTask.Delay((int)(config.SpawnInterval * 1000));
+            SpawnPrefab(config.Prefab);
         }
     }
 
@@ -48,5 +47,21 @@ public class PrefabFactory : IInitializable
 
         var component = spawnedObject.GetComponent<IEnemy>();
         component?.StartUP();
+    }
+
+    public class SpawnConfig
+    {
+        public GameObject Prefab { get; }
+        public int PoolSize { get; }
+        public float SpawnInterval { get; }
+        public int SpawnCount { get; }
+
+        public SpawnConfig(GameObject prefab, int poolSize, float spawnInterval, int spawnCount)
+        {
+            Prefab = prefab;
+            PoolSize = poolSize;
+            SpawnInterval = spawnInterval;
+            SpawnCount = spawnCount;
+        }
     }
 }

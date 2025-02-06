@@ -930,8 +930,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc5afc197be4ea459ee4cd86c30329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UFOPref: {fileID: 5759501544903698259, guid: 7116107a9c56aa34d93ce0052cbeef84, type: 3}
-  AsteroidPref: {fileID: 3710982357794215485, guid: 54f3b6d45c8d9e649a760d2f97abba71, type: 3}
+  asteroidPrefab: {fileID: 3710982357794215485, guid: 54f3b6d45c8d9e649a760d2f97abba71, type: 3}
+  ufoPrefab: {fileID: 5759501544903698259, guid: 7116107a9c56aa34d93ce0052cbeef84, type: 3}
 --- !u!114 &657288107
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -61,26 +61,11 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.25f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Enemy\UFO.cs" />
-    <Compile Include="Assets\Scripts\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
-    <Compile Include="Assets\Scripts\Interface\IEnemy.cs" />
-    <Compile Include="Assets\Scripts\Player\Player Health.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerPart.cs" />
-    <Compile Include="Assets\Scripts\Enemy\ObjectPoolService.cs" />
-    <Compile Include="Assets\Scripts\Enemy\SpawnManager.cs" />
-    <Compile Include="Assets\Scripts\Player\Projectile.cs" />
-    <Compile Include="Assets\Scripts\Interface\IInvisibility.cs" />
-    <Compile Include="Assets\Scripts\DifficultyManager.cs" />
-    <Compile Include="Assets\Scripts\Zenject\Validator.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerTeleport.cs" />
-    <Compile Include="Assets\Scripts\Zenject\GameInstaller.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Asteroid.cs" />
-    <Compile Include="Assets\Scripts\Enemy\PrefabFactory.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\DifficultyManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Main.asmdef" />
+    <None Include="Assets\Scripts\Managers\Managers.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
