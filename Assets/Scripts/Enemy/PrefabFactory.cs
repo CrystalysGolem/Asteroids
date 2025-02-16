@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class PrefabFactory
 {
     private readonly ObjectPoolService _objectPoolService;
+    private GameObject _fragmentPrefab; // Новый префаб фрагмента
 
     [Inject]
     public PrefabFactory(ObjectPoolService objectPoolService)
@@ -25,6 +26,11 @@ public class PrefabFactory
         }
     }
 
+    public void SetFragmentPrefab(GameObject fragmentPrefab)
+    {
+        _fragmentPrefab = fragmentPrefab;
+    }
+
     private void InitializeSpawnLoop(SpawnConfig config)
     {
         SpawnPrefabLoop(config).Forget();
@@ -39,15 +45,37 @@ public class PrefabFactory
         }
     }
 
+    public void SpawnPrefabInstantly(GameObject prefab, Vector3 position)
+    {
+        SpawnPrefab(prefab, position);
+    }
+
     private void SpawnPrefab(GameObject prefab)
     {
         GameObject spawnedObject = _objectPoolService.GetObject(prefab);
-        spawnedObject.transform.position = Vector3.zero;
         spawnedObject.SetActive(true);
 
-        var component = spawnedObject.GetComponent<IEnemy>();
-        component?.StartUP();
+        if (spawnedObject.TryGetComponent(out IEnemy enemyComponent))
+        {
+            if (spawnedObject.TryGetComponent(out Asteroid asteroid))
+            {
+                asteroid.SetFragmentPrefab(_fragmentPrefab); // Вкладываем фрагмент в астероид
+            }
+            enemyComponent.StartUP();
+        }
     }
+
+    private void SpawnPrefab(GameObject prefab, Vector3 position)
+    {
+        GameObject spawnedObject = _objectPoolService.GetObject(prefab);
+        spawnedObject.SetActive(true);
+        spawnedObject.transform.position = position;
+        if (spawnedObject.TryGetComponent(out IEnemy enemyComponent))
+        {
+            enemyComponent.StartUP();
+        }
+    }
+
 
     public class SpawnConfig
     {

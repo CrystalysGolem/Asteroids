@@ -17,7 +17,9 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
 
     [Inject] private PlayerTeleport playerTeleport;
     [Inject] private PlayerMove playerMovement;
+    [Inject] private PrefabFactory prefabFactory;
 
+    private GameObject _fragmentPrefab; // Фрагмент теперь передаётся фабрикой
     [Inject(Optional = true)] private DifficultyManager difficultySettings;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
@@ -25,17 +27,9 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
 
     private SpriteRenderer spriteRenderer;
 
-    private void Start()
+    public void SetFragmentPrefab(GameObject fragmentPrefab)
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (playerTeleport == null || playerMovement == null)
-        {
-            gameObject.SetActive(false);
-            Debug.Log("Asteroid hided.");
-            return;
-        }
-
+        _fragmentPrefab = fragmentPrefab;
     }
 
     public void StartUP()
@@ -44,7 +38,6 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
         ApplyDifficulty();
         StartMove(moveSpeed, rotationSpeed);
     }
-
 
     private void ApplyDifficulty()
     {
@@ -96,7 +89,7 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
                 break;
         }
 
-        Vector3 playerPos = playerMovement.savedPosition;
+        Vector3 playerPos = playerMovement.movementLogic.Position;
         Vector3 offset = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
         targetPosition = playerPos + offset;
 
@@ -114,30 +107,15 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
     {
         while (this != null && gameObject.activeSelf)
         {
-            if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
-            {
-                targetPosition += currentDirection * 5f;
-            }
-
-            currentDirection = (targetPosition - transform.position).normalized;
             transform.position += currentDirection * moveSpeed * Time.deltaTime;
             transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-
-            if (!IsWithinBounds())
-            {
-                gameObject.SetActive(false);
-                break;
-            }
-
             await UniTask.Yield();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (this == null || !gameObject.activeSelf) return;
-
-        if (collision != null && collision.CompareTag("Projectile") && !IsInvincible)
+        if (collision.CompareTag("Projectile") && !IsInvincible)
         {
             TakeDamage();
         }
@@ -148,20 +126,18 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy
         health--;
         if (health <= 0)
         {
+            SpawnFragments();
             gameObject.SetActive(false);
-        }
-        else
-        {
-            this.HandleHitVisuals().Forget();
         }
     }
 
-
-    private bool IsWithinBounds()
+    private void SpawnFragments()
     {
-        float xBoundary = playerTeleport.xBoundary;
-        float yBoundary = playerTeleport.yBoundary;
+        int fragmentCount = Random.Range(2, 5);
 
-        return Mathf.Abs(transform.position.x) <= xBoundary && Mathf.Abs(transform.position.y) <= yBoundary;
+        for (int i = 0; i < fragmentCount; i++)
+        {
+            prefabFactory.SpawnPrefabInstantly(_fragmentPrefab, transform.position);
+        }
     }
 }

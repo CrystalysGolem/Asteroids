@@ -89,7 +89,7 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
                 break;
         }
 
-        targetPosition = playerMovement.savedPosition + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
+        targetPosition = playerMovement.movementLogic.Position.normalized + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
     }
 
     public void StartMove(float moveSpeed, float rotationSpeed)
@@ -115,7 +115,7 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
         {
             if (Vector3.Distance(transform.position, targetPosition) <= 0.1f)
             {
-                targetPosition = playerMovement.savedPosition + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
+                targetPosition = playerMovement.movementLogic.Position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
             }
 
             if (IsInvincible)

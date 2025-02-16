@@ -6,6 +6,7 @@ public class GameInstaller : MonoInstaller
 {
     [SerializeField] private GameObject asteroidPrefab;
     [SerializeField] private GameObject ufoPrefab;
+    [SerializeField] private GameObject fragmentPrefab;
 
     public override void InstallBindings()
     {
@@ -20,7 +21,7 @@ public class GameInstaller : MonoInstaller
         // Передаем префабы при создании SpawnManager
         Container.Bind<SpawnManager>()
             .AsSingle()
-            .WithArguments(asteroidPrefab, ufoPrefab);
+            .WithArguments(asteroidPrefab, ufoPrefab, fragmentPrefab);
     }
 
     public override void Start()

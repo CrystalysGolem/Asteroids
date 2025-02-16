@@ -3,48 +3,72 @@
   "WorkspaceRootPath": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\zenject\\gameinstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|solutionrelative:assets\\scripts\\zenject\\gameinstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|c:\\users\\sunshine\\\u0430\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\playermovelogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\playermovelogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|c:\\users\\sunshine\\\u0430\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\spawnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\spawnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|c:\\users\\sunshine\\\u0430\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\prefabfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\prefabfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\prefabfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\ufo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\ufo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\zenject\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|solutionrelative:assets\\scripts\\zenject\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\zenject\\zenjectutil.asmdef||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|solutionrelative:assets\\scripts\\zenject\\zenjectutil.asmdef||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\asteroidfragment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\asteroidfragment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\ufo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\ufo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\objectpoolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\objectpoolservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\zenject\\gameinstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|solutionrelative:assets\\scripts\\zenject\\gameinstaller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\zenject\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|solutionrelative:assets\\scripts\\zenject\\validator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}|Main.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\managers\\difficultymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}|Main.csproj|solutionrelative:assets\\scripts\\managers\\difficultymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\enemy\\enemy.asmdef||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{C65CC629-3BBD-CB9C-6304-13AE59197387}|Enemy.csproj|solutionrelative:assets\\scripts\\enemy\\enemy.asmdef||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\interface\\ienemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|solutionrelative:assets\\scripts\\interface\\ienemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\interface\\iinvisibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|solutionrelative:assets\\scripts\\interface\\iinvisibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\player health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\player health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\zenject\\zenjectutil.asmdef||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}|ZenjectUtil.csproj|solutionrelative:assets\\scripts\\zenject\\zenjectutil.asmdef||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED0718AE-B7CD-B069-9D53-864588DC9EE3}|Zenject.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\plugins\\zenject\\source\\install\\contexts\\projectcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -90,20 +114,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\interface\\iinvisibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|solutionrelative:assets\\scripts\\interface\\iinvisibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\DifficultyManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\DifficultyManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\player health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|solutionrelative:assets\\scripts\\player\\player health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\interface\\ienemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4C48274-1542-453B-E279-B7A7C25DF06E}|Interfaces.csproj|solutionrelative:assets\\scripts\\interface\\ienemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}|Player.csproj|C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\assets\\scripts\\player\\playerteleport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -125,122 +137,120 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UFO.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\UFO.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\UFO.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\UFO.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemy\\UFO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T16:39:49.685Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "IInvisibility.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IInvisibility.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\IInvisibility.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IInvisibility.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Interface\\IInvisibility.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T16:33:25.478Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ProjectContext.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
-              "RelativeDocumentMoniker": "Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
-              "RelativeToolTip": "Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAMwGQAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T16:32:56.406Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PlayerMove.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerMove.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMove.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerMove.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMove.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBAAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T16:20:01.448Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PrefabFactory.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\PrefabFactory.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\PrefabFactory.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\PrefabFactory.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemy\\PrefabFactory.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAuwEMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T16:01:22.365Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "DifficultyManager.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\DifficultyManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DifficultyManager.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\DifficultyManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DifficultyManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T15:57:21.482Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ObjectPoolService.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T15:53:31.957Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SpawnManager.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\SpawnManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SpawnManager.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\SpawnManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemy\\SpawnManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvyAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T14:19:52.457Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "GameInstaller.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\GameInstaller.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Zenject\\GameInstaller.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\GameInstaller.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Zenject\\GameInstaller.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Title": "PlayerMoveLogic.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerMoveLogic.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMoveLogic.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerMoveLogic.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMoveLogic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T13:17:59.066Z",
+              "WhenOpened": "2025-02-15T23:14:43.91Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "AsteroidFragment.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\AsteroidFragment.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\AsteroidFragment.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\AsteroidFragment.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\AsteroidFragment.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwDcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-15T22:17:47.513Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IEnemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\IEnemy.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IEnemy.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interface\\IEnemy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T14:15:53.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Asteroid.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\Asteroid.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\Asteroid.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\Asteroid.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\Asteroid.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAA2wIsAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T13:17:40.549Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Player Health.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\Player Health.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\Player Health.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\Player Health.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\Player Health.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAhwDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T14:19:31.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SpawnManager.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\SpawnManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\SpawnManager.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\SpawnManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\SpawnManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T14:19:52.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ObjectPoolService.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\ObjectPoolService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T15:53:31.957Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GameInstaller.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\GameInstaller.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Zenject\\GameInstaller.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\GameInstaller.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Zenject\\GameInstaller.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T13:17:59.066Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PrefabFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\PrefabFactory.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\PrefabFactory.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\PrefabFactory.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\PrefabFactory.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAqwEgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T16:01:22.365Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "Validator.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\Validator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Zenject\\Validator.cs",
@@ -253,18 +263,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "ZenjectUtil.asmdef",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
-              "RelativeToolTip": "Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001874|",
-              "WhenOpened": "2025-02-06T15:47:11.041Z"
+              "Title": "UFO.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\UFO.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\UFO.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\UFO.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\UFO.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAcwAsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T16:39:49.685Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
+              "Title": "PlayerMove.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerMove.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMove.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerMove.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMove.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAYwCcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T16:20:01.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Enemy.asmdef",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\Enemy.asmdef",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\Enemy.asmdef",
@@ -276,19 +299,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "Player Health.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\Player Health.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\Player Health.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\Player Health.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Player\\Player Health.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAhwDIAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "DifficultyManager.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Managers\\DifficultyManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\DifficultyManager.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Managers\\DifficultyManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\DifficultyManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T14:19:31.389Z"
+              "WhenOpened": "2025-02-15T22:23:22.968Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 17,
+              "Title": "ProjectContext.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
+              "RelativeDocumentMoniker": "Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
+              "RelativeToolTip": "Assets\\Plugins\\Zenject\\Source\\Install\\Contexts\\ProjectContext.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAMwGQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T16:32:56.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "Projectile.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\Projectile.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\Projectile.cs",
@@ -300,19 +335,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "IEnemy.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IEnemy.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\IEnemy.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IEnemy.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Interface\\IEnemy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T14:15:53.269Z"
+              "DocumentIndex": 15,
+              "Title": "ZenjectUtil.asmdef",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
+              "RelativeToolTip": "Assets\\Scripts\\Zenject\\ZenjectUtil.asmdef",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001874|",
+              "WhenOpened": "2025-02-06T15:47:11.041Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 13,
+              "Title": "IInvisibility.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IInvisibility.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interface\\IInvisibility.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Interface\\IInvisibility.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interface\\IInvisibility.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T16:33:25.478Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "DifficultyManager.cs",
+              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\DifficultyManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DifficultyManager.cs",
+              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\DifficultyManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DifficultyManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T15:57:21.482Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
               "Title": "PlayerTeleport.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player\\PlayerTeleport.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerTeleport.cs",
@@ -324,7 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "FactoryBase.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\Downloads\\Telegram Desktop\\FactoryBase.cs",
               "RelativeDocumentMoniker": "..\\Downloads\\Telegram Desktop\\FactoryBase.cs",
@@ -332,11 +391,12 @@
               "RelativeToolTip": "..\\Downloads\\Telegram Desktop\\FactoryBase.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T13:46:09.397Z"
+              "WhenOpened": "2025-01-30T13:46:09.397Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "AsteroidFactory.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\AsteroidFactory.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\AsteroidFactory.cs",
@@ -348,19 +408,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Asteroid.cs",
-              "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\Asteroid.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\Asteroid.cs",
-              "ToolTip": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Enemy\\Asteroid.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemy\\Asteroid.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-30T13:17:40.549Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "ScoreManager.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\ScoreManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ScoreManager.cs",
@@ -372,7 +420,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "Main.asmdef",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Main.asmdef",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Main.asmdef",
@@ -384,7 +432,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "DifficultyManager.asmdef",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\DifficultyManager.asmdef",
               "RelativeDocumentMoniker": "Assets\\Scripts\\DifficultyManager.asmdef",
@@ -395,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "Asteroid.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Asteroid.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Asteroid.cs",
@@ -407,7 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "UFO.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\UFO.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UFO.cs",
@@ -419,7 +467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 22,
               "Title": "Validator.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Validator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Validator.cs",
@@ -431,7 +479,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "Player Health.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Player Health.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player Health.cs",
@@ -442,7 +490,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "PlayerShoot.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\PlayerShoot.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerShoot.cs",
@@ -454,7 +502,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "PlayerMove.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\PlayerMove.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMove.cs",
@@ -466,7 +514,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "Projectile.cs",
               "DocumentMoniker": "C:\\Users\\Sunshine\\\u0410\u0441\u0442\u0435\u0440\u043E\u0438\u0434\u044B 3.0\\Assets\\Scripts\\Projectile.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Projectile.cs",
