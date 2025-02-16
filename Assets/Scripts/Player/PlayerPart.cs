@@ -31,19 +31,10 @@ public class PlayerPart : MonoBehaviour, IInvincible
 
         if (collider.gameObject.CompareTag("Enemy"))
         {
-            var enemy = collider.gameObject.GetComponent<IEnemy>();
             var invincibleEnemy = collider.gameObject.GetComponent<IInvincible>();
-
-            if (enemy != null && (invincibleEnemy == null || !invincibleEnemy.IsInvincible))
+            if (!invincibleEnemy.IsInvincible)
             {
-                enemy.TakeDamage();
-                Debug.Log("Enemy Hit.");
-            }
-            else
-            {
-                Debug.Log("Enemy is invincible. No damage dealt.");
-            }
-
+            
             switch (partType)
             {
                 case PartType.Engine:
@@ -55,6 +46,7 @@ public class PlayerPart : MonoBehaviour, IInvincible
                 case PartType.Core:
                     HandleCoreHit();
                     break;
+            }
             }
         }
     }

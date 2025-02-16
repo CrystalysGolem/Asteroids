@@ -18,7 +18,6 @@ public class ObjectPoolService : IInitializable
 
     public void Initialize() 
     {
-        Debug.Log("ObjectPoolService initialized.");
     }
 
     public void RegisterPrefab(GameObject prefab, int initialSize)

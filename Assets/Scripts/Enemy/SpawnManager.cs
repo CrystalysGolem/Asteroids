@@ -20,8 +20,6 @@ public class SpawnManager : IInitializable
 
     public void Initialize()
     {
-        Debug.Log("SpawnManager initialized.");
-
         _prefabFactory.SetFragmentPrefab(_fragmentPrefab); // Передаём фрагмент в фабрику
 
         var spawnConfigs = new List<PrefabFactory.SpawnConfig>

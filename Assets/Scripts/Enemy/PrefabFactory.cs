@@ -16,7 +16,6 @@ public class PrefabFactory
 
     public void Initialize(List<SpawnConfig> spawnConfigs)
     {
-        Debug.Log("PrefabFactory initialized.");
         _objectPoolService.Initialize();
 
         foreach (var config in spawnConfigs)

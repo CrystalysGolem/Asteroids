@@ -3,7 +3,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
 
-public class AsteroidFragment : MonoBehaviour, IEnemy
+public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<AsteroidFragment> { }
 
@@ -12,7 +12,7 @@ public class AsteroidFragment : MonoBehaviour, IEnemy
     [SerializeField] private float minSpeedRotation = 60f;
     [SerializeField] private float maxSpeedRotation = 120f;
     [SerializeField] private float rotationSpeed = 100f;
-    [SerializeField] private int health;
+    [SerializeField] public int CurrentHealth { get; set; }
 
     private Vector3 moveDirection;
     private float moveSpeed;
@@ -27,28 +27,8 @@ public class AsteroidFragment : MonoBehaviour, IEnemy
         moveDirection = Random.insideUnitCircle.normalized;
         moveSpeed = Random.Range(minSpeed, maxSpeed);
         rotationSpeed = Random.Range(minSpeedRotation, maxSpeedRotation);
-        ApplyDifficulty();
+        this.ApplyDifficulty(1,1,2,difficultySettings.CurrentDifficulty);
         StartMove().Forget();
-    }
-
-
-    private void ApplyDifficulty()
-    {
-        if (difficultySettings != null)
-        {
-            switch (difficultySettings.CurrentDifficulty)
-            {
-                case DifficultyManager.Difficulty.Easy:
-                    health = 1;
-                    break;
-                case DifficultyManager.Difficulty.Medium:
-                    health = 1;
-                    break;
-                case DifficultyManager.Difficulty.Hard:
-                    health = 2;
-                    break;
-            }
-        }
     }
 
     private async UniTaskVoid StartMove()
@@ -74,16 +54,7 @@ public class AsteroidFragment : MonoBehaviour, IEnemy
     {
         if (collision != null && collision.CompareTag("Projectile"))
         {
-            TakeDamage();
-        }
-    }
-
-    public void TakeDamage()
-    {
-        health--;
-        if (health <= 0)
-        {
-            gameObject.SetActive(false);
+            this.TakeDamage();
         }
     }
 }

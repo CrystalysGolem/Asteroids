@@ -2,20 +2,18 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
 
-public class UFO : MonoBehaviour, IInvincible, IEnemy
+public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<UFO> { }
 
+    [SerializeField] public int CurrentHealth { get; set; }
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private float moveSpeed = 7.5f;
     [SerializeField] private float rotationSpeed = 50f;
-    [SerializeField] private int health;
-
     [SerializeField] public bool IsInvincible { get; set; }
-
     [Inject] private PlayerMove playerMovement;
     [Inject] private PlayerTeleport playerTeleport;
-    [InjectOptional] private DifficultyManager difficultyLevel;
+    [InjectOptional] private DifficultyManager difficultySettings;
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public GameObject GameObject => gameObject;
@@ -25,71 +23,15 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (playerMovement == null || playerTeleport == null)
-        {
-            Debug.LogError("Missing required dependencies: PlayerMove or PlayerTeleport.");
-            gameObject.SetActive(false);
-            return;
-        }
         StartUP();
     }
 
     public void StartUP()
     {
-        SetHealthByDifficulty();
-        SetInitialPosition();  
+        this.ApplyDifficulty(1,2,3, difficultySettings.CurrentDifficulty);
+        Vector3 currentDirection;
+        this.SetInitialPosition(playerTeleport, playerMovement, out targetPosition, out currentDirection);
         StartMove(moveSpeed, rotationSpeed);
-    }
-
-    private void SetHealthByDifficulty()
-    {
-        switch (difficultyLevel?.CurrentDifficulty ?? DifficultyManager.Difficulty.Easy)
-        {
-            case DifficultyManager.Difficulty.Easy:
-                health = 1;
-                break;
-            case DifficultyManager.Difficulty.Medium:
-                health = 2;
-                break;
-            case DifficultyManager.Difficulty.Hard:
-                health = 3;
-                break;
-            default:
-                Debug.LogWarning("Unknown difficulty level. Defaulting to Easy.");
-                health = 1;
-                break;
-        }
-    }
-
-    private void SetInitialPosition()
-    {
-        float xBoundary = playerTeleport.xBoundary;
-        float yBoundary = playerTeleport.yBoundary;
-        Vector3 screenTopRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
-        Vector3 screenBottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
-        float xMax = screenTopRight.x;
-        float yMax = screenTopRight.y;
-        float xMin = screenBottomLeft.x;
-        float yMin = screenBottomLeft.y;
-        int side = Random.Range(0, 4);
-        switch (side)
-        {
-            case 0:
-                transform.position = new Vector3(Random.Range(xMin, xMax), yMax, 0f);
-                break;
-            case 1:
-                transform.position = new Vector3(Random.Range(xMin, xMax), yMin, 0f);
-                break;
-            case 2:
-                transform.position = new Vector3(xMin, Random.Range(yMin, yMax), 0f);
-                break;
-            case 3:
-                transform.position = new Vector3(xMax, Random.Range(yMin, yMax), 0f);
-                break;
-        }
-
-        targetPosition = playerMovement.movementLogic.Position.normalized + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
     }
 
     public void StartMove(float moveSpeed, float rotationSpeed)
@@ -142,20 +84,7 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy
 
         if (collision != null && collision.CompareTag("Projectile") && !IsInvincible)
         {
-            TakeDamage();
-        }
-    }
-
-    public void TakeDamage()
-    {
-        health--;
-        if (health <= 0)
-        {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            this.HandleHitVisuals().Forget();
+            this.TakeDamage();
         }
     }
 }

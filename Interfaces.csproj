@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Interface\IEnemy.cs" />
-    <Compile Include="Assets\Scripts\Interface\IInvisibility.cs" />
+    <Compile Include="Assets\Scripts\Interface\IHealth.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Interface\Interfaces.asmdef" />
@@ -1113,6 +1113,14 @@
     <ProjectReference Include="Zenject.csproj">
       <Project>{ED0718AE-B7CD-B069-9D53-864588DC9EE3}</Project>
       <Name>Zenject</Name>
+    </ProjectReference>
+    <ProjectReference Include="Main.csproj">
+      <Project>{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}</Project>
+      <Name>Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="Player.csproj">
+      <Project>{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}</Project>
+      <Name>Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
