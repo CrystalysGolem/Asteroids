@@ -56,7 +56,7 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Projectile") && !IsInvincible)
+        if (collision.CompareTag("Player") || collision.CompareTag("Projectile") && !IsInvincible)
         {
             this.TakeDamage();
             if(gameObject.activeSelf == false)

@@ -82,7 +82,7 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
     {
         if (this == null || !gameObject.activeSelf) return;
 
-        if (collision != null && collision.CompareTag("Projectile") && !IsInvincible)
+        if (collision.CompareTag("Player") || collision.CompareTag("Projectile") && !IsInvincible)
         {
             this.TakeDamage();
         }

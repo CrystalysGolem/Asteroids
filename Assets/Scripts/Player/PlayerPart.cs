@@ -1,10 +1,11 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
+using System;
 
 public class PlayerPart : MonoBehaviour, IInvincible
 {
-    public enum PartType { Engine, Weapon, Core }
+    public enum PartType { Engine1, Engine2, Weapon, Core }
 
     [SerializeField] private PartType partType;
     [SerializeField] private PlayerHealth playerHealth;
@@ -14,11 +15,14 @@ public class PlayerPart : MonoBehaviour, IInvincible
     [Inject] private PlayerMove playerMove;
     [Inject] private PlayerShoot playerShoot;
 
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public GameObject GameObject => gameObject;
+    private bool wpnDestroyed;
+    private bool eng1Destroyed;
+    private bool eng2Destroyed;
 
     private SpriteRenderer spriteRenderer;
 
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public GameObject GameObject => gameObject;
 
     private void Start()
     {
@@ -28,48 +32,56 @@ public class PlayerPart : MonoBehaviour, IInvincible
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (IsInvincible) return;
+        if (!collider.gameObject.CompareTag("Enemy")) return;
 
-        if (collider.gameObject.CompareTag("Enemy"))
+        var invincibleEnemy = collider.GetComponent<IInvincible>();
+        if (invincibleEnemy != null && invincibleEnemy.IsInvincible) return;
+
+        switch (partType)
         {
-            var invincibleEnemy = collider.gameObject.GetComponent<IInvincible>();
-            if (!invincibleEnemy.IsInvincible)
-            {
-            
-            switch (partType)
-            {
-                case PartType.Engine:
-                    HandleEngineHit();
-                    break;
-                case PartType.Weapon:
-                    HandleWeaponHit();
-                    break;
-                case PartType.Core:
-                    HandleCoreHit();
-                    break;
-            }
-            }
+            case PartType.Engine1:
+                HandleEngineHit(ref eng1Destroyed, true);
+                break;
+            case PartType.Engine2:
+                HandleEngineHit(ref eng2Destroyed, false);
+                break;
+            case PartType.Weapon:
+                HandleWeaponHit();
+                break;
+            case PartType.Core:
+                HandleCoreHit();
+                break;
         }
     }
 
-    private void HandleEngineHit()
+    private void HandleEngineHit(ref bool engineDestroyed, bool isEngine1)
     {
+        if (engineDestroyed) return;
+        engineDestroyed = true;
         playerHealth.DecreaseHealth();
-        playerHealth.ActivateInvincibility().Forget();
+        playerHealth.ActivateInvincibility();
         playerMove?.ReduceSpeedAndAcceleration();
+        if (isEngine1)
+            playerHealth.NotifyEngine1Destroyed();
+        else
+            playerHealth.NotifyEngine2Destroyed();
         gameObject.SetActive(false);
     }
 
     private void HandleWeaponHit()
     {
+        if (wpnDestroyed) return;
+        wpnDestroyed = true;
         playerHealth.DecreaseHealth();
-        playerHealth.ActivateInvincibility().Forget();
+        playerHealth.ActivateInvincibility();
         playerShoot?.IncreaseFireRateCooldown();
+        playerHealth.NotifyWeaponDestroyed();
         gameObject.SetActive(false);
     }
 
     private void HandleCoreHit()
     {
         playerHealth.DecreaseHealth();
-        playerHealth.ActivateInvincibility().Forget();
+        playerHealth.ActivateInvincibility();
     }
 }

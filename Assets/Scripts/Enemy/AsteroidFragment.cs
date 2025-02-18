@@ -52,7 +52,7 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null && collision.CompareTag("Projectile"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Projectile"))
         {
             this.TakeDamage();
         }

@@ -1,15 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int health = 3;
+    public event Action<int> OnHealthChanged;
+    public event Action<bool> OnWeaponDestroyed;
+    public event Action<bool> OnEngine1Destroyed;
+    public event Action<bool> OnEngine2Destroyed;
+
+    private int currentHealth = 3;
+    public int CurrentHealth => currentHealth;
     [SerializeField] private List<GameObject> playerParts = new List<GameObject>();
 
     private List<IInvincible> invincibleParts = new List<IInvincible>();
-
-    public int Health => health;
 
     private void Awake()
     {
@@ -24,11 +29,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void DecreaseHealth()
     {
-        if (health > 0)
+        if (currentHealth > 0)
         {
-            health--;
-            if (health <= 0)
+            currentHealth--;
+            OnHealthChanged?.Invoke(currentHealth);
+            if (currentHealth <= 0)
             {
+                gameObject.SetActive(false);
                 Debug.Log("Player is dead!");
             }
         }
@@ -36,15 +43,30 @@ public class PlayerHealth : MonoBehaviour
 
     public void IncreaseHealth()
     {
-        health++;
-        Debug.Log($"Health increased: {health}");
+        currentHealth++;
+        Debug.Log($"Health increased: {currentHealth}");
     }
 
-    public async UniTask ActivateInvincibility(float duration = 3f)
+    public void ActivateInvincibility()
     {
         foreach (var part in invincibleParts)
         {
-            part.HandleHitVisuals();
+            part.HandleHitVisuals().Forget();
         }
+    }
+
+    public void NotifyWeaponDestroyed()
+    {
+        OnWeaponDestroyed?.Invoke(true);
+    }
+
+    public void NotifyEngine1Destroyed()
+    {
+        OnEngine1Destroyed?.Invoke(true);
+    }
+
+    public void NotifyEngine2Destroyed()
+    {
+        OnEngine2Destroyed?.Invoke(true);
     }
 }

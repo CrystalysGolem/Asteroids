@@ -61,17 +61,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.25f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Player\PlayerShoot.cs" />
-    <Compile Include="Assets\Scripts\Player\Player Health.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerPart.cs" />
-    <Compile Include="Assets\Scripts\Player\Projectile.cs" />
-    <Compile Include="Assets\Scripts\Zenject\Validator.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerTeleport.cs" />
-    <Compile Include="Assets\Scripts\Zenject\GameInstaller.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Scripts\Player\Player.asmdef" />
+    <Compile Include="Assets\Scripts\UI\PlayerHealtView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1348,9 +1338,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NewAssembly.csproj">
-      <Project>{0345BDFF-9C74-1CB3-61F1-39E786227316}</Project>
-      <Name>NewAssembly</Name>
+    <ProjectReference Include="Enemy.csproj">
+      <Project>{C65CC629-3BBD-CB9C-6304-13AE59197387}</Project>
+      <Name>Enemy</Name>
+    </ProjectReference>
+    <ProjectReference Include="ZenjectUtil.csproj">
+      <Project>{C8278ECF-D737-44AD-5F0B-493BCD2C3B2F}</Project>
+      <Name>ZenjectUtil</Name>
     </ProjectReference>
     <ProjectReference Include="Main.csproj">
       <Project>{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}</Project>
@@ -1371,6 +1365,10 @@
     <ProjectReference Include="Zenject-PoolMonitor-Editor.csproj">
       <Project>{FFE70BAD-420E-F632-0983-F36638F9C7DF}</Project>
       <Name>Zenject-PoolMonitor-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Player.csproj">
+      <Project>{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}</Project>
+      <Name>Player</Name>
     </ProjectReference>
     <ProjectReference Include="Zenject.csproj">
       <Project>{ED0718AE-B7CD-B069-9D53-864588DC9EE3}</Project>
