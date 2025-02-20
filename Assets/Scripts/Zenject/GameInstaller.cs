@@ -16,7 +16,6 @@ public class GameInstaller : MonoInstaller
         Container.Bind<PlayerTeleport>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerShoot>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerHealth>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<PlayerPart>().FromComponentInHierarchy().AsSingle();
         Container.Bind<ObjectPoolService>().AsSingle().NonLazy();
         Container.Bind<PrefabFactory>().AsSingle();
 

@@ -20,7 +20,6 @@ public class PlayerPart : MonoBehaviour, IInvincible
     private bool eng2Destroyed;
 
     private SpriteRenderer spriteRenderer;
-
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public GameObject GameObject => gameObject;
 
@@ -33,7 +32,6 @@ public class PlayerPart : MonoBehaviour, IInvincible
     {
         if (IsInvincible) return;
         if (!collider.gameObject.CompareTag("Enemy")) return;
-
         var invincibleEnemy = collider.GetComponent<IInvincible>();
         if (invincibleEnemy != null && invincibleEnemy.IsInvincible) return;
 

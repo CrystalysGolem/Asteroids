@@ -1,8 +1,17 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class PlayerShoot : MonoBehaviour
 {
+
+    public event Action<int> OnAmmoChanged;
+    public event Action<bool> OnReloadStateChanged;
+    public event Action<bool> OnObjectActivationChanged;
+    public event Action<bool> OnObjectCooldownChanged;
+    public event Action<float> OnObjectCooldownTimeChanged;
+    public event Action<float> OnObjectActiveTimeChanged;
+
     public GameObject bulletPrefab;
     public float shootingForce = 20f;
     public float shootCooldown = 0.25f;
@@ -11,7 +20,7 @@ public class PlayerShoot : MonoBehaviour
 
     public GameObject activeObject;
     public float objectActiveDuration = 3f;
-    public float objectCooldown = 30f;
+    public float objectCooldown = 15f;
 
     private int currentAmmo;
     private bool canShoot = true;
@@ -19,7 +28,9 @@ public class PlayerShoot : MonoBehaviour
     private bool isReloading = false;
     private bool isObjectActive = false;
     private bool isObjectOnCooldown = false;
-    private float objectActiveTime = 0f;
+    public float objectActiveTime = 0f;
+    public float cooldownDuration = 0f;
+
 
     private void Start()
     {
@@ -50,7 +61,7 @@ public class PlayerShoot : MonoBehaviour
                 GameObject bullet = Instantiate(bulletPrefab, spawnPosition, transform.rotation);
                 bullet.GetComponent<Projectile>().Launch(transform.right, shootingForce);
                 currentAmmo--;
-
+                OnAmmoChanged?.Invoke(currentAmmo);
                 if (currentAmmo == 0)
                 {
                     await Reload();
@@ -81,12 +92,13 @@ public class PlayerShoot : MonoBehaviour
             if (isObjectActive)
             {
                 objectActiveTime += Time.deltaTime;
+                OnObjectActiveTimeChanged?.Invoke(objectActiveTime);
 
                 if (Input.GetMouseButtonUp(1) || objectActiveTime >= objectActiveDuration)
                 {
                     DeactivateObject();
                     float usedRatio = objectActiveTime / objectActiveDuration;
-                    float cooldownDuration = objectCooldown * usedRatio;
+                    cooldownDuration = objectCooldown * usedRatio;
                     await StartObjectCooldown(cooldownDuration);
                 }
             }
@@ -98,6 +110,7 @@ public class PlayerShoot : MonoBehaviour
     private void ActivateObject()
     {
         isObjectActive = true;
+        OnObjectActivationChanged?.Invoke(isObjectActive);
         objectActiveTime = 0f;
         activeObject.SetActive(true);
     }
@@ -105,17 +118,24 @@ public class PlayerShoot : MonoBehaviour
     private void DeactivateObject()
     {
         isObjectActive = false;
+        OnObjectActivationChanged?.Invoke(isObjectActive);
         activeObject.SetActive(false);
     }
 
     private async UniTask StartObjectCooldown(float cooldownDuration)
     {
-        if (this != null && gameObject.activeSelf)
-        {
             isObjectOnCooldown = true;
-            await UniTask.Delay((int)(cooldownDuration * 1000));
+            OnObjectCooldownChanged?.Invoke(isObjectOnCooldown);
+
+            float remainingCooldown = cooldownDuration;
+            OnObjectCooldownTimeChanged?.Invoke(remainingCooldown);
+            while (remainingCooldown > 0)
+            {
+                await UniTask.Delay(1000);
+                remainingCooldown -= 1f;
+            }
             isObjectOnCooldown = false;
-        }
+            OnObjectCooldownChanged?.Invoke(isObjectOnCooldown);
     }
 
     private async UniTask Reload()
@@ -123,9 +143,12 @@ public class PlayerShoot : MonoBehaviour
         if (this != null && gameObject.activeSelf)
         {
             isReloading = true;
+            OnReloadStateChanged?.Invoke(isReloading);
             await UniTask.Delay((int)(reloadTime * 1000));
             currentAmmo = maxAmmo;
+            OnAmmoChanged?.Invoke(currentAmmo);
             isReloading = false;
+            OnReloadStateChanged?.Invoke(isReloading);
         }
     }
 
