@@ -1,0 +1,9 @@
+{
+    "moveSpeed": 10.0,
+    "rotationSpeed": 50.0,
+    "healthEasy": 3,
+    "healthMedium": 5,
+    "healthHard": 8,
+    "minFragments": 2,
+    "maxFragments": 5
+}

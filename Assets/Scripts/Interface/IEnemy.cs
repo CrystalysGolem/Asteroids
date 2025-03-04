@@ -16,7 +16,6 @@ public static class IEnemyExtensions
             if (health != null)
             {
                 health.DecreaseHealth(1);
-
                 if (health.CurrentHealth <= 0)
                 {
                     monoBehaviour.gameObject.SetActive(false);

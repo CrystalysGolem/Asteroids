@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Player\Projectile.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerTeleport.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerConfig.cs" />
     <Compile Include="Assets\Scripts\Player\IInvisibility.cs" />
   </ItemGroup>
   <ItemGroup>

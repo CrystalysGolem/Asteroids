@@ -1,10 +1,11 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using Zenject;
+using UnityEngine.SceneManagement;
 
 public class PlayerShoot : MonoBehaviour
 {
-
     public event Action<int> OnAmmoChanged;
     public event Action<bool> OnReloadStateChanged;
     public event Action<bool> OnObjectActivationChanged;
@@ -13,14 +14,17 @@ public class PlayerShoot : MonoBehaviour
     public event Action<float> OnObjectActiveTimeChanged;
 
     public GameObject bulletPrefab;
-    public float shootingForce = 20f;
-    public float shootCooldown = 0.25f;
-    public int maxAmmo = 10;
-    public float reloadTime = 2f;
+    public float shootingForce;
+    public float shootCooldown;
+    public int maxAmmo;
+    public float reloadTime;
 
     public GameObject activeObject;
-    public float objectActiveDuration = 3f;
-    public float objectCooldown = 15f;
+    public float objectActiveDuration;
+    public float objectCooldown;
+
+    public AudioSource shootAudioSource;
+    public AudioClip shootSound;
 
     private int currentAmmo;
     private bool canShoot = true;
@@ -31,9 +35,18 @@ public class PlayerShoot : MonoBehaviour
     public float objectActiveTime = 0f;
     public float cooldownDuration = 0f;
 
+    [Inject] private OptionsManager optionsManager;
+    [Inject] private ScoreManager scoreManager;
 
     private void Start()
     {
+        var config = PlayerConfigLoader.LoadConfig();
+        shootingForce = config.shootingForce;
+        shootCooldown -= config.shootCooldown;
+        maxAmmo = config.maxAmmo;
+        reloadTime = config.reloadTime;
+        objectActiveDuration = config.objectActiveDuration;
+        objectCooldown = config.objectCooldown;
         currentAmmo = maxAmmo;
         HandleShooting().Forget();
         HandleObjectActivation().Forget();
@@ -46,29 +59,31 @@ public class PlayerShoot : MonoBehaviour
             if (Input.GetMouseButton(0) && canShoot && currentAmmo > 0 && !isReloading)
             {
                 canShoot = false;
-                Vector3 spawnPosition;
-                if (ShootLeft == true)
-                {
-                    spawnPosition = transform.position + transform.right * 0.35f;
-                    ShootLeft = false;
-                }
-                else
-                {
-                    spawnPosition = transform.position + transform.right * -0.35f;
-                    ShootLeft = true;
-                }
+                Vector3 spawnPosition = ShootLeft ? transform.position + transform.right * 0.35f : transform.position + transform.right * -0.35f;
+                ShootLeft = !ShootLeft;
 
                 GameObject bullet = Instantiate(bulletPrefab, spawnPosition, transform.rotation);
                 bullet.GetComponent<Projectile>().Launch(transform.right, shootingForce);
                 currentAmmo--;
                 OnAmmoChanged?.Invoke(currentAmmo);
+
+                if (shootAudioSource != null && shootSound != null)
+                {
+                    shootAudioSource.volume = optionsManager.CurrentOptions.soundVolume * 0.2f;
+                    shootAudioSource.PlayOneShot(shootSound);
+                }
+
                 if (currentAmmo == 0)
                 {
                     await Reload();
                 }
 
-                await UniTask.Delay((int)(shootCooldown * 1000));
+                scoreManager.AddFiredBullets(1);
+
+                int delay = Mathf.Max(1, (int)(shootCooldown * 1000));
+                await UniTask.Delay(delay);
                 canShoot = true;
+
             }
 
             if (Input.GetKeyDown(KeyCode.R) && currentAmmo < maxAmmo && !isReloading)
@@ -80,6 +95,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+
     private async UniTaskVoid HandleObjectActivation()
     {
         while (this != null && gameObject.activeSelf)
@@ -87,13 +103,14 @@ public class PlayerShoot : MonoBehaviour
             if (Input.GetMouseButtonDown(1) && !isObjectActive && !isObjectOnCooldown)
             {
                 ActivateObject();
+                scoreManager.AddFiredLasers(1);
             }
 
             if (isObjectActive)
             {
                 objectActiveTime += Time.deltaTime;
                 OnObjectActiveTimeChanged?.Invoke(objectActiveTime);
-
+                
                 if (Input.GetMouseButtonUp(1) || objectActiveTime >= objectActiveDuration)
                 {
                     DeactivateObject();
@@ -104,6 +121,7 @@ public class PlayerShoot : MonoBehaviour
             }
 
             await UniTask.Delay(10);
+            scoreManager.AddLaserTime(0.01f);
         }
     }
 
@@ -124,18 +142,18 @@ public class PlayerShoot : MonoBehaviour
 
     private async UniTask StartObjectCooldown(float cooldownDuration)
     {
-            isObjectOnCooldown = true;
-            OnObjectCooldownChanged?.Invoke(isObjectOnCooldown);
+        isObjectOnCooldown = true;
+        OnObjectCooldownChanged?.Invoke(isObjectOnCooldown);
 
-            float remainingCooldown = cooldownDuration;
-            OnObjectCooldownTimeChanged?.Invoke(remainingCooldown);
-            while (remainingCooldown > 0)
-            {
-                await UniTask.Delay(1000);
-                remainingCooldown -= 1f;
-            }
-            isObjectOnCooldown = false;
-            OnObjectCooldownChanged?.Invoke(isObjectOnCooldown);
+        float remainingCooldown = cooldownDuration;
+        OnObjectCooldownTimeChanged?.Invoke(remainingCooldown);
+        while (remainingCooldown > 0)
+        {
+            await UniTask.Delay(1000);
+            remainingCooldown -= 1f;
+        }
+        isObjectOnCooldown = false;
+        OnObjectCooldownChanged?.Invoke(isObjectOnCooldown);
     }
 
     private async UniTask Reload()
@@ -149,11 +167,12 @@ public class PlayerShoot : MonoBehaviour
             OnAmmoChanged?.Invoke(currentAmmo);
             isReloading = false;
             OnReloadStateChanged?.Invoke(isReloading);
+            scoreManager.AddReloads(1);
         }
     }
 
     public void IncreaseFireRateCooldown()
     {
-        shootCooldown *= 1.5f;
+        shootCooldown = Mathf.Max(0.1f, shootCooldown * 1.5f);
     }
 }

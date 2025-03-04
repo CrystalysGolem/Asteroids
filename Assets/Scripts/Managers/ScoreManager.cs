@@ -2,6 +2,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.IO;
 using Zenject;
+using System;
 
 public class ScoreManager : IInitializable
 {
@@ -18,13 +19,30 @@ public class ScoreManager : IInitializable
 
     [Inject] private DifficultyManager _difficultyLevel;
 
-    public void Initialize()
+    public event Action<int> OnScoreChanged; 
+    public async void Initialize()
     {
         ResetScores();
+        await TrackSurvivedTime();
     }
 
 
     private bool isTrackingTime = false;
+
+    public int GetScore()
+    {
+        return Score;
+    }
+
+    private void SetScore(int value)
+    {
+        if (Score != value)
+        {
+            Score = value;
+            OnScoreChanged?.Invoke(Score);
+        }
+    }
+
 
     public void AddDestroyedUFO(int value)
     {
@@ -87,8 +105,11 @@ public class ScoreManager : IInitializable
         isTrackingTime = true;
         float startTime = Time.time;
 
-        await UniTask.Yield();
-        SurvivedTime = Mathf.FloorToInt(Time.time - startTime);
+        while (isTrackingTime)
+        {
+            await UniTask.Yield();
+            SurvivedTime = Mathf.FloorToInt(Time.time - startTime);
+        }
     }
 
     public void StopTrackingTime()
@@ -143,8 +164,10 @@ public class ScoreManager : IInitializable
 
     public void ScoreCounter()
     {
+        StopTrackingTime();
         int baseScore = 0;
 
+        // Подсчет очков
         baseScore += DestroyedUFO * 1500;
         baseScore += DestroyedAsteroids * 500;
         baseScore += FiredBullets * 50;
@@ -163,7 +186,7 @@ public class ScoreManager : IInitializable
             _ => 1
         };
 
-        Score = baseScore * difficultyMultiplier;
+        SetScore(baseScore * difficultyMultiplier);
         Debug.Log($"Score calculated: {Score}");
     }
 

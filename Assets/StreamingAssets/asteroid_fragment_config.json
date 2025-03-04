@@ -1,0 +1,10 @@
+{
+    "minSpeed": 2.0,
+    "maxSpeed": 12.0,
+    "minSpeedRotation": 60.0,
+    "maxSpeedRotation": 120.0,
+    "rotationSpeed": 100.0,
+    "healthEasy": 1,
+    "healthMedium": 1,
+    "healthHard": 2
+}

@@ -1,4 +1,4 @@
-using System.ComponentModel;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -6,10 +6,12 @@ public class DifficultyManager : IInitializable
 {
     private Difficulty currentDifficulty = Difficulty.Easy;
 
+    [Inject] private OptionsManager optionsManager;
+
     public void Initialize()
     {
+        LoadDifficultyFromOptions();
     }
-
 
     public enum Difficulty
     {
@@ -21,27 +23,36 @@ public class DifficultyManager : IInitializable
     public Difficulty CurrentDifficulty
     {
         get { return currentDifficulty; }
-        set { currentDifficulty = value; }
+        private set { currentDifficulty = value; }
     }
 
-    public void SetDifficultyToEasy()
-    {
-        SetDifficulty(Difficulty.Easy);
-    }
-
-    public void SetDifficultyToMedium()
-    {
-        SetDifficulty(Difficulty.Medium);
-    }
-
-    public void SetDifficultyToHard()
-    {
-        SetDifficulty(Difficulty.Hard);
-    }
+    public void SetDifficultyToEasy() => SetDifficulty(Difficulty.Easy);
+    public void SetDifficultyToMedium() => SetDifficulty(Difficulty.Medium);
+    public void SetDifficultyToHard() => SetDifficulty(Difficulty.Hard);
 
     private void SetDifficulty(Difficulty difficulty)
     {
         currentDifficulty = difficulty;
         Debug.Log("Current Difficulty: " + currentDifficulty);
+    }
+
+    private async void LoadDifficultyFromOptions()
+    {
+        switch (optionsManager.CurrentOptions.difficulty)
+        {
+            case "Easy":
+                SetDifficulty(Difficulty.Easy);
+                break;
+            case "Medium":
+                SetDifficulty(Difficulty.Medium);
+                break;
+            case "Hard":
+                SetDifficulty(Difficulty.Hard);
+                break;
+            default:
+                await UniTask.Delay(100);
+                LoadDifficultyFromOptions();
+                break;
+        }
     }
 }

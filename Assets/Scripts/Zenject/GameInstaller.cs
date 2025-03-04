@@ -10,6 +10,7 @@ public class GameInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        Container.Bind<OptionsManager>().FromComponentInHierarchy().AsSingle();
         Container.BindInterfacesAndSelfTo<DifficultyManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<ScoreManager>().AsSingle();
         Container.Bind<PlayerMove>().FromComponentInHierarchy().AsSingle();

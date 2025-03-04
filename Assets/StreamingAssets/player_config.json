@@ -1,0 +1,12 @@
+{
+    "currentHealth": 3,
+    "maxSpeed": 25.0,
+    "acceleration": 20.0,
+    "deceleration": 15.0,
+    "shootingForce": 20.0,
+    "shootCooldown": 0.025,
+    "maxAmmo": 20,
+    "reloadTime": 2.0,
+    "objectActiveDuration": 3.0,
+    "objectCooldown": 15.0
+}

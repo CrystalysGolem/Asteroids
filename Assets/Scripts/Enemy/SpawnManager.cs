@@ -20,7 +20,7 @@ public class SpawnManager : IInitializable
 
     public void Initialize()
     {
-        _prefabFactory.SetFragmentPrefab(_fragmentPrefab); // Передаём фрагмент в фабрику
+        _prefabFactory.SetFragmentPrefab(_fragmentPrefab);
 
         var spawnConfigs = new List<PrefabFactory.SpawnConfig>
         {
@@ -29,5 +29,12 @@ public class SpawnManager : IInitializable
         };
 
         _prefabFactory.Initialize(spawnConfigs);
+    }
+
+    public void CheckConfigFiles()
+    {
+        var config1 = AsteroidConfigLoader.LoadConfig();
+        var config2 = UFOConfigLoader.LoadConfig();
+        var config3 = AsteroidConfigLoader.LoadConfig();
     }
 }

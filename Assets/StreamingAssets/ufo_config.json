@@ -1,0 +1,7 @@
+{
+    "moveSpeed": 5.5,
+    "rotationSpeed": 50.0,
+    "healthEasy": 2,
+    "healthMedium": 3,
+    "healthHard": 5
+}

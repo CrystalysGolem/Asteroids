@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Zenject\GameInstaller.cs" />
+    <Compile Include="Assets\Scripts\Zenject\MenuInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Zenject\ZenjectUtil.asmdef" />

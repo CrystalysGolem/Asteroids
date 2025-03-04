@@ -4,9 +4,9 @@ using Zenject;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private float maxSpeed = 25f;
-    [SerializeField] private float acceleration = 20f;
-    [SerializeField] private float deceleration = 15f;
+    private float maxSpeed;
+    private float acceleration;
+    private float deceleration;
 
     private Camera mainCamera;
     public PlayerMovementLogic movementLogic;
@@ -15,6 +15,10 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
+        var config = PlayerConfigLoader.LoadConfig();
+        maxSpeed = config.maxSpeed;
+        acceleration = config.acceleration;
+        deceleration = config.deceleration;
         mainCamera = Camera.main;
         if (mainCamera == null)
         {

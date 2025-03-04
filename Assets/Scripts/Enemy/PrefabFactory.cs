@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class PrefabFactory
 {
     private readonly ObjectPoolService _objectPoolService;
-    private GameObject _fragmentPrefab; // Новый префаб фрагмента
+    private GameObject _fragmentPrefab;
 
     [Inject]
     public PrefabFactory(ObjectPoolService objectPoolService)
@@ -30,8 +30,9 @@ public class PrefabFactory
         _fragmentPrefab = fragmentPrefab;
     }
 
-    private void InitializeSpawnLoop(SpawnConfig config)
+    private async void InitializeSpawnLoop(SpawnConfig config)
     {
+        await UniTask.Delay(1000);
         SpawnPrefabLoop(config).Forget();
     }
 
@@ -58,7 +59,7 @@ public class PrefabFactory
         {
             if (spawnedObject.TryGetComponent(out Asteroid asteroid))
             {
-                asteroid.SetFragmentPrefab(_fragmentPrefab); // Вкладываем фрагмент в астероид
+                asteroid.SetFragmentPrefab(_fragmentPrefab);
             }
             enemyComponent.StartUP();
         }

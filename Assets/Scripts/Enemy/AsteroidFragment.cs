@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
@@ -7,27 +6,48 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<AsteroidFragment> { }
 
-    [SerializeField] private float minSpeed = 2f;
-    [SerializeField] private float maxSpeed = 12f;
-    [SerializeField] private float minSpeedRotation = 60f;
-    [SerializeField] private float maxSpeedRotation = 120f;
-    [SerializeField] private float rotationSpeed = 100f;
-    [SerializeField] public int CurrentHealth { get; set; }
+    private float minSpeed;
+    private float maxSpeed;
+    private float minSpeedRotation;
+    private float maxSpeedRotation;
+    private float rotationSpeed;
 
+    [SerializeField] public int CurrentHealth { get; set; }
     private Vector3 moveDirection;
     private float moveSpeed;
-    private Vector3 spawnPosition;
-
 
     [Inject] private DifficultyManager difficultySettings;
 
     public void StartUP()
     {
+        var config = AsteroidFragmentConfigLoader.LoadConfig();
+        if (config == null)
+        {
+            Debug.LogError("AsteroidFragmentConfig not loaded!");
+            return;
+        }
+
+        minSpeed = config.minSpeed;
+        maxSpeed = config.maxSpeed;
+        minSpeedRotation = config.minSpeedRotation;
+        maxSpeedRotation = config.maxSpeedRotation;
+        rotationSpeed = config.rotationSpeed;
+
+        int health = difficultySettings.CurrentDifficulty switch
+        {
+            DifficultyManager.Difficulty.Easy => config.healthEasy,
+            DifficultyManager.Difficulty.Medium => config.healthMedium,
+            DifficultyManager.Difficulty.Hard => config.healthHard,
+            _ => config.healthEasy
+        };
+
+        CurrentHealth = health;
+
         gameObject.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
         moveDirection = Random.insideUnitCircle.normalized;
         moveSpeed = Random.Range(minSpeed, maxSpeed);
         rotationSpeed = Random.Range(minSpeedRotation, maxSpeedRotation);
-        this.ApplyDifficulty(1,1,2,difficultySettings.CurrentDifficulty);
+
         StartMove().Forget();
     }
 
@@ -36,7 +56,7 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
         float lifetime = 60f;
         float startTime = Time.time;
 
-        while (this != null && gameObject.activeSelf) 
+        while (this != null && gameObject.activeSelf)
         {
             if (Time.time - startTime >= lifetime)
             {
@@ -48,7 +68,6 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
             await UniTask.Yield();
         }
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

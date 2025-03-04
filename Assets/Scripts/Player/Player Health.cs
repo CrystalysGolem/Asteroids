@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using Zenject;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,14 +11,19 @@ public class PlayerHealth : MonoBehaviour
     public event Action<bool> OnEngine1Destroyed;
     public event Action<bool> OnEngine2Destroyed;
 
-    private int currentHealth = 3;
+    private int currentHealth;
     public int CurrentHealth => currentHealth;
-    [SerializeField] private List<GameObject> playerParts = new List<GameObject>();
 
+    [SerializeField] private List<GameObject> playerParts = new List<GameObject>();
     private List<IInvincible> invincibleParts = new List<IInvincible>();
+
+    [Inject] private ScoreManager _scoreManager;
 
     private void Awake()
     {
+        var config = PlayerConfigLoader.LoadConfig();
+        currentHealth = config.currentHealth;
+
         foreach (var part in playerParts)
         {
             if (part != null && part.TryGetComponent(out IInvincible invinciblePart))
@@ -37,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
             {
                 gameObject.SetActive(false);
                 Debug.Log("Player is dead!");
+                _scoreManager.ScoreCounter();
+                Time.timeScale = 0f;
             }
         }
     }

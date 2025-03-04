@@ -4,7 +4,8 @@
     "references": [
         "UniTask",
         "Zenject",
-        "Unity.Rendering.LightTransport.Runtime"
+        "Unity.Rendering.LightTransport.Runtime",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
