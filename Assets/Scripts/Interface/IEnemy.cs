@@ -8,7 +8,7 @@ public interface IEnemy
 
 public static class IEnemyExtensions
 {
-    public static void TakeDamage(this IEnemy enemy)
+    public static async void TakeDamage(this IEnemy enemy)
     {
         if (enemy is MonoBehaviour monoBehaviour)
         {
@@ -23,15 +23,25 @@ public static class IEnemyExtensions
             }
         }
     }
-    public static void SetInitialPosition(this IEnemy enemy, PlayerTeleport playerTeleport, PlayerMove playerMovement, out Vector3 targetPosition, out Vector3 currentDirection)
+
+    public static void SetInitialPosition(this IEnemy enemy, PlayerMovementLogic playerMovementLogic, out Vector3 targetPosition, out Vector3 currentDirection)
     {
         Camera cam = Camera.main;
+        if (cam == null)
+        {
+            Debug.LogError("Main camera not found.");
+            targetPosition = Vector3.zero;
+            currentDirection = Vector3.forward;
+            return;
+        }
+
         Vector3 screenTopRight = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.nearClipPlane));
         Vector3 screenBottomLeft = cam.ScreenToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
         float xMax = screenTopRight.x;
         float yMax = screenTopRight.y;
         float xMin = screenBottomLeft.x;
         float yMin = screenBottomLeft.y;
+
         int side = Random.Range(0, 4);
         Vector3 pos = enemy.gameObject.transform.position;
         switch (side)
@@ -50,7 +60,7 @@ public static class IEnemyExtensions
                 break;
         }
         enemy.gameObject.transform.position = pos;
-        Vector3 playerPos = playerMovement.movementLogic.Position;
+        Vector3 playerPos = playerMovementLogic.Position;
         Vector3 offset = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
         targetPosition = playerPos + offset;
         currentDirection = (targetPosition - pos).normalized;

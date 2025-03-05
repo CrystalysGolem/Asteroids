@@ -14,7 +14,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<DifficultyManager>().AsSingle();
         Container.BindInterfacesAndSelfTo<ScoreManager>().AsSingle();
         Container.Bind<PlayerMove>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<PlayerTeleport>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerShoot>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerHealth>().FromComponentInHierarchy().AsSingle();
         Container.Bind<ObjectPoolService>().AsSingle().NonLazy();

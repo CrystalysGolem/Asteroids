@@ -27,7 +27,7 @@ public static class IInvincibleExtensions
             await UniTask.Delay((int)(blinkInterval * 1000));
             elapsedTime += blinkInterval;
         }
-
+        invincible.SpriteRenderer.enabled = true;
         if (invincible != null && invincible.GameObject != null && invincible.GameObject.activeSelf)
             invincible.SpriteRenderer.enabled = true;
 

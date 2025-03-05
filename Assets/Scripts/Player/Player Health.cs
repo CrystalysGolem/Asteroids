@@ -62,7 +62,6 @@ public class PlayerHealth : MonoBehaviour
             part.HandleHitVisuals().Forget();
         }
     }
-
     public void NotifyWeaponDestroyed()
     {
         OnWeaponDestroyed?.Invoke(true);

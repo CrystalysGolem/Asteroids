@@ -134,49 +134,14 @@ public class ScoreManager : IInitializable
         };
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(filePath, json);
-        Debug.Log("Scores saved to file.");
-    }
-
-    public void LoadScoresFromFile(string filePath)
-    {
-        if (File.Exists(filePath))
-        {
-            string json = File.ReadAllText(filePath);
-            ScoreData data = JsonUtility.FromJson<ScoreData>(json);
-            this.Score = data.Score;
-            this.DestroyedUFO = data.DestroyedUFO;
-            this.DestroyedAsteroids = data.DestroyedAsteroids;
-            this.FiredBullets = data.FiredBullets;
-            this.Reloads = data.Reloads;
-            this.FiredLasers = data.FiredLasers;
-            this.LaserTime = data.LaserTime;
-            this.MaxSpeed = data.MaxSpeed;
-            this.Travelled = data.Travelled;
-            this.SurvivedTime = data.SurvivedTime;
-
-            Debug.Log("Scores loaded from file.");
-        }
-        else
-        {
-            Debug.LogWarning("No score file found.");
-        }
     }
 
     public void ScoreCounter()
     {
         StopTrackingTime();
-        int baseScore = 0;
-
-        // Подсчет очков
-        baseScore += DestroyedUFO * 1500;
-        baseScore += DestroyedAsteroids * 500;
-        baseScore += FiredBullets * 50;
-        baseScore += Reloads * 250;
-        baseScore += FiredLasers * 100;
-        baseScore += Mathf.FloorToInt(LaserTime) * 100;
-        baseScore += MaxSpeed * 100;
-        baseScore += Travelled * 10;
-        baseScore += SurvivedTime * 75;
+        int baseScore = DestroyedUFO * 1500 + DestroyedAsteroids * 500 + FiredBullets * 50 +
+                        Reloads * 250 + FiredLasers * 100 + Mathf.FloorToInt(LaserTime) * 100 +
+                        MaxSpeed * 100 + Travelled * 10 + SurvivedTime * 75;
 
         int difficultyMultiplier = _difficultyLevel.CurrentDifficulty switch
         {
@@ -187,7 +152,36 @@ public class ScoreManager : IInitializable
         };
 
         SetScore(baseScore * difficultyMultiplier);
-        Debug.Log($"Score calculated: {Score}");
+        SaveScoresToFile();
+    }
+
+    private void SaveScoresToFile()
+    {
+        string folderPath = Path.Combine(Application.streamingAssetsPath, "Record");
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+
+        string fileName = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".json";
+        string filePath = Path.Combine(folderPath, fileName);
+
+        ScoreData data = new ScoreData
+        {
+            Score = Score,
+            DestroyedUFO = DestroyedUFO,
+            DestroyedAsteroids = DestroyedAsteroids,
+            FiredBullets = FiredBullets,
+            Reloads = Reloads,
+            FiredLasers = FiredLasers,
+            LaserTime = LaserTime,
+            MaxSpeed = MaxSpeed,
+            Travelled = Travelled,
+            SurvivedTime = SurvivedTime
+        };
+
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(filePath, json);
     }
 
     [System.Serializable]

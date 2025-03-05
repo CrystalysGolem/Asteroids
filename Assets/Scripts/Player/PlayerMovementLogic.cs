@@ -65,4 +65,9 @@ public class PlayerMovementLogic
             speedReductionCount++;
         }
     }
+
+    public void ResetPosition(Vector3 newPosition)
+    {
+        Position = newPosition;
+    }
 }

@@ -15,7 +15,6 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
     private UFOConfig config;
 
     [Inject] private PlayerMove playerMovement;
-    [Inject] private PlayerTeleport playerTeleport;
     [InjectOptional] private DifficultyManager difficultySettings;
     [Inject] private ScoreManager scoreManager;
 
@@ -53,7 +52,7 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
         CurrentHealth = health;
 
         Vector3 currentDirection;
-        this.SetInitialPosition(playerTeleport, playerMovement, out targetPosition, out currentDirection);
+        this.SetInitialPosition(playerMovement.movementLogic, out targetPosition, out currentDirection);
         StartMove(moveSpeed, rotationSpeed);
     }
 
@@ -66,9 +65,18 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     private bool IsWithinBounds()
     {
-        float xBoundary = playerTeleport.xBoundary;
-        float yBoundary = playerTeleport.yBoundary;
-        return Mathf.Abs(transform.position.x) <= xBoundary && Mathf.Abs(transform.position.y) <= yBoundary;
+        Camera cam = Camera.main;
+        if (cam == null)
+        {
+            Debug.LogWarning("Main camera not found!");
+            return true;
+        }
+
+        Vector3 bottomLeft = cam.ScreenToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+        Vector3 topRight = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.nearClipPlane));
+        Vector3 pos = transform.position;
+        return pos.x >= bottomLeft.x && pos.x <= topRight.x &&
+               pos.y >= bottomLeft.y && pos.y <= topRight.y;
     }
 
     private async UniTaskVoid MoveToTarget()
@@ -101,16 +109,21 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (this == null || !gameObject.activeSelf) return;
-
-        if (collision.CompareTag("Player") || collision.CompareTag("Projectile") && !IsInvincible)
+        if ((collision.CompareTag("Player") || collision.CompareTag("Projectile")) && !IsInvincible)
         {
             this.TakeDamage();
-            if (gameObject.activeSelf == false)
+            if (!gameObject.activeSelf)
             {
                 scoreManager.AddDestroyedUFO(1);
             }
-            this.HandleHitVisuals().Forget();
+            this.HandleHitVisualsWithDelay().Forget();
         }
     }
+
+    private async UniTaskVoid HandleHitVisualsWithDelay()
+    {
+        await UniTask.Delay(75);
+        this.HandleHitVisuals().Forget();
+    }
+
 }

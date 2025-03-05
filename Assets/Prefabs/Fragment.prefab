@@ -102,10 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dfa81d59258bb741bd22366e40d0049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 2
-  maxSpeed: 6
-  rotationSpeed: 100
-  health: 0
 --- !u!50 &-5948175157172605058
 Rigidbody2D:
   serializedVersion: 5
@@ -114,7 +110,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3933137243620879417}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

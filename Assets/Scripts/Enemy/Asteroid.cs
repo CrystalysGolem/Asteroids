@@ -17,7 +17,6 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
     private int minFragments;
     private int maxFragments;
 
-    [Inject] private PlayerTeleport playerTeleport;
     [Inject] private PlayerMove playerMovement;
     [Inject] private PrefabFactory prefabFactory;
     [Inject] private ScoreManager scoreManager;
@@ -64,7 +63,7 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
         CurrentHealth = health;
 
-        this.SetInitialPosition(playerTeleport, playerMovement, out targetPosition, out currentDirection);
+        this.SetInitialPosition(playerMovement.movementLogic, out targetPosition, out currentDirection);
         StartMove(moveSpeed, rotationSpeed);
     }
 
@@ -87,16 +86,22 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("Projectile") && !IsInvincible)
+        if ((collision.CompareTag("Player") || collision.CompareTag("Projectile")) && !IsInvincible)
         {
             this.TakeDamage();
-            if (gameObject.activeSelf == false)
+            if (!gameObject.activeSelf)
             {
                 SpawnFragments();
                 scoreManager.AddDestroyedAsteroids(1);
             }
-            this.HandleHitVisuals().Forget();
+            HandleHitVisualsWithDelay().Forget();
         }
+    }
+
+    private async UniTaskVoid HandleHitVisualsWithDelay()
+    {
+        await UniTask.Delay(75);
+        this.HandleHitVisuals().Forget();
     }
 
     private void SpawnFragments()
