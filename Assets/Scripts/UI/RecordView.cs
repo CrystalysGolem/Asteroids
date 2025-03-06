@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 public class RecordView : MonoBehaviour
 {
+    [Header("For Score in MainMenu, filling from 1 to 3")]
     [SerializeField] private GameObject[] dateTextObjects = new GameObject[3];
     [SerializeField] private GameObject[] scoreTextObjects = new GameObject[3];
     private string recordsPath;

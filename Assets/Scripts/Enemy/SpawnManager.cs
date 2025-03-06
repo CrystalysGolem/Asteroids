@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class SpawnManager : IInitializable
 {
+    // Main logic
     private readonly PrefabFactory _prefabFactory;
     private readonly GameObject _asteroidPrefab;
     private readonly GameObject _ufoPrefab;

@@ -6,15 +6,19 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<AsteroidFragment> { }
 
+    // Move logic
+    private float rotationSpeed;
+    private float moveSpeed;
+
+    // Randomized
     private float minSpeed;
     private float maxSpeed;
     private float minSpeedRotation;
     private float maxSpeedRotation;
-    private float rotationSpeed;
-
-    [SerializeField] public int CurrentHealth { get; set; }
     private Vector3 moveDirection;
-    private float moveSpeed;
+
+    // Health logic
+    [SerializeField] public int CurrentHealth { get; set; }
 
     [Inject] private DifficultyManager difficultySettings;
 

@@ -14,13 +14,14 @@ public class MusicSaveData
 public class MusicManager : MonoBehaviour
 {
 
+    [Header("Music player and music itself")]
     public AudioSource musicSource;
     public AudioClip[] musicTracks;
+
+    //Minor logic
     private int currentTrackIndex = 0;
     private float trackTime = 0f;
-
     [Inject] private OptionsManager optionsManager;
-
     private static string saveFilePath => Path.Combine(Application.persistentDataPath, "music_save.json");
 
     private void Start()

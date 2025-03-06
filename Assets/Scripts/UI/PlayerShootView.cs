@@ -6,7 +6,7 @@ using System.Collections;
 public class PlayerShootView : MonoBehaviour
 {
     [Inject] private PlayerShoot playerShoot;
-
+    [Header("For Ammo UI")]
     [SerializeField] private Image ammoFill;
     [SerializeField] private Image laserFill;
 

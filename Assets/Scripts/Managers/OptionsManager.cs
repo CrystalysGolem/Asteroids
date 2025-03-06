@@ -17,16 +17,25 @@ public class OptionsManager : MonoBehaviour
     private static string optionsFilePath => Path.Combine(Application.persistentDataPath, "options.json");
     public Options CurrentOptions { get; private set; } = new Options();
     private bool isEscapePressed = false;
-
+    [Header("For Esc options functional")]
     [SerializeField] public bool enableEscapeFunctionality = true;
+    [Header("For enabling\\disabling options menu")]
     [SerializeField] public GameObject OptionsMenu;
-
+    [SerializeField] public GameObject MobileUi;
+    [Header("For filling options menu")]
     [SerializeField] private Scrollbar musicSlider;
     [SerializeField] private Scrollbar soundSlider;
     [SerializeField] private TMP_Dropdown difficultyDropdown;
 
+    [SerializeField] public bool IsMobile { get; private set; }
+
     private void Start()
     {
+        IsMobile = Application.isMobilePlatform;
+        if (IsMobile && MobileUi!=null)
+        {
+            MobileUi.SetActive(true);
+        }
         LoadOptions();
         ApplySettings();
 

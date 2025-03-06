@@ -1,0 +1,12 @@
+{
+    "Score": 6000,
+    "DestroyedUFO": 1,
+    "DestroyedAsteroids": 1,
+    "FiredBullets": 20,
+    "Reloads": 1,
+    "FiredLasers": 0,
+    "LaserTime": 8.690103530883789,
+    "MaxSpeed": 11,
+    "Travelled": 10,
+    "SurvivedTime": 10
+}

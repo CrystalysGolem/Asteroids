@@ -4,9 +4,11 @@ using Zenject;
 
 public class PlayerHealthView : MonoBehaviour
 {
+    [Header("For HealthUI")]
     [SerializeField] private Image H1;
     [SerializeField] private Image H2;
     [SerializeField] private Image H3;
+    [Header("For PartsUI")]
     [SerializeField] private Image CO;
     [SerializeField] private Image ENG1;
     [SerializeField] private Image ENG2;

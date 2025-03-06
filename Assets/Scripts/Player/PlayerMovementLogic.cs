@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class PlayerMovementLogic
 {
+    [Header("For another classes")]
     public Vector3 Position { get; private set; }
     public Quaternion Rotation { get; private set; }
     public Vector3 CurrentVelocity { get; private set; }
 
+    // Move logic
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
+    private int speedReductionCount = 0;
+    private const int maxSpeedReduction = 2;
 
+    [Header("For Score counter")]
     public float MaxAchievedSpeed { get; private set; }
     public float TravelledDistance { get; private set; }
 
-    private int speedReductionCount = 0;
-    private const int maxSpeedReduction = 2;
 
     public PlayerMovementLogic(float maxSpeed, float acceleration, float deceleration)
     {

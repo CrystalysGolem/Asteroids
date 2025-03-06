@@ -6,6 +6,7 @@ using System;
 
 public class ScoreManager : IInitializable
 {
+    // Scored
     [SerializeField] private int Score;
     [SerializeField] private int DestroyedUFO;
     [SerializeField] private int DestroyedAsteroids;
@@ -17,6 +18,7 @@ public class ScoreManager : IInitializable
     [SerializeField] private int Travelled;
     [SerializeField] private int SurvivedTime;
 
+    // Minor
     [Inject] private DifficultyManager _difficultyLevel;
 
     public event Action<int> OnScoreChanged; 

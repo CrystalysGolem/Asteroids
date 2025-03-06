@@ -4,24 +4,28 @@ using Zenject;
 
 public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 {
-    public class Factory : PlaceholderFactory<UFO> { }
-
+    // Health logic
     [SerializeField] public int CurrentHealth { get; set; }
-    [SerializeField] private Vector3 targetPosition;
-    [SerializeField] public bool IsInvincible { get; set; }
-
+    // Move logic
     private float moveSpeed;
     private float rotationSpeed;
+    private Vector3 targetPosition;
+
+    // Config from JSON
     private UFOConfig config;
+
+    // Visual invisibility
+    public bool IsInvincible { get; set; }
+    //Minor logic
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public GameObject GameObject => gameObject;
+    private SpriteRenderer spriteRenderer;
 
     [Inject] private PlayerMove playerMovement;
     [InjectOptional] private DifficultyManager difficultySettings;
     [Inject] private ScoreManager scoreManager;
+    public class Factory : PlaceholderFactory<UFO> { }
 
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public GameObject GameObject => gameObject;
-
-    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {

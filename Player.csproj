@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerPart.cs" />
     <Compile Include="Assets\Scripts\Player\Projectile.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\Player\JoyStick.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerConfig.cs" />
     <Compile Include="Assets\Scripts\Player\IInvisibility.cs" />
   </ItemGroup>

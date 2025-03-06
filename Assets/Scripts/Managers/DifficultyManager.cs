@@ -4,8 +4,10 @@ using Zenject;
 
 public class DifficultyManager : IInitializable
 {
+    // Deafult Difficulty
     private Difficulty currentDifficulty = Difficulty.Easy;
 
+    // Minor
     [Inject] private OptionsManager optionsManager;
 
     public void Initialize()

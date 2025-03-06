@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class GameInstaller : MonoInstaller
 {
+    [Header("For Prefab Fabric")]
     [SerializeField] private GameObject asteroidPrefab;
     [SerializeField] private GameObject ufoPrefab;
     [SerializeField] private GameObject fragmentPrefab;

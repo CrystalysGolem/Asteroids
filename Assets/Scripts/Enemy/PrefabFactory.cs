@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PrefabFactory
 {
+    // Main logic
     private readonly ObjectPoolService _objectPoolService;
     private GameObject _fragmentPrefab;
 

@@ -6,17 +6,19 @@ using Zenject;
 
 public class PlayerHealth : MonoBehaviour
 {
+    // Actions updaters
     public event Action<int> OnHealthChanged;
     public event Action<bool> OnWeaponDestroyed;
     public event Action<bool> OnEngine1Destroyed;
     public event Action<bool> OnEngine2Destroyed;
 
+    // Health logic
     private int currentHealth;
-    public int CurrentHealth => currentHealth;
-
     [SerializeField] private List<GameObject> playerParts = new List<GameObject>();
     private List<IInvincible> invincibleParts = new List<IInvincible>();
 
+    // Minor logic
+    public int CurrentHealth => currentHealth;
     [Inject] private ScoreManager _scoreManager;
 
     private void Awake()

@@ -7,28 +7,38 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<Asteroid> { }
 
+    // Health logic
     [SerializeField] public int CurrentHealth { get; set; }
-    [SerializeField] private Vector3 targetPosition;
-    [SerializeField] private Vector3 currentDirection;
-    [SerializeField] public bool IsInvincible { get; set; }
 
+    // Visual invisibility
+    public bool IsInvincible { get; set; }
+
+    // Move logic
     private float moveSpeed;
     private float rotationSpeed;
+    private Vector3 targetPosition;
+    private Vector3 currentDirection;
+
+    // Spawned prefab after destruction
+    private GameObject _fragmentPrefab;
     private int minFragments;
     private int maxFragments;
+
+    // Config from JSON
+    private AsteroidConfig config;
+
+
+
+    // Minor logic
+
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public GameObject GameObject => gameObject;
+    private SpriteRenderer spriteRenderer;
 
     [Inject] private PlayerMove playerMovement;
     [Inject] private PrefabFactory prefabFactory;
     [Inject] private ScoreManager scoreManager;
     [Inject(Optional = true)] private DifficultyManager difficultySettings;
-
-    private GameObject _fragmentPrefab;
-    private AsteroidConfig config;
-
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public GameObject GameObject => gameObject;
-
-    private SpriteRenderer spriteRenderer;
 
     public void Start()
     {

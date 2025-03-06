@@ -4,6 +4,7 @@ using Zenject;
 
 public class ObjectPoolService : IInitializable
 {
+    // Main logic
     private readonly DiContainer _container;
     private readonly Dictionary<GameObject, Queue<GameObject>> _pools;
     private readonly Dictionary<GameObject, int> _poolSizes;

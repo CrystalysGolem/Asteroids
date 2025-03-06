@@ -7,14 +7,15 @@ public class PlayerPart : MonoBehaviour, IInvincible
 {
     public enum PartType { Engine1, Engine2, Weapon, Core }
 
+    [Header("Define part type and main health script")]
     [SerializeField] private PartType partType;
     [SerializeField] private PlayerHealth playerHealth;
 
+    // Visual invisibility
     public bool IsInvincible { get; set; }
 
-    [Inject] private PlayerMove playerMove;
-    [Inject] private PlayerShoot playerShoot;
 
+    // Minor logic
     private bool wpnDestroyed;
     private bool eng1Destroyed;
     private bool eng2Destroyed;
@@ -22,6 +23,10 @@ public class PlayerPart : MonoBehaviour, IInvincible
     private SpriteRenderer spriteRenderer;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public GameObject GameObject => gameObject;
+
+    [Inject] private PlayerMove playerMove;
+    [Inject] private PlayerShoot playerShoot;
+
 
     private void Start()
     {

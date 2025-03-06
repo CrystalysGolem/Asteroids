@@ -673,9 +673,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableEscapeFunctionality: 0
   OptionsMenu: {fileID: 0}
-  musicSlider: {fileID: 0}
-  soundSlider: {fileID: 0}
-  difficultyDropdown: {fileID: 0}
+  MobileUi: {fileID: 0}
+  musicSlider: {fileID: 600312529}
+  soundSlider: {fileID: 647136305}
+  difficultyDropdown: {fileID: 1268007428}
 --- !u!4 &158625186
 Transform:
   m_ObjectHideFlags: 0
