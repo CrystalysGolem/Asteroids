@@ -23,13 +23,13 @@ public class Projectile : MonoBehaviour
         }
 
         if (this != null && gameObject.activeSelf)
-            Destroy(gameObject);
+            Destroy(gameObject);    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var invincibleObject = collision.gameObject.GetComponent<IInvincible>();
-        if (collision.CompareTag("Enemy") && (invincibleObject == null || !invincibleObject.IsInvincible))
+        if (collision.GetComponent<IEnemy>() != null && (invincibleObject == null || !invincibleObject.IsInvincible))
         {
             Destroy(gameObject);
         }

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 public class PrefabFactory
 {
-    // Main logic
     private readonly ObjectPoolService _objectPoolService;
     private GameObject _fragmentPrefab;
+    private int MillisecondsInSecond = 1000;
 
     [Inject]
     public PrefabFactory(ObjectPoolService objectPoolService)
@@ -33,7 +33,7 @@ public class PrefabFactory
 
     private async void InitializeSpawnLoop(SpawnConfig config)
     {
-        await UniTask.Delay(1000);
+        await UniTask.Delay(MillisecondsInSecond);
         SpawnPrefabLoop(config).Forget();
     }
 
@@ -41,7 +41,7 @@ public class PrefabFactory
     {
         for (int i = 0; i < config.SpawnCount; i++)
         {
-            await UniTask.Delay((int)(config.SpawnInterval * 1000));
+            await UniTask.Delay((int)(config.SpawnInterval * MillisecondsInSecond));
             SpawnPrefab(config.Prefab);
         }
     }

@@ -1121,9 +1121,13 @@
       <Project>{ED0718AE-B7CD-B069-9D53-864588DC9EE3}</Project>
       <Name>Zenject</Name>
     </ProjectReference>
-    <ProjectReference Include="Main.csproj">
-      <Project>{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}</Project>
-      <Name>Main</Name>
+    <ProjectReference Include="Providers.csproj">
+      <Project>{AD958143-77AF-930F-9712-9947DC26FC67}</Project>
+      <Name>Providers</Name>
+    </ProjectReference>
+    <ProjectReference Include="Interfaces.csproj">
+      <Project>{A4C48274-1542-453B-E279-B7A7C25DF06E}</Project>
+      <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

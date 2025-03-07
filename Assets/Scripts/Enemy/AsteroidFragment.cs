@@ -6,21 +6,18 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<AsteroidFragment> { }
 
-    // Move logic
     private float rotationSpeed;
     private float moveSpeed;
 
-    // Randomized
     private float minSpeed;
     private float maxSpeed;
     private float minSpeedRotation;
     private float maxSpeedRotation;
     private Vector3 moveDirection;
 
-    // Health logic
-    [SerializeField] public int CurrentHealth { get; set; }
+    public int CurrentHealth { get; set; }
 
-    [Inject] private DifficultyManager difficultySettings;
+    [Inject] private DifficultyProvider difficultySettings;
 
     public void StartUP()
     {
@@ -39,9 +36,9 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 
         int health = difficultySettings.CurrentDifficulty switch
         {
-            DifficultyManager.Difficulty.Easy => config.healthEasy,
-            DifficultyManager.Difficulty.Medium => config.healthMedium,
-            DifficultyManager.Difficulty.Hard => config.healthHard,
+            DifficultyProvider.Difficulty.Easy => config.healthEasy,
+            DifficultyProvider.Difficulty.Medium => config.healthMedium,
+            DifficultyProvider.Difficulty.Hard => config.healthHard,
             _ => config.healthEasy
         };
 
@@ -75,7 +72,7 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("Projectile"))
+        if (collision.GetComponent<PlayerPart>() || collision.GetComponent<Projectile>())
         {
             this.TakeDamage();
         }

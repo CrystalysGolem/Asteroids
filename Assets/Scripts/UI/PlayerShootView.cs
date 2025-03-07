@@ -6,16 +6,17 @@ using System.Collections;
 public class PlayerShootView : MonoBehaviour
 {
     [Inject] private PlayerShoot playerShoot;
+
     [Header("For Ammo UI")]
     [SerializeField] private Image ammoFill;
     [SerializeField] private Image laserFill;
 
     private Coroutine fillAnimationLaserCoroutine;
     private Coroutine fillAnimationAmmoCoroutine;
-
     private float fillAnimationDuration = 0.5f;
 
-    private Coroutine reloadAnimationCoroutine;
+    private Coroutine reloadAnimationCoroutine; 
+    private Coroutine objectCooldownAnimationCoroutine;
 
     private void Start()
     {
@@ -92,11 +93,11 @@ public class PlayerShootView : MonoBehaviour
         ammoFill.fillAmount = 1f;
     }
 
-    private void UpdateObjectActiveUI(float objectActiveTime) 
+    private void UpdateObjectActiveUI(float objectActiveTime)
     {
-        if(objectActiveTime>=0.1)
+        if (objectActiveTime >= 0.1f)
         {
-            float targetFill = (float)((playerShoot.objectCooldown - ((objectActiveTime * (playerShoot.objectCooldown / playerShoot.objectActiveDuration))))/playerShoot.objectCooldown);
+            float targetFill = (playerShoot.objectCooldown - (objectActiveTime * (playerShoot.objectCooldown / playerShoot.objectActiveDuration))) / playerShoot.objectCooldown;
             if (fillAnimationLaserCoroutine != null)
                 StopCoroutine(fillAnimationLaserCoroutine);
             fillAnimationLaserCoroutine = StartCoroutine(AnimateObjectFill(targetFill));
@@ -107,25 +108,28 @@ public class PlayerShootView : MonoBehaviour
     {
         float startFill = laserFill.fillAmount;
         float elapsed = 0f;
-        while (elapsed < (playerShoot.objectCooldown * (playerShoot.objectActiveTime / playerShoot.objectActiveDuration))*1000)
+        while (elapsed < fillAnimationDuration)
         {
             elapsed += Time.deltaTime;
-            laserFill.fillAmount = Mathf.Lerp(startFill, targetFill, elapsed / (playerShoot.objectCooldown * (playerShoot.objectActiveTime / playerShoot.objectActiveDuration)) * 1000);
+            laserFill.fillAmount = Mathf.Lerp(startFill, targetFill, elapsed / fillAnimationDuration);
             yield return null;
         }
         laserFill.fillAmount = targetFill;
     }
 
-
     private void UpdateObjectCooldownStateChangedUI(bool isOnCooldown)
     {
-        if (isOnCooldown==true)
+        if (isOnCooldown)
         {
             laserFill.color = Color.red;
         }
         else
         {
-            StopCoroutine(reloadAnimationCoroutine);
+            if (objectCooldownAnimationCoroutine != null)
+            {
+                StopCoroutine(objectCooldownAnimationCoroutine);
+                objectCooldownAnimationCoroutine = null;
+            }
             laserFill.fillAmount = 1f;
             laserFill.color = Color.green;
         }
@@ -133,22 +137,29 @@ public class PlayerShootView : MonoBehaviour
 
     private void UpdateReloadObjectUI(float cooldownTime)
     {
-        StopCoroutine(fillAnimationLaserCoroutine);
-        if (reloadAnimationCoroutine == null)
-        reloadAnimationCoroutine = StartCoroutine(AnimateObjectCooldown(cooldownTime));
+        if (fillAnimationLaserCoroutine != null)
+        {
+            StopCoroutine(fillAnimationLaserCoroutine);
+            fillAnimationLaserCoroutine = null;
+        }
+        if (objectCooldownAnimationCoroutine != null)
+        {
+            StopCoroutine(objectCooldownAnimationCoroutine);
+            objectCooldownAnimationCoroutine = null;
+        }
+        objectCooldownAnimationCoroutine = StartCoroutine(AnimateObjectCooldown(cooldownTime));
     }
-
 
     private IEnumerator AnimateObjectCooldown(float cooldownTime)
     {
+        float startFill = laserFill.fillAmount;
         float elapsed = 0f;
-        while (true)
+        while (elapsed < cooldownTime)
         {
             elapsed += Time.deltaTime;
-            laserFill.fillAmount = Mathf.Lerp(0f, 1f, elapsed / cooldownTime);
+            laserFill.fillAmount = Mathf.Lerp(startFill, 1f, elapsed / cooldownTime);
             yield return null;
         }
+        laserFill.fillAmount = 1f;
     }
-
 }
-

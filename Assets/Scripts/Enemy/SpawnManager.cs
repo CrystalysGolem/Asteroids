@@ -4,10 +4,16 @@ using System.Collections.Generic;
 
 public class SpawnManager : IInitializable
 {
-    // Main logic
     private readonly PrefabFactory _prefabFactory;
     private readonly GameObject _asteroidPrefab;
+    private int _asteroidPrefab_poolsize = 20;
+    private float _asteroidPrefab_spawninterval = 3f;
+    private int _asteroidPrefab_spawncount = 15;
     private readonly GameObject _ufoPrefab;
+    private int _ufoPrefab_poolsize = 10;
+    private float _ufoPrefab_spawninterval = 5f;
+    private int _ufoPrefab_spawncount = 5;
+
     private readonly GameObject _fragmentPrefab;
 
     [Inject]
@@ -25,8 +31,8 @@ public class SpawnManager : IInitializable
 
         var spawnConfigs = new List<PrefabFactory.SpawnConfig>
         {
-            new PrefabFactory.SpawnConfig(_ufoPrefab, 10, 5f, 5),
-            new PrefabFactory.SpawnConfig(_asteroidPrefab, 20, 3f, 15)
+            new PrefabFactory.SpawnConfig(_ufoPrefab, _ufoPrefab_poolsize, _ufoPrefab_spawninterval, _ufoPrefab_spawncount),
+            new PrefabFactory.SpawnConfig(_asteroidPrefab, _asteroidPrefab_poolsize, _asteroidPrefab_spawninterval, _asteroidPrefab_spawncount)
         };
 
         _prefabFactory.Initialize(spawnConfigs);

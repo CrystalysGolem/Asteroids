@@ -5,14 +5,14 @@ using Zenject;
 public class PlayerHealthView : MonoBehaviour
 {
     [Header("For HealthUI")]
-    [SerializeField] private Image H1;
-    [SerializeField] private Image H2;
-    [SerializeField] private Image H3;
+    [SerializeField] private Image Health1UI;
+    [SerializeField] private Image Health2UI;
+    [SerializeField] private Image Health3UI;
     [Header("For PartsUI")]
-    [SerializeField] private Image CO;
-    [SerializeField] private Image ENG1;
-    [SerializeField] private Image ENG2;
-    [SerializeField] private Image WPN;
+    [SerializeField] private Image CoreUI;
+    [SerializeField] private Image Engine1UI;
+    [SerializeField] private Image Engine2UI;
+    [SerializeField] private Image WeaponUI;
 
     [Inject] private PlayerHealth playerHealth;
 
@@ -35,14 +35,14 @@ public class PlayerHealthView : MonoBehaviour
 
     private void UpdateHealthUI(int health)
     {
-        H3.enabled = health >= 3;
-        H2.enabled = health >= 2;
-        H1.enabled = health >= 1;
+        Health3UI.enabled = health >= 3;
+        Health2UI.enabled = health >= 2;
+        Health1UI.enabled = health >= 1;
 
-        CO.color = health == 3 ? Color.green : health > 0 ? Color.yellow : Color.red;
+        CoreUI.color = health == 3 ? Color.green : health > 0 ? Color.yellow : Color.red;
     }
 
-    private void UpdateEngine1UI(bool destroyed) => ENG1.color = destroyed ? Color.red : Color.green;
-    private void UpdateEngine2UI(bool destroyed) => ENG2.color = destroyed ? Color.red : Color.green;
-    private void UpdateWeaponUI(bool destroyed) => WPN.color = destroyed ? Color.red : Color.green;
+    private void UpdateEngine1UI(bool destroyed) => Engine1UI.color = destroyed ? Color.red : Color.green;
+    private void UpdateEngine2UI(bool destroyed) => Engine2UI.color = destroyed ? Color.red : Color.green;
+    private void UpdateWeaponUI(bool destroyed) => WeaponUI.color = destroyed ? Color.red : Color.green;
 }

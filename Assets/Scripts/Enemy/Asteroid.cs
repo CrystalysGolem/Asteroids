@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Zenject;
@@ -6,30 +5,19 @@ using Zenject;
 public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 {
     public class Factory : PlaceholderFactory<Asteroid> { }
-
-    // Health logic
-    [SerializeField] public int CurrentHealth { get; set; }
-
-    // Visual invisibility
+    public int CurrentHealth { get; set; }
     public bool IsInvincible { get; set; }
-
-    // Move logic
     private float moveSpeed;
     private float rotationSpeed;
     private Vector3 targetPosition;
     private Vector3 currentDirection;
+    private int TimeBeforeInvisibility = 75;
 
-    // Spawned prefab after destruction
     private GameObject _fragmentPrefab;
     private int minFragments;
     private int maxFragments;
 
-    // Config from JSON
     private AsteroidConfig config;
-
-
-
-    // Minor logic
 
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public GameObject GameObject => gameObject;
@@ -37,8 +25,8 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     [Inject] private PlayerMove playerMovement;
     [Inject] private PrefabFactory prefabFactory;
-    [Inject] private ScoreManager scoreManager;
-    [Inject(Optional = true)] private DifficultyManager difficultySettings;
+    [Inject] private ScoreProvider scoreManager;
+    [Inject(Optional = true)] private DifficultyProvider difficultySettings;
 
     public void Start()
     {
@@ -65,15 +53,15 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
         int health = difficultySettings.CurrentDifficulty switch
         {
-            DifficultyManager.Difficulty.Easy => config.healthEasy,
-            DifficultyManager.Difficulty.Medium => config.healthMedium,
-            DifficultyManager.Difficulty.Hard => config.healthHard,
+            DifficultyProvider.Difficulty.Easy => config.healthEasy,
+            DifficultyProvider.Difficulty.Medium => config.healthMedium,
+            DifficultyProvider.Difficulty.Hard => config.healthHard,
             _ => config.healthEasy
         };
 
         CurrentHealth = health;
 
-        this.SetInitialPosition(playerMovement.movementLogic, out targetPosition, out currentDirection);
+        this.SetInitialPosition(playerMovement.movementLogic.Position, out targetPosition, out currentDirection);
         StartMove(moveSpeed, rotationSpeed);
     }
 
@@ -96,7 +84,7 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.CompareTag("Player") || collision.CompareTag("Projectile")) && !IsInvincible)
+        if ((collision.GetComponent<PlayerPart>() || collision.GetComponent<Projectile>()) && !IsInvincible)
         {
             this.TakeDamage();
             if (!gameObject.activeSelf)
@@ -110,7 +98,7 @@ public class Asteroid : MonoBehaviour, IInvincible, IEnemy, IHealth
 
     private async UniTaskVoid HandleHitVisualsWithDelay()
     {
-        await UniTask.Delay(75);
+        await UniTask.Delay(TimeBeforeInvisibility);
         this.HandleHitVisuals().Forget();
     }
 

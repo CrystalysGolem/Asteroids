@@ -61,13 +61,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.25f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Managers\OptionsManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\MusicManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\DifficultyManager.cs" />
+    <Compile Include="Assets\Scripts\Providers\MusicProvider.cs" />
+    <Compile Include="Assets\Scripts\Providers\ScoreProvider.cs" />
+    <Compile Include="Assets\Scripts\Providers\OptionsProvider.cs" />
+    <Compile Include="Assets\Scripts\Providers\DifficultyProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Managers\Managers.asmdef" />
+    <None Include="Assets\Scripts\Providers\Providers.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

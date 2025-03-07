@@ -1,12 +1,11 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using Zenject;
-using UnityEngine.SceneManagement;
 
 public class PlayerShoot : MonoBehaviour
 {
-    // Actions updaters
     public event Action<int> OnAmmoChanged;
     public event Action<bool> OnReloadStateChanged;
     public event Action<bool> OnObjectActivationChanged;
@@ -38,10 +37,13 @@ public class PlayerShoot : MonoBehaviour
     public float objectActiveTime = 0f;
     public float cooldownDuration = 0f;
 
-    //Some minor logic
     public float spawnOffset = 0.35f;
     public int degree = -90;
     public float angle;
+    private int MillisecondsInSecond = 1000;
+    private int scriptDelay = 10;
+    private float baseSoundVolume = 0.2f;
+    private float minimalAttackStickSpeed = 0.2f;
 
     private bool canShoot = true;
     private bool ShootLeft = true;
@@ -50,15 +52,16 @@ public class PlayerShoot : MonoBehaviour
     private bool isObjectOnCooldown = false;
     private bool IsMobile = false;
 
-    [Inject] private OptionsManager optionsManager;
-    [Inject] private ScoreManager scoreManager;
+    [Inject] private OptionsProvider optionsManager;
+    [Inject] private ScoreProvider scoreManager;
 
-
+    private CancellationTokenSource cancellationTokenSource;
 
     private void Start()
     {
-        IsMobile = optionsManager.IsMobile;
+        cancellationTokenSource = new CancellationTokenSource();
 
+        IsMobile = optionsManager.IsMobile;
         var config = PlayerConfigLoader.LoadConfig();
         shootingForce = config.shootingForce;
         shootCooldown -= config.shootCooldown;
@@ -67,131 +70,109 @@ public class PlayerShoot : MonoBehaviour
         objectActiveDuration = config.objectActiveDuration;
         objectCooldown = config.objectCooldown;
         currentAmmo = maxAmmo;
-        if(IsMobile) {spawnOffset = 0f;}
-        HandleShooting().Forget();
-        HandleObjectActivation().Forget();
+        if (IsMobile)
+            spawnOffset = 0f;
+
+        ShootingInputLoop(cancellationTokenSource.Token).Forget();
+        ObjectActivationInputLoop(cancellationTokenSource.Token).Forget();
     }
 
-    private async UniTaskVoid HandleShooting()
+    private async UniTaskVoid ShootingInputLoop(CancellationToken token)
     {
-        while (this != null && gameObject.activeSelf)
+        while (!token.IsCancellationRequested && this != null && gameObject.activeSelf)
         {
             if (IsMobile)
             {
-                if (AttackStick != null && AttackStick.Speed > 0.2f && canShoot && currentAmmo > 0 && !isReloading)
+                if (AttackStick != null &&
+                    AttackStick.Speed > minimalAttackStickSpeed &&
+                    canShoot && currentAmmo > 0 && !isReloading)
                 {
-                    canShoot = false;
-
-                    Vector2 shootDirection = AttackStick.Direction.normalized;
-                    Vector2 rotatedDirection = Quaternion.Euler(0f, 0f, degree) * shootDirection;
-                    angle = Mathf.Atan2(rotatedDirection.y, rotatedDirection.x) * Mathf.Rad2Deg;
-                    Vector3 spawnPosition = transform.position + (Vector3)rotatedDirection * spawnOffset;
-                    Quaternion bulletRotation = Quaternion.Euler(0f, 0f, angle);
-                    GameObject bullet = Instantiate(bulletPrefab, spawnPosition, bulletRotation);
-                    bullet.GetComponent<Projectile>().Launch((Vector3)rotatedDirection, shootingForce);
-                    currentAmmo--;
-                    OnAmmoChanged?.Invoke(currentAmmo);
-
-                    if (shootAudioSource != null && shootSound != null)
-                    {
-                        shootAudioSource.volume = optionsManager.CurrentOptions.soundVolume * 0.2f;
-                        shootAudioSource.PlayOneShot(shootSound);
-                    }
-
-                    if (currentAmmo == 0)
-                    {
-                        await Reload();
-                    }
-
-                    scoreManager.AddFiredBullets(1);
-                    int delay = Mathf.Max(1, (int)(shootCooldown * 1000));
-                    await UniTask.Delay(delay);
-                    canShoot = true;
+                    await HandleShootingAction();
                 }
             }
             else
             {
                 if (Input.GetMouseButton(0) && canShoot && currentAmmo > 0 && !isReloading)
                 {
-                    canShoot = false;
-                    Vector3 spawnPosition = ShootLeft ? transform.position + transform.right * 0.35f : transform.position + transform.right * -0.35f;
-                    ShootLeft = !ShootLeft;
-
-                    GameObject bullet = Instantiate(bulletPrefab, spawnPosition, transform.rotation);
-                    bullet.GetComponent<Projectile>().Launch(transform.right, shootingForce);
-                    currentAmmo--;
-                    OnAmmoChanged?.Invoke(currentAmmo);
-
-                    if (shootAudioSource != null && shootSound != null)
-                    {
-                        shootAudioSource.volume = optionsManager.CurrentOptions.soundVolume * 0.2f;
-                        shootAudioSource.PlayOneShot(shootSound);
-                    }
-
-                    if (currentAmmo == 0)
-                    {
-                        await Reload();
-                    }
-
-                    scoreManager.AddFiredBullets(1);
-                    int delay = Mathf.Max(1, (int)(shootCooldown * 1000));
-                    await UniTask.Delay(delay);
-                    canShoot = true;
+                    await HandleShootingAction();
                 }
             }
             if (Input.GetKeyDown(KeyCode.R) && currentAmmo < maxAmmo && !isReloading)
             {
                 await Reload();
             }
-            await UniTask.Delay(10);
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
     }
 
-    private async UniTaskVoid HandleObjectActivation()
+    private async UniTask HandleShootingAction()
     {
-        while (this != null && gameObject.activeSelf)
-        {
-            if (IsMobile)
-            {
-                if (isObjectActive)
-                {
-                    objectActiveTime += Time.deltaTime;
-                    OnObjectActiveTimeChanged?.Invoke(objectActiveTime);
+        if (!canShoot) return;
 
-                    if (objectActiveTime >= objectActiveDuration)
-                    {
-                        DeactivateObject();
-                        float usedRatio = objectActiveTime / objectActiveDuration;
-                        cooldownDuration = objectCooldown * usedRatio;
-                        await StartObjectCooldown(cooldownDuration);
-                    }
-                }
-            }
-            else
+        canShoot = false;
+        if (IsMobile)
+        {
+            Vector2 shootDirection = AttackStick.Direction.normalized;
+            Vector2 rotatedDirection = Quaternion.Euler(0f, 0f, degree) * shootDirection;
+            angle = Mathf.Atan2(rotatedDirection.y, rotatedDirection.x) * Mathf.Rad2Deg;
+            Vector3 spawnPosition = transform.position + (Vector3)rotatedDirection * spawnOffset;
+            Quaternion bulletRotation = Quaternion.Euler(0f, 0f, angle);
+            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, bulletRotation);
+            bullet.GetComponent<Projectile>().Launch((Vector3)rotatedDirection, shootingForce);
+        }
+        else
+        {
+            Vector3 spawnPosition = ShootLeft ? transform.position + transform.right * spawnOffset : transform.position + transform.right * -spawnOffset;
+            ShootLeft = !ShootLeft;
+            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, transform.rotation);
+            bullet.GetComponent<Projectile>().Launch(transform.right, shootingForce);
+        }
+        currentAmmo--;
+        OnAmmoChanged?.Invoke(currentAmmo);
+
+        if (shootAudioSource != null && shootSound != null)
+        {
+            shootAudioSource.volume = optionsManager.CurrentOptions.soundVolume * baseSoundVolume;
+            shootAudioSource.PlayOneShot(shootSound);
+        }
+
+        if (currentAmmo == 0)
+        {
+            await Reload();
+        }
+        scoreManager.AddFiredBullets(1);
+
+        int delay = Mathf.Max(1, (int)(shootCooldown * MillisecondsInSecond));
+        await UniTask.Delay(delay);
+        canShoot = true;
+    }
+
+    private async UniTaskVoid ObjectActivationInputLoop(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested && this != null && gameObject.activeSelf)
+        {
+            if (!IsMobile)
             {
                 if (Input.GetMouseButtonDown(1) && !isObjectActive && !isObjectOnCooldown)
                 {
                     ActivateObject();
                     scoreManager.AddFiredLasers(1);
                 }
-
-                if (isObjectActive)
+            }
+            if (isObjectActive)
+            {
+                objectActiveTime += Time.deltaTime;
+                OnObjectActiveTimeChanged?.Invoke(objectActiveTime);
+                if ((!IsMobile && Input.GetMouseButtonUp(1)) || objectActiveTime >= objectActiveDuration)
                 {
-                    objectActiveTime += Time.deltaTime;
-                    OnObjectActiveTimeChanged?.Invoke(objectActiveTime);
-
-                    if (Input.GetMouseButtonUp(1) || objectActiveTime >= objectActiveDuration)
-                    {
-                        DeactivateObject();
-                        float usedRatio = objectActiveTime / objectActiveDuration;
-                        cooldownDuration = objectCooldown * usedRatio;
-                        await StartObjectCooldown(cooldownDuration);
-                    }
+                    DeactivateObject();
+                    float usedRatio = objectActiveTime / objectActiveDuration;
+                    cooldownDuration = objectCooldown * usedRatio;
+                    await StartObjectCooldown(cooldownDuration);
                 }
             }
-
-            await UniTask.Delay(10);
-            scoreManager.AddLaserTime(0.01f);
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+            scoreManager.AddLaserTime(scriptDelay / (float)MillisecondsInSecond);
         }
     }
 
@@ -212,7 +193,6 @@ public class PlayerShoot : MonoBehaviour
             await StartObjectCooldown(cooldownDuration);
         }
     }
-
 
     private void ActivateObject()
     {
@@ -238,7 +218,7 @@ public class PlayerShoot : MonoBehaviour
         OnObjectCooldownTimeChanged?.Invoke(remainingCooldown);
         while (remainingCooldown > 0)
         {
-            await UniTask.Delay(1000);
+            await UniTask.Delay(MillisecondsInSecond);
             remainingCooldown -= 1f;
         }
         isObjectOnCooldown = false;
@@ -251,7 +231,7 @@ public class PlayerShoot : MonoBehaviour
         {
             isReloading = true;
             OnReloadStateChanged?.Invoke(isReloading);
-            await UniTask.Delay((int)(reloadTime * 1000));
+            await UniTask.Delay((int)(reloadTime * MillisecondsInSecond));
             currentAmmo = maxAmmo;
             OnAmmoChanged?.Invoke(currentAmmo);
             isReloading = false;
@@ -263,5 +243,11 @@ public class PlayerShoot : MonoBehaviour
     public void IncreaseFireRateCooldown()
     {
         shootCooldown = Mathf.Max(0.1f, shootCooldown * 1.5f);
+    }
+
+    private void OnDestroy()
+    {
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
     }
 }

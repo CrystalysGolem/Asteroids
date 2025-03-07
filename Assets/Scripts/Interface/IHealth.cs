@@ -22,17 +22,17 @@ public static class IHealthExtensions
         SetHealth(health, health.CurrentHealth - amount);
     }
 
-    public static void ApplyDifficulty(this IHealth health, int EasyHP, int MediumHP, int HardHP, DifficultyManager.Difficulty difficulty)
+    public static void ApplyDifficulty(this IHealth health, int EasyHP, int MediumHP, int HardHP, DifficultyProvider.Difficulty difficulty)
     {
         switch (difficulty)
         {
-            case DifficultyManager.Difficulty.Easy:
+            case DifficultyProvider.Difficulty.Easy:
                 health.SetHealth(EasyHP);
                 break;
-            case DifficultyManager.Difficulty.Medium:
+            case DifficultyProvider.Difficulty.Medium:
                 health.SetHealth(MediumHP);
                 break;
-            case DifficultyManager.Difficulty.Hard:
+            case DifficultyProvider.Difficulty.Hard:
                 health.SetHealth(HardHP);
                 break;
         }

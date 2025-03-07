@@ -4,26 +4,23 @@ using Zenject;
 
 public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 {
-    // Health logic
-    [SerializeField] public int CurrentHealth { get; set; }
-    // Move logic
+    public int CurrentHealth { get; set; }
+
     private float moveSpeed;
     private float rotationSpeed;
     private Vector3 targetPosition;
 
-    // Config from JSON
     private UFOConfig config;
 
-    // Visual invisibility
     public bool IsInvincible { get; set; }
-    //Minor logic
+
     public SpriteRenderer SpriteRenderer => spriteRenderer;
     public GameObject GameObject => gameObject;
     private SpriteRenderer spriteRenderer;
 
     [Inject] private PlayerMove playerMovement;
-    [InjectOptional] private DifficultyManager difficultySettings;
-    [Inject] private ScoreManager scoreManager;
+    [Inject] private DifficultyProvider difficultySettings;
+    [Inject] private ScoreProvider scoreManager;
     public class Factory : PlaceholderFactory<UFO> { }
 
 
@@ -47,16 +44,16 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 
         int health = difficultySettings.CurrentDifficulty switch
         {
-            DifficultyManager.Difficulty.Easy => config.healthEasy,
-            DifficultyManager.Difficulty.Medium => config.healthMedium,
-            DifficultyManager.Difficulty.Hard => config.healthHard,
+            DifficultyProvider.Difficulty.Easy => config.healthEasy,
+            DifficultyProvider.Difficulty.Medium => config.healthMedium,
+            DifficultyProvider.Difficulty.Hard => config.healthHard,
             _ => config.healthEasy
         };
 
         CurrentHealth = health;
 
         Vector3 currentDirection;
-        this.SetInitialPosition(playerMovement.movementLogic, out targetPosition, out currentDirection);
+        this.SetInitialPosition(playerMovement.movementLogic.Position, out targetPosition, out currentDirection);
         StartMove(moveSpeed, rotationSpeed);
     }
 
@@ -65,22 +62,6 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
         this.moveSpeed = moveSpeed;
         this.rotationSpeed = rotationSpeed;
         MoveToTarget().Forget();
-    }
-
-    private bool IsWithinBounds()
-    {
-        Camera cam = Camera.main;
-        if (cam == null)
-        {
-            Debug.LogWarning("Main camera not found!");
-            return true;
-        }
-
-        Vector3 bottomLeft = cam.ScreenToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
-        Vector3 topRight = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.nearClipPlane));
-        Vector3 pos = transform.position;
-        return pos.x >= bottomLeft.x && pos.x <= topRight.x &&
-               pos.y >= bottomLeft.y && pos.y <= topRight.y;
     }
 
     private async UniTaskVoid MoveToTarget()

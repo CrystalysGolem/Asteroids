@@ -4,22 +4,29 @@ using System.IO;
 using Zenject;
 using System;
 
-public class ScoreManager : IInitializable
+public class ScoreProvider : IInitializable
 {
-    // Scored
-    [SerializeField] private int Score;
-    [SerializeField] private int DestroyedUFO;
-    [SerializeField] private int DestroyedAsteroids;
-    [SerializeField] private int FiredBullets;
-    [SerializeField] private int Reloads;
-    [SerializeField] private int FiredLasers;
-    [SerializeField] private float LaserTime;
-    [SerializeField] private int MaxSpeed;
-    [SerializeField] private int Travelled;
-    [SerializeField] private int SurvivedTime;
+    private int Score;
+    private int DestroyedUFO;
+    private int DestroyedUFO_points = 1500;
+    private int DestroyedAsteroids;
+    private int DestroyedAsteroids_points = 500;
+    private int FiredBullets;
+    private int FiredBullets_points = 50;
+    private int Reloads;
+    private int Reloads_points = 250;
+    private int FiredLasers;
+    private int FiredLasers_points = 100;
+    private float LaserTime;
+    private int LaserTime_points = 100;
+    private int MaxSpeed;
+    private int MaxSpeed_points = 100;
+    private int Travelled;
+    private int Travelled_points = 10;
+    private int SurvivedTime;
+    private int SurvivedTime_points = 75;
 
-    // Minor
-    [Inject] private DifficultyManager _difficultyLevel;
+    [Inject] private DifficultyProvider _difficultyLevel;
 
     public event Action<int> OnScoreChanged; 
     public async void Initialize()
@@ -141,15 +148,15 @@ public class ScoreManager : IInitializable
     public void ScoreCounter()
     {
         StopTrackingTime();
-        int baseScore = DestroyedUFO * 1500 + DestroyedAsteroids * 500 + FiredBullets * 50 +
-                        Reloads * 250 + FiredLasers * 100 + Mathf.FloorToInt(LaserTime) * 100 +
-                        MaxSpeed * 100 + Travelled * 10 + SurvivedTime * 75;
+        int baseScore = DestroyedUFO * DestroyedUFO_points + DestroyedAsteroids * DestroyedAsteroids_points + FiredBullets * FiredBullets_points +
+                        Reloads * Reloads_points + FiredLasers * FiredLasers_points + Mathf.FloorToInt(LaserTime) * LaserTime_points +
+                        MaxSpeed * MaxSpeed_points + Travelled * Travelled_points + SurvivedTime * SurvivedTime_points;
 
         int difficultyMultiplier = _difficultyLevel.CurrentDifficulty switch
         {
-            DifficultyManager.Difficulty.Easy => 1,
-            DifficultyManager.Difficulty.Medium => 2,
-            DifficultyManager.Difficulty.Hard => 3,
+            DifficultyProvider.Difficulty.Easy => 1,
+            DifficultyProvider.Difficulty.Medium => 2,
+            DifficultyProvider.Difficulty.Hard => 3,
             _ => 1
         };
 

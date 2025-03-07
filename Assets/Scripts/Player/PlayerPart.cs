@@ -1,7 +1,5 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 using Zenject;
-using System;
 
 public class PlayerPart : MonoBehaviour, IInvincible
 {
@@ -10,12 +8,8 @@ public class PlayerPart : MonoBehaviour, IInvincible
     [Header("Define part type and main health script")]
     [SerializeField] private PartType partType;
     [SerializeField] private PlayerHealth playerHealth;
-
-    // Visual invisibility
     public bool IsInvincible { get; set; }
 
-
-    // Minor logic
     private bool wpnDestroyed;
     private bool eng1Destroyed;
     private bool eng2Destroyed;

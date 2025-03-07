@@ -1121,9 +1121,9 @@
       <Project>{DE9DBF11-478F-3A8F-1B6C-4CD4DF014FAE}</Project>
       <Name>Player</Name>
     </ProjectReference>
-    <ProjectReference Include="Main.csproj">
-      <Project>{DF3B1EF1-3B64-CF97-B227-C983001F9F9D}</Project>
-      <Name>Main</Name>
+    <ProjectReference Include="Providers.csproj">
+      <Project>{AD958143-77AF-930F-9712-9947DC26FC67}</Project>
+      <Name>Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

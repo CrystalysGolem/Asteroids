@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public interface IEnemy
 {
     void StartUP();
@@ -8,6 +9,8 @@ public interface IEnemy
 
 public static class IEnemyExtensions
 {
+    private const float maximumOffsetToPlayerPosition = 2f;
+    private const float minimumOffsetToPlayerPosition = -2f;
     public static async void TakeDamage(this IEnemy enemy)
     {
         if (enemy is MonoBehaviour monoBehaviour)
@@ -24,7 +27,7 @@ public static class IEnemyExtensions
         }
     }
 
-    public static void SetInitialPosition(this IEnemy enemy, PlayerMovementLogic playerMovementLogic, out Vector3 targetPosition, out Vector3 currentDirection)
+    public static void SetInitialPosition(this IEnemy enemy, Vector3 Position, out Vector3 targetPosition, out Vector3 currentDirection)
     {
         Camera cam = Camera.main;
         if (cam == null)
@@ -60,8 +63,8 @@ public static class IEnemyExtensions
                 break;
         }
         enemy.gameObject.transform.position = pos;
-        Vector3 playerPos = playerMovementLogic.Position;
-        Vector3 offset = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
+        Vector3 playerPos = Position;
+        Vector3 offset = new Vector3(Random.Range(minimumOffsetToPlayerPosition, maximumOffsetToPlayerPosition), Random.Range(minimumOffsetToPlayerPosition, maximumOffsetToPlayerPosition), 0f);
         targetPosition = playerPos + offset;
         currentDirection = (targetPosition - pos).normalized;
     }

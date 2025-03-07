@@ -1,15 +1,14 @@
-using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
-using static UnityEngine.AudioSettings;
+using System.Threading;
 
 public class PlayerMove : MonoBehaviour
 {
-    //Move logic
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
-
+    private int TeleportCheckDelay = 100;
 
     [Header("For Mobile stick")]
     public JoyStick MoveStick;
@@ -17,16 +16,19 @@ public class PlayerMove : MonoBehaviour
     [Header("Logic expansion class")]
     public PlayerMovementLogic movementLogic;
 
-    //Minor logic
     private bool IsMobile = false;
     private bool isTeleporting = false;
     private Camera mainCamera;
 
-    [Inject] private ScoreManager scoreManager;
-    [Inject] private OptionsManager optionsManager;
+    [Inject] private ScoreProvider scoreManager;
+    [Inject] private OptionsProvider optionsManager;
+
+    private CancellationTokenSource cancellationTokenSource;
 
     private void Start()
     {
+        cancellationTokenSource = new CancellationTokenSource();
+
         IsMobile = optionsManager.IsMobile;
         var config = PlayerConfigLoader.LoadConfig();
         maxSpeed = config.maxSpeed;
@@ -43,14 +45,15 @@ public class PlayerMove : MonoBehaviour
 
         movementLogic = new PlayerMovementLogic(maxSpeed, acceleration, deceleration);
         movementLogic.ResetPosition(transform.position);
-        HandleMovement().Forget();
+
+        HandleMovement(cancellationTokenSource.Token).Forget();
     }
 
-    private async UniTaskVoid HandleMovement()
+    private async UniTaskVoid HandleMovement(CancellationToken token)
     {
-        Vector3 lastMousePosition = transform.position; 
+        Vector3 lastMousePosition = transform.position;
 
-        while (this != null && gameObject.activeSelf)
+        while (!token.IsCancellationRequested && this != null && gameObject.activeSelf)
         {
             Vector2 input;
             Vector3 mousePosition;
@@ -61,11 +64,11 @@ public class PlayerMove : MonoBehaviour
                 if (input.sqrMagnitude > 0.1f)
                 {
                     mousePosition = transform.position + new Vector3(input.x, input.y, 0f);
-                    lastMousePosition = mousePosition; 
+                    lastMousePosition = mousePosition;
                 }
                 else
                 {
-                    mousePosition = lastMousePosition; 
+                    mousePosition = lastMousePosition;
                 }
             }
             else
@@ -75,12 +78,12 @@ public class PlayerMove : MonoBehaviour
 
                 if (mousePosition.x < 0 || mousePosition.y < 0 || mousePosition.x > Screen.width || mousePosition.y > Screen.height)
                 {
-                    mousePosition = lastMousePosition; 
+                    mousePosition = lastMousePosition;
                 }
                 else
                 {
                     mousePosition = mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -mainCamera.transform.position.z));
-                    lastMousePosition = mousePosition; 
+                    lastMousePosition = mousePosition;
                 }
             }
 
@@ -89,13 +92,14 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = movementLogic.Rotation;
             scoreManager.SetMaxSpeed((int)movementLogic.MaxAchievedSpeed);
             scoreManager.SetTravelled((int)movementLogic.TravelledDistance);
-            CheckTeleport().Forget();
 
-            await UniTask.Yield();
+            CheckTeleport(token).Forget();
+
+            await UniTask.Yield(token);
         }
     }
 
-    private async UniTaskVoid CheckTeleport()
+    private async UniTaskVoid CheckTeleport(CancellationToken token)
     {
         if (isTeleporting)
             return;
@@ -127,7 +131,9 @@ public class PlayerMove : MonoBehaviour
             Vector3 newWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(newScreenX, newScreenY, distance));
             transform.position = newWorldPosition;
             movementLogic.ResetPosition(newWorldPosition);
-            await UniTask.Delay(100);
+
+            await UniTask.Delay(TeleportCheckDelay, cancellationToken: token);
+
             isTeleporting = false;
         }
     }
@@ -135,5 +141,11 @@ public class PlayerMove : MonoBehaviour
     public void ReduceSpeedAndAcceleration()
     {
         movementLogic.ReduceSpeedAndAcceleration();
+    }
+
+    private void OnDestroy()
+    {
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
     }
 }

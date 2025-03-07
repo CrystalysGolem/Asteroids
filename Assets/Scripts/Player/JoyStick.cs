@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
 
-    // Stick logic
     public RectTransform joystickBackground;
     public RectTransform joystickHandle;
     public float maxDistance = 100f;
@@ -14,7 +13,6 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public Vector2 Direction { get; private set; }
     public float Speed { get; private set; }
 
-    // Minor logic
     private Vector2 startPosition;
     private bool isActive = false;
 

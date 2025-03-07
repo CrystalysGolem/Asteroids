@@ -10,24 +10,25 @@ public interface IInvincible
 
 public static class IInvincibleExtensions
 {
+    private const float BlinkDuration = 1f;
+    private const float BlinkInterval = 0.1f;
+    private const int MillisecondsInSecond = 1000;
     public static async UniTask HandleHitVisuals(this IInvincible invincible)
     {
         if (invincible == null || invincible.GameObject == null || !invincible.GameObject.activeSelf) return;
 
         invincible.IsInvincible = true;
-        float blinkDuration = 1f;
-        float blinkInterval = 0.1f;
         float elapsedTime = 0f;
 
-        while (elapsedTime < blinkDuration)
+        while (elapsedTime < BlinkDuration)
         {
             if (invincible == null || invincible.GameObject == null || !invincible.GameObject.activeSelf) return;
 
             invincible.SpriteRenderer.enabled = !invincible.SpriteRenderer.enabled;
-            await UniTask.Delay((int)(blinkInterval * 1000));
-            elapsedTime += blinkInterval;
+            await UniTask.Delay((int)(BlinkInterval * MillisecondsInSecond));
+            elapsedTime += BlinkInterval;
         }
-        invincible.SpriteRenderer.enabled = true;
+
         if (invincible != null && invincible.GameObject != null && invincible.GameObject.activeSelf)
             invincible.SpriteRenderer.enabled = true;
 

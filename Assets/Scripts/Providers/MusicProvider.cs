@@ -11,17 +11,16 @@ public class MusicSaveData
     public float trackTime = 0f;
 }
 
-public class MusicManager : MonoBehaviour
+public class MusicProvider : MonoBehaviour
 {
 
     [Header("Music player and music itself")]
     public AudioSource musicSource;
     public AudioClip[] musicTracks;
 
-    //Minor logic
     private int currentTrackIndex = 0;
     private float trackTime = 0f;
-    [Inject] private OptionsManager optionsManager;
+    [Inject] private OptionsProvider optionsManager;
     private static string saveFilePath => Path.Combine(Application.persistentDataPath, "music_save.json");
 
     private void Start()

@@ -7,7 +7,6 @@ public class PlayerMovementLogic
     public Quaternion Rotation { get; private set; }
     public Vector3 CurrentVelocity { get; private set; }
 
-    // Move logic
     private float maxSpeed;
     private float acceleration;
     private float deceleration;

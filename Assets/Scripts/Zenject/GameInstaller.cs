@@ -1,19 +1,18 @@
 using UnityEngine;
 using Zenject;
-using System.Collections.Generic;
 
 public class GameInstaller : MonoInstaller
 {
     [Header("For Prefab Fabric")]
-    [SerializeField] private GameObject asteroidPrefab;
-    [SerializeField] private GameObject ufoPrefab;
-    [SerializeField] private GameObject fragmentPrefab;
+     public GameObject asteroidPrefab;
+     public GameObject ufoPrefab;
+     public GameObject fragmentPrefab;
 
     public override void InstallBindings()
     {
-        Container.Bind<OptionsManager>().FromComponentInHierarchy().AsSingle();
-        Container.BindInterfacesAndSelfTo<DifficultyManager>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ScoreManager>().AsSingle();
+        Container.Bind<OptionsProvider>().FromComponentInHierarchy().AsSingle();
+        Container.BindInterfacesAndSelfTo<DifficultyProvider>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ScoreProvider>().AsSingle();
         Container.Bind<PlayerMove>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerShoot>().FromComponentInHierarchy().AsSingle();
         Container.Bind<PlayerHealth>().FromComponentInHierarchy().AsSingle();

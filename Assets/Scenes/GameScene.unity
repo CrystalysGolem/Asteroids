@@ -298,8 +298,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 760279881}
-        m_TargetAssemblyTypeName: OptionsManager, Main
+      - m_Target: {fileID: 734547702}
+        m_TargetAssemblyTypeName: OptionsProvider, Providers
         m_MethodName: SetDifficulty
         m_Mode: 0
         m_Arguments:
@@ -437,8 +437,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 760279881}
-        m_TargetAssemblyTypeName: OptionsManager, Main
+      - m_Target: {fileID: 734547702}
+        m_TargetAssemblyTypeName: OptionsProvider, Providers
         m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
@@ -792,13 +792,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bdf56c23bc73b42a6178c3e3432a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  H1: {fileID: 844096481}
-  H2: {fileID: 2026425550}
-  H3: {fileID: 1772999832}
-  CO: {fileID: 1617106153}
-  ENG1: {fileID: 704292235}
-  ENG2: {fileID: 1470761298}
-  WPN: {fileID: 467522619}
+  Health1UI: {fileID: 844096481}
+  Health2UI: {fileID: 2026425550}
+  Health3UI: {fileID: 1772999832}
+  CoreUI: {fileID: 1617106153}
+  Engine1UI: {fileID: 704292235}
+  Engine2UI: {fileID: 1470761298}
+  WeaponUI: {fileID: 467522619}
 --- !u!114 &89911767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2302,9 +2302,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 760279881}
-        m_TargetAssemblyTypeName: OptionsManager, Main
-        m_MethodName: SetIsPressed
+      - m_Target: {fileID: 734547702}
+        m_TargetAssemblyTypeName: OptionsProvider, Providers
+        m_MethodName: TogglePauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2314,9 +2314,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 760279881}
-        m_TargetAssemblyTypeName: OptionsManager, Main
-        m_MethodName: TogglePauseGame
+      - m_Target: {fileID: 734547702}
+        m_TargetAssemblyTypeName: OptionsProvider, Providers
+        m_MethodName: LoadOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3192,7 +3192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b1db91f4a8dad4eafd668270268e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsMobile: 0
   MoveStick: {fileID: 1151973850}
 --- !u!114 &561767655
 MonoBehaviour:
@@ -3207,22 +3206,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2924122081794388794, guid: 16b41132a9516d84481f1c54f6cbfd9b, type: 3}
+  activeObject: {fileID: 1304803661}
+  AttackStick: {fileID: 1335339849}
+  shootAudioSource: {fileID: 561767661}
+  shootSound: {fileID: 8300000, guid: 9809eda497e3de549a2a65aac3024586, type: 3}
   shootingForce: 11
   shootCooldown: 0.25
   maxAmmo: 10
   reloadTime: 2
-  activeObject: {fileID: 1304803661}
   objectActiveDuration: 3
   objectCooldown: 30
-  shootAudioSource: {fileID: 561767661}
-  shootSound: {fileID: 8300000, guid: 9809eda497e3de549a2a65aac3024586, type: 3}
   objectActiveTime: 0
   cooldownDuration: 0
   spawnOffset: 0.35
   degree: -90
   angle: 0
-  IsMobile: 0
-  AttackStick: {fileID: 1335339849}
 --- !u!212 &561767656
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4520,8 +4518,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 734547701}
+  - component: {fileID: 734547702}
   m_Layer: 5
-  m_Name: Manager
+  m_Name: Provider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4538,8 +4537,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 760279880}
+  m_Children: []
   m_Father: {fileID: 1898362789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4547,6 +4545,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &734547702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734547700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009c6dc307878b641a3df612382e0a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableEscapeFunctionality: 1
+  OptionsMenu: {fileID: 665525370}
+  MobileUi: {fileID: 2008124778}
+  musicSlider: {fileID: 30837379}
+  soundSlider: {fileID: 1480334223}
+  difficultyDropdown: {fileID: 28377474}
 --- !u!1 &752331157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4823,56 +4839,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758831164}
   m_CullTransparentMesh: 1
---- !u!1 &760279879
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 760279880}
-  - component: {fileID: 760279881}
-  m_Layer: 0
-  m_Name: OptionsManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &760279880
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760279879}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -590.13794, y: -274.9661, z: 0.03973891}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 734547701}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &760279881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760279879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fbf6b0f3d16bb042af7c033575362b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableEscapeFunctionality: 1
-  OptionsMenu: {fileID: 665525370}
-  MobileUi: {fileID: 2008124778}
-  musicSlider: {fileID: 30837379}
-  soundSlider: {fileID: 1480334223}
-  difficultyDropdown: {fileID: 28377474}
 --- !u!1 &770092752
 GameObject:
   m_ObjectHideFlags: 0
@@ -5239,7 +5205,7 @@ GameObject:
   - component: {fileID: 844096480}
   - component: {fileID: 844096481}
   m_Layer: 5
-  m_Name: H1
+  m_Name: HealthView1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7155,7 +7121,7 @@ MonoBehaviour:
   joystickBackground: {fileID: 1098418154}
   joystickHandle: {fileID: 2118505781}
   maxDistance: 100
-  useRightSide: 0
+  useRightSide: 1
   isStatic: 1
   activationRadius: 150
 --- !u!1 &1342249884
@@ -7507,8 +7473,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 760279881}
-        m_TargetAssemblyTypeName: OptionsManager, Main
+      - m_Target: {fileID: 734547702}
+        m_TargetAssemblyTypeName: OptionsProvider, Providers
         m_MethodName: SetSoundVolume
         m_Mode: 0
         m_Arguments:
@@ -8498,7 +8464,7 @@ GameObject:
   - component: {fileID: 1772999830}
   - component: {fileID: 1772999832}
   m_Layer: 5
-  m_Name: H3
+  m_Name: HealthView3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9068,8 +9034,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 760279881}
-        m_TargetAssemblyTypeName: OptionsManager, Main
+      - m_Target: {fileID: 734547702}
+        m_TargetAssemblyTypeName: OptionsProvider, Providers
         m_MethodName: SaveOptions
         m_Mode: 1
         m_Arguments:
@@ -9402,7 +9368,7 @@ GameObject:
   - component: {fileID: 2026425549}
   - component: {fileID: 2026425550}
   m_Layer: 5
-  m_Name: H2
+  m_Name: HealthView2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
