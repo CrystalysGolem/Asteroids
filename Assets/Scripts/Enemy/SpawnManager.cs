@@ -1,6 +1,7 @@
 using Zenject;
 using UnityEngine;
 using System.Collections.Generic;
+using Firebase.Analytics;
 
 public class SpawnManager : IInitializable
 {
@@ -36,6 +37,7 @@ public class SpawnManager : IInitializable
         };
 
         _prefabFactory.Initialize(spawnConfigs);
+
     }
 
     public void CheckConfigFiles()

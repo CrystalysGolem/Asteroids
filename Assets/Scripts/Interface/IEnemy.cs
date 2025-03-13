@@ -11,7 +11,7 @@ public static class IEnemyExtensions
 {
     private const float maximumOffsetToPlayerPosition = 2f;
     private const float minimumOffsetToPlayerPosition = -2f;
-    public static async void TakeDamage(this IEnemy enemy)
+    public static void TakeDamage(this IEnemy enemy)
     {
         if (enemy is MonoBehaviour monoBehaviour)
         {

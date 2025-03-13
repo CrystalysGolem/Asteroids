@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "87744570901",
+    "firebase_url": "https://asteroids-86014-default-rtdb.firebaseio.com",
+    "project_id": "asteroids-86014",
+    "storage_bucket": "asteroids-86014.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87744570901:android:47317d5f31ba7b9c58501c",
+        "android_client_info": {
+          "package_name": "com.demonstration.Asteroids"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC7VeiEhNTF7940ZtsuAj9fPHTVKjzCsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
