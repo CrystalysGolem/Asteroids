@@ -4,11 +4,11 @@ using Zenject;
 
 public class ObjectPoolService : IInitializable
 {
-    private readonly DiContainer _container;
+    [Inject] private readonly DiContainer _container;
+
     private readonly Dictionary<GameObject, Queue<GameObject>> _pools;
     private readonly Dictionary<GameObject, int> _poolSizes;
 
-    [Inject]
     public ObjectPoolService(DiContainer container)
     {
         _container = container;
@@ -16,7 +16,7 @@ public class ObjectPoolService : IInitializable
         _poolSizes = new Dictionary<GameObject, int>();
     }
 
-    public void Initialize() 
+    public void Initialize()
     {
     }
 

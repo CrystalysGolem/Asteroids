@@ -3,22 +3,22 @@ using UnityEngine;
 using System.Collections.Generic;
 using Firebase.Analytics;
 
-public class SpawnManager : IInitializable
+public class SpawnProvider : IInitializable
 {
     private readonly PrefabFactory _prefabFactory;
     private readonly GameObject _asteroidPrefab;
+    private readonly GameObject _ufoPrefab;
+    private readonly GameObject _fragmentPrefab;
+
     private int _asteroidPrefab_poolsize = 20;
     private float _asteroidPrefab_spawninterval = 3f;
     private int _asteroidPrefab_spawncount = 15;
-    private readonly GameObject _ufoPrefab;
+
     private int _ufoPrefab_poolsize = 10;
     private float _ufoPrefab_spawninterval = 5f;
     private int _ufoPrefab_spawncount = 5;
 
-    private readonly GameObject _fragmentPrefab;
-
-    [Inject]
-    public SpawnManager(PrefabFactory prefabFactory, GameObject asteroidPrefab, GameObject ufoPrefab, GameObject fragmentPrefab)
+    public SpawnProvider(PrefabFactory prefabFactory, GameObject asteroidPrefab, GameObject ufoPrefab, GameObject fragmentPrefab)
     {
         _prefabFactory = prefabFactory;
         _asteroidPrefab = asteroidPrefab;
@@ -37,13 +37,5 @@ public class SpawnManager : IInitializable
         };
 
         _prefabFactory.Initialize(spawnConfigs);
-
-    }
-
-    public void CheckConfigFiles()
-    {
-        var config1 = AsteroidConfigLoader.LoadConfig();
-        var config2 = UFOConfigLoader.LoadConfig();
-        var config3 = AsteroidConfigLoader.LoadConfig();
     }
 }

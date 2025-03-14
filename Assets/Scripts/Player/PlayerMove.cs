@@ -5,24 +5,20 @@ using System.Threading;
 
 public class PlayerMove : MonoBehaviour
 {
+    [Inject] private ScoreProvider scoreManager;
+    [Inject] private OptionsProvider optionsManager;
+    [Inject] private PlayerConfigLoader configLoader;
+
+    public JoyStick MoveStick;
+    public PlayerMovementLogic movementLogic;
+
     private float maxSpeed;
     private float acceleration;
     private float deceleration;
     private int TeleportCheckDelay = 100;
-
-    [Header("For Mobile stick")]
-    public JoyStick MoveStick;
-
-    [Header("Logic expansion class")]
-    public PlayerMovementLogic movementLogic;
-
     private bool IsMobile = false;
     private bool isTeleporting = false;
     private Camera mainCamera;
-
-    [Inject] private ScoreProvider scoreManager;
-    [Inject] private OptionsProvider optionsManager;
-
     private CancellationTokenSource cancellationTokenSource;
 
     private void Start()
@@ -30,7 +26,7 @@ public class PlayerMove : MonoBehaviour
         cancellationTokenSource = new CancellationTokenSource();
 
         IsMobile = optionsManager.IsMobile;
-        var config = PlayerConfigLoader.LoadConfig();
+        var config = configLoader.LoadConfig();
         maxSpeed = config.maxSpeed;
         acceleration = config.acceleration;
         deceleration = config.deceleration;
@@ -47,6 +43,17 @@ public class PlayerMove : MonoBehaviour
         movementLogic.ResetPosition(transform.position);
 
         HandleMovement(cancellationTokenSource.Token).Forget();
+    }
+
+    private void OnDestroy()
+    {
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
+    }
+
+    public void ReduceSpeedAndAcceleration()
+    {
+        movementLogic.ReduceSpeedAndAcceleration();
     }
 
     private async UniTaskVoid HandleMovement(CancellationToken token)
@@ -136,16 +143,5 @@ public class PlayerMove : MonoBehaviour
 
             isTeleporting = false;
         }
-    }
-
-    public void ReduceSpeedAndAcceleration()
-    {
-        movementLogic.ReduceSpeedAndAcceleration();
-    }
-
-    private void OnDestroy()
-    {
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource?.Dispose();
     }
 }

@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 public class RecordView : MonoBehaviour
 {
-    [Header("For Score in MainMenu, filling from 1 to 3")]
-    private GameObject[] dateTextObjects = new GameObject[3];
-    private GameObject[] scoreTextObjects = new GameObject[3];
+    public GameObject[] dateTextObjects = new GameObject[3];
+    public GameObject[] scoreTextObjects = new GameObject[3];
+
     private string recordsPath;
 
     private void Awake()

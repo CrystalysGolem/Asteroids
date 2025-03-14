@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Providers\MusicProvider.cs" />
     <Compile Include="Assets\Scripts\Providers\ScoreProvider.cs" />
+    <Compile Include="Assets\Scripts\Providers\ScoreProviderConfigLoader.cs" />
     <Compile Include="Assets\Scripts\Providers\DifficultyProvider.cs" />
     <Compile Include="Assets\Scripts\Providers\OptionsProvider.cs" />
   </ItemGroup>

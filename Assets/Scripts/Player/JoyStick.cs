@@ -3,13 +3,13 @@ using UnityEngine.EventSystems;
 
 public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-
     public RectTransform joystickBackground;
     public RectTransform joystickHandle;
     public float maxDistance = 100f;
-    public bool useRightSide = false;  
-    public bool isStatic = false;   
+    public bool useRightSide = false;
+    public bool isStatic = false;
     public float activationRadius = 150f;
+
     public Vector2 Direction { get; private set; }
     public float Speed { get; private set; }
 
@@ -25,6 +25,59 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             joystickHandle.gameObject.SetActive(true);
         }
     }
+    private void Update()
+    {
+        if (!Application.isMobilePlatform)
+        {
+            if (!isStatic)
+            {
+                if (!isActive && Input.GetMouseButtonDown(0))
+                {
+                    Vector2 mousePos = Input.mousePosition;
+                    if (!useRightSide)
+                    {
+                        if (mousePos.x > Screen.width / 2)
+                            return;
+                    }
+                    else
+                    {
+                        if (mousePos.x < Screen.width / 2)
+                            return;
+                    }
+                    ActivateJoystick(mousePos);
+                }
+                if (isActive && Input.GetMouseButton(0))
+                {
+                    UpdateJoystick(Input.mousePosition);
+                }
+                if (isActive && Input.GetMouseButtonUp(0))
+                {
+                    DeactivateJoystick();
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Vector2 mousePos = Input.mousePosition;
+                    if (Vector2.Distance(mousePos, joystickBackground.position) <= activationRadius)
+                        isActive = true;
+                }
+                if (isActive && Input.GetMouseButton(0))
+                {
+                    UpdateJoystick(Input.mousePosition);
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (isActive)
+                    {
+                        ResetStaticJoystick();
+                        isActive = false;
+                    }
+                }
+            }
+        }
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -33,12 +86,12 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             if (!useRightSide)
             {
                 if (eventData.position.x > Screen.width / 2)
-                    return; 
+                    return;
             }
             else
             {
                 if (eventData.position.x < Screen.width / 2)
-                    return; 
+                    return;
             }
             ActivateJoystick(eventData.position);
         }
@@ -82,6 +135,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             }
         }
     }
+
     private void ActivateJoystick(Vector2 position)
     {
         isActive = true;
@@ -117,59 +171,5 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         Direction = Vector2.zero;
         Speed = 0;
         joystickHandle.position = joystickBackground.position;
-    }
-
-    private void Update()
-    {
-        if (!Application.isMobilePlatform)
-        {
-            if (!isStatic)
-            {
-                if (!isActive && Input.GetMouseButtonDown(0))
-                {
-                    Vector2 mousePos = Input.mousePosition;
-                    if (!useRightSide)
-                    {
-                        if (mousePos.x > Screen.width / 2)
-                            return;
-                    }
-                    else
-                    {
-                        if (mousePos.x < Screen.width / 2)
-                            return;
-                    }
-                    ActivateJoystick(mousePos);
-                }
-                if (isActive && Input.GetMouseButton(0))
-                {
-                    UpdateJoystick(Input.mousePosition);
-                }
-                if (isActive && Input.GetMouseButtonUp(0))
-                {
-                    DeactivateJoystick();
-                }
-            }
-            else 
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Vector2 mousePos = Input.mousePosition;
-                    if (Vector2.Distance(mousePos, joystickBackground.position) <= activationRadius)
-                        isActive = true;
-                }
-                if (isActive && Input.GetMouseButton(0))
-                {
-                    UpdateJoystick(Input.mousePosition);
-                }
-                if (Input.GetMouseButtonUp(0))
-                {
-                    if (isActive)
-                    {
-                        ResetStaticJoystick();
-                        isActive = false;
-                    }
-                }
-            }
-        }
     }
 }

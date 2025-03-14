@@ -4,10 +4,9 @@ using Zenject;
 
 public class ScoreView : MonoBehaviour
 {
-    [Header("For Score view in EndGame")]
+    [Inject] private ScoreProvider _scoreManager;
     [SerializeField] private GameObject scoreObject;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [Inject] private ScoreProvider _scoreManager;
 
     [Inject]
     public void Construct(ScoreProvider scoreManager)

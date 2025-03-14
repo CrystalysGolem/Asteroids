@@ -3,23 +3,16 @@ using Zenject;
 
 public class DifficultyProvider : IInitializable
 {
-    private Difficulty currentDifficulty = Difficulty.Easy;
-
-    public void Initialize()
-    {
-    }
-
-    public enum Difficulty
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-
     public Difficulty CurrentDifficulty
     {
         get { return currentDifficulty; }
         private set { currentDifficulty = value; }
+    }
+
+    private Difficulty currentDifficulty = Difficulty.Easy;
+
+    public void Initialize()
+    {
     }
 
     public void SetDifficulty(Difficulty difficulty)
@@ -31,4 +24,11 @@ public class DifficultyProvider : IInitializable
     public void SetDifficultyToEasy() => SetDifficulty(Difficulty.Easy);
     public void SetDifficultyToMedium() => SetDifficulty(Difficulty.Medium);
     public void SetDifficultyToHard() => SetDifficulty(Difficulty.Hard);
+
+    public enum Difficulty
+    {
+        Easy,
+        Medium,
+        Hard
+    }
 }

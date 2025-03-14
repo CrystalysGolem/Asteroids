@@ -15,24 +15,19 @@ public class Options
 
 public class OptionsProvider : MonoBehaviour
 {
-    private static string optionsFilePath => Path.Combine(Application.persistentDataPath, "options.json");
-    public Options CurrentOptions { get; private set; } = new Options();
+    [Inject] public DifficultyProvider difficultyProvider;
 
-    [Header("For Esc functionality")]
-    public bool enableEscapeFunctionality = true;
-
-    [Header("For enabling\\disabling Options and Mobile UI")]
-    public GameObject OptionsMenu;
-    public GameObject MobileUi;
-
-    [Header("For menu filling")]
     [SerializeField] private Scrollbar musicSlider;
     [SerializeField] private Scrollbar soundSlider;
     [SerializeField] private TMP_Dropdown difficultyDropdown;
 
-    [Inject] public DifficultyProvider difficultyProvider;
-
+    public Options CurrentOptions { get; private set; } = new Options();
+    public bool enableEscapeFunctionality = true;
+    public GameObject OptionsMenu;
+    public GameObject MobileUi;
     public bool IsMobile { get; private set; }
+
+    private static string optionsFilePath => Path.Combine(Application.persistentDataPath, "options.json");
 
     private void Start()
     {
@@ -74,28 +69,6 @@ public class OptionsProvider : MonoBehaviour
         }
     }
 
-    private void ApplySettings()
-    {
-        if (musicSlider != null)
-        {
-            musicSlider.value = CurrentOptions.musicVolume;
-        }
-
-        if (soundSlider != null)
-        {
-            soundSlider.value = CurrentOptions.soundVolume;
-        }
-
-        if (difficultyDropdown != null && difficultyProvider != null)
-        {
-            string[] difficulties = System.Enum.GetNames(typeof(DifficultyProvider.Difficulty));
-            difficultyDropdown.ClearOptions();
-            difficultyDropdown.AddOptions(new System.Collections.Generic.List<string>(difficulties));
-
-            difficultyDropdown.value = (int)difficultyProvider.CurrentDifficulty;
-        }
-    }
-
     public void SetMusicVolume(float volume)
     {
         CurrentOptions.musicVolume = Mathf.Clamp01(volume);
@@ -120,6 +93,28 @@ public class OptionsProvider : MonoBehaviour
     public void TogglePauseGame()
     {
         Time.timeScale = (Time.timeScale == 1f) ? 0f : 1f;
+    }
+
+    private void ApplySettings()
+    {
+        if (musicSlider != null)
+        {
+            musicSlider.value = CurrentOptions.musicVolume;
+        }
+
+        if (soundSlider != null)
+        {
+            soundSlider.value = CurrentOptions.soundVolume;
+        }
+
+        if (difficultyDropdown != null && difficultyProvider != null)
+        {
+            string[] difficulties = System.Enum.GetNames(typeof(DifficultyProvider.Difficulty));
+            difficultyDropdown.ClearOptions();
+            difficultyDropdown.AddOptions(new System.Collections.Generic.List<string>(difficulties));
+
+            difficultyDropdown.value = (int)difficultyProvider.CurrentDifficulty;
+        }
     }
 
     private async UniTaskVoid StartEscapeFunctionality()

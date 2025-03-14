@@ -1,0 +1,11 @@
+{
+    "DestroyedUFO_points": 1500,
+    "DestroyedAsteroids_points": 500,
+    "FiredBullets_points": 50,
+    "Reloads_points": 250,
+    "FiredLasers_points": 100,
+    "LaserTime_points": 100,
+    "MaxSpeed_points": 100,
+    "Travelled_points": 10,
+    "SurvivedTime_points": 75
+}

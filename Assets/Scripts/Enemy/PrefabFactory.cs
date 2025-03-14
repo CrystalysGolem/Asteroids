@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 public class PrefabFactory
 {
-    private readonly ObjectPoolService _objectPoolService;
+    [Inject] private readonly ObjectPoolService _objectPoolService;
+
     private GameObject _fragmentPrefab;
     private int MillisecondsInSecond = 1000;
 
-    [Inject]
     public PrefabFactory(ObjectPoolService objectPoolService)
     {
         _objectPoolService = objectPoolService;
@@ -31,6 +31,11 @@ public class PrefabFactory
         _fragmentPrefab = fragmentPrefab;
     }
 
+    public void SpawnPrefabInstantly(GameObject prefab, Vector3 position)
+    {
+        SpawnPrefab(prefab, position);
+    }
+
     private async void InitializeSpawnLoop(SpawnConfig config)
     {
         await UniTask.Delay(MillisecondsInSecond);
@@ -44,11 +49,6 @@ public class PrefabFactory
             await UniTask.Delay((int)(config.SpawnInterval * MillisecondsInSecond));
             SpawnPrefab(config.Prefab);
         }
-    }
-
-    public void SpawnPrefabInstantly(GameObject prefab, Vector3 position)
-    {
-        SpawnPrefab(prefab, position);
     }
 
     private void SpawnPrefab(GameObject prefab)
@@ -71,12 +71,12 @@ public class PrefabFactory
         GameObject spawnedObject = _objectPoolService.GetObject(prefab);
         spawnedObject.SetActive(true);
         spawnedObject.transform.position = position;
+
         if (spawnedObject.TryGetComponent(out IEnemy enemyComponent))
         {
             enemyComponent.StartUP();
         }
     }
-
 
     public class SpawnConfig
     {

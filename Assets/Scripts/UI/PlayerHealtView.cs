@@ -4,17 +4,16 @@ using Zenject;
 
 public class PlayerHealthView : MonoBehaviour
 {
-    [Header("For HealthUI")]
+    [Inject] private PlayerHealth playerHealth;
+
     [SerializeField] private Image Health1UI;
     [SerializeField] private Image Health2UI;
     [SerializeField] private Image Health3UI;
-    [Header("For PartsUI")]
     [SerializeField] private Image CoreUI;
     [SerializeField] private Image Engine1UI;
     [SerializeField] private Image Engine2UI;
     [SerializeField] private Image WeaponUI;
 
-    [Inject] private PlayerHealth playerHealth;
 
     private void Start()
     {

@@ -13,6 +13,7 @@ public static class IInvincibleExtensions
     private const float BlinkDuration = 1f;
     private const float BlinkInterval = 0.1f;
     private const int MillisecondsInSecond = 1000;
+
     public static async UniTask HandleHitVisuals(this IInvincible invincible)
     {
         if (invincible == null || invincible.GameObject == null || !invincible.GameObject.activeSelf) return;

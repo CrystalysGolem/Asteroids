@@ -5,6 +5,15 @@ public class Projectile : MonoBehaviour
 {
     public float lifetime = 7.5f;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var invincibleObject = collision.gameObject.GetComponent<IInvincible>();
+        if (collision.GetComponent<IEnemy>() != null && (invincibleObject == null || !invincibleObject.IsInvincible))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public async void Launch(Vector3 direction, float force)
     {
         float timeAlive = 0f;
@@ -23,15 +32,7 @@ public class Projectile : MonoBehaviour
         }
 
         if (this != null && gameObject.activeSelf)
-            Destroy(gameObject);    
+            Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var invincibleObject = collision.gameObject.GetComponent<IInvincible>();
-        if (collision.GetComponent<IEnemy>() != null && (invincibleObject == null || !invincibleObject.IsInvincible))
-        {
-            Destroy(gameObject);
-        }
-    }
 }

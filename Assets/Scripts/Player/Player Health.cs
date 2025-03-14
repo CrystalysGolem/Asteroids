@@ -6,21 +6,24 @@ using Zenject;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Inject] private ScoreProvider _scoreManager;
+    [Inject] private PlayerConfigLoader configLoader;
+
+    [SerializeField] private List<GameObject> playerParts = new List<GameObject>();
+
     public event Action<int> OnHealthChanged;
     public event Action<bool> OnWeaponDestroyed;
     public event Action<bool> OnEngine1Destroyed;
     public event Action<bool> OnEngine2Destroyed;
 
-    private int currentHealth;
-    [SerializeField] private List<GameObject> playerParts = new List<GameObject>();
-    private List<IInvincible> invincibleParts = new List<IInvincible>();
-
     public int CurrentHealth => currentHealth;
-    [Inject] private ScoreProvider _scoreManager;
+
+    private int currentHealth;
+    private List<IInvincible> invincibleParts = new List<IInvincible>();
 
     private void Awake()
     {
-        var config = PlayerConfigLoader.LoadConfig();
+        var config = configLoader.LoadConfig();
         currentHealth = config.currentHealth;
 
         foreach (var part in playerParts)
@@ -61,6 +64,7 @@ public class PlayerHealth : MonoBehaviour
             part.HandleHitVisuals().Forget();
         }
     }
+
     public void NotifyWeaponDestroyed()
     {
         OnWeaponDestroyed?.Invoke(true);

@@ -17,12 +17,12 @@ public class PlayerConfig
     public float objectCooldown;
 }
 
-public static class PlayerConfigLoader
+public class PlayerConfigLoader
 {
     private static readonly string directoryPath = Application.streamingAssetsPath;
     private static readonly string filePath = Path.Combine(Application.streamingAssetsPath, "player_config.json");
 
-    public static PlayerConfig LoadConfig()
+    public PlayerConfig LoadConfig()
     {
         if (!File.Exists(filePath))
         {
@@ -50,6 +50,11 @@ public static class PlayerConfigLoader
         }
     }
 
+    public static void SaveConfig(PlayerConfig config)
+    {
+        string json = JsonUtility.ToJson(config, true);
+        File.WriteAllText(filePath, json);
+    }
     private static PlayerConfig CreateDefaultConfig()
     {
         if (!Directory.Exists(directoryPath))
@@ -87,11 +92,5 @@ public static class PlayerConfigLoader
                config.reloadTime > 0 &&
                config.objectActiveDuration > 0 &&
                config.objectCooldown > 0;
-    }
-
-    public static void SaveConfig(PlayerConfig config)
-    {
-        string json = JsonUtility.ToJson(config, true);
-        File.WriteAllText(filePath, json);
     }
 }

@@ -3,24 +3,22 @@ using Zenject;
 
 public class PlayerPart : MonoBehaviour, IInvincible
 {
-    public enum PartType { Engine1, Engine2, Weapon, Core }
+    [Inject] private PlayerMove playerMove;
+    [Inject] private PlayerShoot playerShoot;
 
-    [Header("Define part type and main health script")]
     [SerializeField] private PartType partType;
     [SerializeField] private PlayerHealth playerHealth;
+
+    public enum PartType { Engine1, Engine2, Weapon, Core }
+
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public GameObject GameObject => gameObject;
     public bool IsInvincible { get; set; }
 
     private bool wpnDestroyed;
     private bool eng1Destroyed;
     private bool eng2Destroyed;
-
     private SpriteRenderer spriteRenderer;
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public GameObject GameObject => gameObject;
-
-    [Inject] private PlayerMove playerMove;
-    [Inject] private PlayerShoot playerShoot;
-
 
     private void Start()
     {
@@ -30,7 +28,8 @@ public class PlayerPart : MonoBehaviour, IInvincible
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (IsInvincible) return;
-        if (!collider.gameObject.CompareTag("Enemy")) return;
+        var GetEnemy = collider.gameObject.GetComponent<IEnemy>();
+        if (GetEnemy == null) return;
         var invincibleEnemy = collider.GetComponent<IInvincible>();
         if (invincibleEnemy != null && invincibleEnemy.IsInvincible) return;
 

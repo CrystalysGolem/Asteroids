@@ -6,52 +6,48 @@ using System;
 
 public class ScoreProvider : IInitializable
 {
+    [Inject] private DifficultyProvider _difficultyLevel;
+    [Inject] private ScoreProviderConfigLoader configLoader;
+
+    public event Action<int> OnScoreChanged;
+
     private int Score;
     private int DestroyedUFO;
-    private int DestroyedUFO_points = 1500;
+    private int DestroyedUFO_points;
     private int DestroyedAsteroids;
-    private int DestroyedAsteroids_points = 500;
+    private int DestroyedAsteroids_points;
     private int FiredBullets;
-    private int FiredBullets_points = 50;
+    private int FiredBullets_points;
     private int Reloads;
-    private int Reloads_points = 250;
+    private int Reloads_points;
     private int FiredLasers;
-    private int FiredLasers_points = 100;
+    private int FiredLasers_points;
     private float LaserTime;
-    private int LaserTime_points = 100;
+    private int LaserTime_points;
     private int MaxSpeed;
-    private int MaxSpeed_points = 100;
+    private int MaxSpeed_points;
     private int Travelled;
-    private int Travelled_points = 10;
+    private int Travelled_points;
     private int SurvivedTime;
-    private int SurvivedTime_points = 75;
+    private int SurvivedTime_points;
+    private bool isTrackingTime = false;
+    private static string saveFilePath => Path.Combine(Application.persistentDataPath, "score_save.json");
 
-    [Inject] private DifficultyProvider _difficultyLevel;
-
-    public event Action<int> OnScoreChanged; 
     public async void Initialize()
     {
+        ScoreProviderConfig config = configLoader.LoadConfig();
+        DestroyedUFO_points = config.DestroyedUFO_points;
+        DestroyedAsteroids_points = config.DestroyedAsteroids_points;
+        FiredBullets_points = config.FiredBullets_points;
+        Reloads_points = config.Reloads_points;
+        FiredLasers_points = config.FiredLasers_points;
+        LaserTime_points = config.LaserTime_points;
+        MaxSpeed_points = config.MaxSpeed_points;
+        Travelled_points = config.Travelled_points;
+        SurvivedTime_points = config.SurvivedTime_points;
         ResetScores();
         await TrackSurvivedTime();
     }
-
-
-    private bool isTrackingTime = false;
-
-    public int GetScore()
-    {
-        return Score;
-    }
-
-    private void SetScore(int value)
-    {
-        if (Score != value)
-        {
-            Score = value;
-            OnScoreChanged?.Invoke(Score);
-        }
-    }
-
 
     public void AddDestroyedUFO(int value)
     {
@@ -110,10 +106,8 @@ public class ScoreProvider : IInitializable
     public async UniTask TrackSurvivedTime()
     {
         if (isTrackingTime) return;
-
         isTrackingTime = true;
         float startTime = Time.time;
-
         while (isTrackingTime)
         {
             await UniTask.Yield();
@@ -151,7 +145,6 @@ public class ScoreProvider : IInitializable
         int baseScore = DestroyedUFO * DestroyedUFO_points + DestroyedAsteroids * DestroyedAsteroids_points + FiredBullets * FiredBullets_points +
                         Reloads * Reloads_points + FiredLasers * FiredLasers_points + Mathf.FloorToInt(LaserTime) * LaserTime_points +
                         MaxSpeed * MaxSpeed_points + Travelled * Travelled_points + SurvivedTime * SurvivedTime_points;
-
         int difficultyMultiplier = _difficultyLevel.CurrentDifficulty switch
         {
             DifficultyProvider.Difficulty.Easy => 1,
@@ -159,9 +152,17 @@ public class ScoreProvider : IInitializable
             DifficultyProvider.Difficulty.Hard => 3,
             _ => 1
         };
-
         SetScore(baseScore * difficultyMultiplier);
         SaveScoresToFile();
+    }
+
+    private void SetScore(int value)
+    {
+        if (Score != value)
+        {
+            Score = value;
+            OnScoreChanged?.Invoke(Score);
+        }
     }
 
     private void SaveScoresToFile()
@@ -171,10 +172,8 @@ public class ScoreProvider : IInitializable
         {
             Directory.CreateDirectory(folderPath);
         }
-
         string fileName = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".json";
         string filePath = Path.Combine(folderPath, fileName);
-
         ScoreData data = new ScoreData
         {
             Score = Score,
@@ -188,12 +187,11 @@ public class ScoreProvider : IInitializable
             Travelled = Travelled,
             SurvivedTime = SurvivedTime
         };
-
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(filePath, json);
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ScoreData
     {
         public int Score;

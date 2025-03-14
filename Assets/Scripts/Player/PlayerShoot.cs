@@ -6,6 +6,16 @@ using Zenject;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [Inject] private OptionsProvider optionsManager;
+    [Inject] private ScoreProvider scoreManager;
+    [Inject] private PlayerConfigLoader configLoader;
+
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject activeObject;
+    [SerializeField] private JoyStick AttackStick;
+    [SerializeField] private AudioSource shootAudioSource;
+    [SerializeField] private AudioClip shootSound;
+
     public event Action<int> OnAmmoChanged;
     public event Action<bool> OnReloadStateChanged;
     public event Action<bool> OnObjectActivationChanged;
@@ -13,48 +23,29 @@ public class PlayerShoot : MonoBehaviour
     public event Action<float> OnObjectCooldownTimeChanged;
     public event Action<float> OnObjectActiveTimeChanged;
 
-    [Header("BulletPrefab and Laser Object")]
-    public GameObject bulletPrefab;
-    public GameObject activeObject;
-
-    [Header("Mobile attack stick")]
-    public JoyStick AttackStick;
-
-    [Header("Sound logic")]
-    public AudioSource shootAudioSource;
-    public AudioClip shootSound;
-
-    [Header("Shooting params")]
     public float shootingForce;
     public float shootCooldown;
     public int maxAmmo;
-    private int currentAmmo;
     public float reloadTime;
     public float objectActiveDuration;
     public float objectCooldown;
-
-    [Header("For Score counter")]
     public float objectActiveTime = 0f;
     public float cooldownDuration = 0f;
-
     public float spawnOffset = 0.35f;
     public int degree = -90;
     public float angle;
+
+    private int currentAmmo;
     private int MillisecondsInSecond = 1000;
     private int scriptDelay = 10;
     private float baseSoundVolume = 0.2f;
     private float minimalAttackStickSpeed = 0.2f;
-
     private bool canShoot = true;
     private bool ShootLeft = true;
     private bool isReloading = false;
     private bool isObjectActive = false;
     private bool isObjectOnCooldown = false;
     private bool IsMobile = false;
-
-    [Inject] private OptionsProvider optionsManager;
-    [Inject] private ScoreProvider scoreManager;
-
     private CancellationTokenSource cancellationTokenSource;
 
     private void Start()
@@ -62,7 +53,7 @@ public class PlayerShoot : MonoBehaviour
         cancellationTokenSource = new CancellationTokenSource();
 
         IsMobile = optionsManager.IsMobile;
-        var config = PlayerConfigLoader.LoadConfig();
+        var config = configLoader.LoadConfig();
         shootingForce = config.shootingForce;
         shootCooldown -= config.shootCooldown;
         maxAmmo = config.maxAmmo;
@@ -75,6 +66,34 @@ public class PlayerShoot : MonoBehaviour
 
         ShootingInputLoop(cancellationTokenSource.Token).Forget();
         ObjectActivationInputLoop(cancellationTokenSource.Token).Forget();
+    }
+    private void OnDestroy()
+    {
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
+    }
+
+    public void IncreaseFireRateCooldown()
+    {
+        shootCooldown = Mathf.Max(0.1f, shootCooldown * 1.5f);
+    }
+
+    public async void ToggleObjectActivation()
+    {
+        if (!IsMobile)
+            return;
+        if (!isObjectActive && !isObjectOnCooldown)
+        {
+            ActivateObject();
+            scoreManager.AddFiredLasers(1);
+        }
+        else if (isObjectActive)
+        {
+            DeactivateObject();
+            float usedRatio = objectActiveTime / objectActiveDuration;
+            cooldownDuration = objectCooldown * usedRatio;
+            await StartObjectCooldown(cooldownDuration);
+        }
     }
 
     private async UniTaskVoid ShootingInputLoop(CancellationToken token)
@@ -176,24 +195,6 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    public async void ToggleObjectActivation()
-    {
-        if (!IsMobile)
-            return;
-        if (!isObjectActive && !isObjectOnCooldown)
-        {
-            ActivateObject();
-            scoreManager.AddFiredLasers(1);
-        }
-        else if (isObjectActive)
-        {
-            DeactivateObject();
-            float usedRatio = objectActiveTime / objectActiveDuration;
-            cooldownDuration = objectCooldown * usedRatio;
-            await StartObjectCooldown(cooldownDuration);
-        }
-    }
-
     private void ActivateObject()
     {
         isObjectActive = true;
@@ -238,16 +239,5 @@ public class PlayerShoot : MonoBehaviour
             OnReloadStateChanged?.Invoke(isReloading);
             scoreManager.AddReloads(1);
         }
-    }
-
-    public void IncreaseFireRateCooldown()
-    {
-        shootCooldown = Mathf.Max(0.1f, shootCooldown * 1.5f);
-    }
-
-    private void OnDestroy()
-    {
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource?.Dispose();
     }
 }

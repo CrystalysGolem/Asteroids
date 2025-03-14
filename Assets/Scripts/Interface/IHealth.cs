@@ -2,6 +2,7 @@ public interface IHealth
 {
     int CurrentHealth { get; set; }
 }
+
 public static class IHealthExtensions
 {
     public static void IncreaseHealth(this IHealth health, int amount)
@@ -37,5 +38,4 @@ public static class IHealthExtensions
                 break;
         }
     }
-
 }

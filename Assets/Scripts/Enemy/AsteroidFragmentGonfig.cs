@@ -15,12 +15,12 @@ public class AsteroidFragmentConfig
     public int healthHard;
 }
 
-public static class AsteroidFragmentConfigLoader
+public class AsteroidFragmentConfigLoader
 {
     private static readonly string directoryPath = Application.streamingAssetsPath;
-    private static readonly string filePath = Path.Combine(Application.streamingAssetsPath, "asteroid_fragment_config.json");
+    private static readonly string filePath = Path.Combine(directoryPath, "asteroid_fragment_config.json");
 
-    public static AsteroidFragmentConfig LoadConfig()
+    public AsteroidFragmentConfig LoadConfig()
     {
         if (!File.Exists(filePath))
         {
@@ -46,6 +46,12 @@ public static class AsteroidFragmentConfigLoader
             Debug.LogError("Failed to read config file. Creating a new one.");
             return CreateDefaultConfig();
         }
+    }
+
+    public static void SaveConfig(AsteroidFragmentConfig config)
+    {
+        string json = JsonUtility.ToJson(config, true);
+        File.WriteAllText(filePath, json);
     }
 
     private static AsteroidFragmentConfig CreateDefaultConfig()
@@ -81,11 +87,5 @@ public static class AsteroidFragmentConfigLoader
                config.healthEasy != 0 &&
                config.healthMedium != 0 &&
                config.healthHard != 0;
-    }
-
-    public static void SaveConfig(AsteroidFragmentConfig config)
-    {
-        string json = JsonUtility.ToJson(config, true);
-        File.WriteAllText(filePath, json);
     }
 }

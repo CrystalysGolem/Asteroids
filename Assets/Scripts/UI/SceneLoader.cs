@@ -4,17 +4,14 @@ using UnityEngine.Advertisements;
 
 public class SceneLoader : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener
 {
-    [Header("Ad Unit IDs")]
     [SerializeField] private string _androidAdUnitId = "Interstitial_Android";
     [SerializeField] private string _iOsAdUnitId = "Interstitial_iOS";
+    [SerializeField] private string _gameIdAndroid = "5812853";
+    [SerializeField] private bool _testMode = true;
 
-    [Header("Game IDs (from Unity Ads)")]
-    [SerializeField] private string _gameIdAndroid = "5812853";  
-    [SerializeField] private bool _testMode = true;              
-
-    private string _adUnitId;
-    private string _sceneToLoad;
-    private int _sceneIndexToLoad = -1;
+    public string _adUnitId;
+    public string _sceneToLoad;
+    public int _sceneIndexToLoad = -1;
 
     void Awake()
     {
@@ -30,7 +27,6 @@ public class SceneLoader : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
             Advertisement.Initialize(_gameIdAndroid, _testMode, this);
         }
     }
-
 
     public void LoadSceneByName(string sceneName)
     {
@@ -48,38 +44,12 @@ public class SceneLoader : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     {
         if (sceneIndex < 0 || sceneIndex >= SceneManager.sceneCountInBuildSettings)
         {
-            Debug.LogError("Wrond scene index!");
+            Debug.LogError("Wrong scene index!");
             return;
         }
         _sceneIndexToLoad = sceneIndex;
         _sceneToLoad = null;
         ShowAdOrLoadScene();
-    }
-
-    private void ShowAdOrLoadScene()
-    {
-        if (Advertisement.isInitialized)
-        {
-            Debug.Log("Show ad.");
-            Advertisement.Show(_adUnitId, this);
-        }
-        else
-        {
-            Debug.Log("Ad not initialized.");
-            LoadScene();
-        }
-    }
-
-    private void LoadScene()
-    {
-        if (!string.IsNullOrEmpty(_sceneToLoad))
-        {
-            SceneManager.LoadScene(_sceneToLoad, LoadSceneMode.Single);
-        }
-        else if (_sceneIndexToLoad != -1)
-        {
-            SceneManager.LoadScene(_sceneIndexToLoad, LoadSceneMode.Single);
-        }
     }
 
     public void OnInitializationComplete()
@@ -90,7 +60,7 @@ public class SceneLoader : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
         Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
-    } 
+    }
 
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
@@ -122,5 +92,32 @@ public class SceneLoader : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     {
         Debug.Log("Ad complete: " + adUnitId + ", state: " + showCompletionState);
         LoadScene();
+    }
+
+
+    private void ShowAdOrLoadScene()
+    {
+        if (Advertisement.isInitialized)
+        {
+            Debug.Log("Show ad.");
+            Advertisement.Show(_adUnitId, this);
+        }
+        else
+        {
+            Debug.Log("Ad not initialized.");
+            LoadScene();
+        }
+    }
+
+    private void LoadScene()
+    {
+        if (!string.IsNullOrEmpty(_sceneToLoad))
+        {
+            SceneManager.LoadScene(_sceneToLoad, LoadSceneMode.Single);
+        }
+        else if (_sceneIndexToLoad != -1)
+        {
+            SceneManager.LoadScene(_sceneIndexToLoad, LoadSceneMode.Single);
+        }
     }
 }

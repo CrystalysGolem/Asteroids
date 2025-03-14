@@ -7,16 +7,14 @@ public class PlayerShootView : MonoBehaviour
 {
     [Inject] private PlayerShoot playerShoot;
 
-    [Header("For Ammo UI")]
     [SerializeField] private Image ammoFill;
     [SerializeField] private Image laserFill;
 
     private Coroutine fillAnimationLaserCoroutine;
     private Coroutine fillAnimationAmmoCoroutine;
-    private float fillAnimationDuration = 0.5f;
-
     private Coroutine reloadAnimationCoroutine; 
     private Coroutine objectCooldownAnimationCoroutine;
+    private float fillAnimationDuration = 0.5f;
 
     private void Start()
     {

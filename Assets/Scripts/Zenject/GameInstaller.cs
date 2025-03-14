@@ -3,13 +3,18 @@ using Zenject;
 
 public class GameInstaller : MonoInstaller
 {
-    [Header("For Prefab Fabric")]
      public GameObject asteroidPrefab;
      public GameObject ufoPrefab;
      public GameObject fragmentPrefab;
 
     public override void InstallBindings()
     {
+        Container.BindInterfacesAndSelfTo<AsteroidConfigLoader>().AsSingle();
+        Container.BindInterfacesAndSelfTo<AsteroidFragmentConfigLoader>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UFOConfigLoader>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PlayerConfigLoader>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ScoreProviderConfigLoader>().AsSingle();
+
         Container.Bind<OptionsProvider>().FromComponentInHierarchy().AsSingle();
         Container.BindInterfacesAndSelfTo<DifficultyProvider>().AsSingle();
         Container.BindInterfacesAndSelfTo<ScoreProvider>().AsSingle();
@@ -19,14 +24,14 @@ public class GameInstaller : MonoInstaller
         Container.Bind<ObjectPoolService>().AsSingle().NonLazy();
         Container.Bind<PrefabFactory>().AsSingle();
 
-        Container.Bind<SpawnManager>()
+        Container.Bind<SpawnProvider>()
             .AsSingle()
             .WithArguments(asteroidPrefab, ufoPrefab, fragmentPrefab);
     }
 
     public override void Start()
     {
-        var spawnManager = Container.Resolve<SpawnManager>();
+        var spawnManager = Container.Resolve<SpawnProvider>();
         spawnManager.Initialize();
     }
 }

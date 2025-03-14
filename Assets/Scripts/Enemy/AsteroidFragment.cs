@@ -4,24 +4,30 @@ using Zenject;
 
 public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
 {
-    public class Factory : PlaceholderFactory<AsteroidFragment> { }
+    [Inject] private AsteroidFragmentConfigLoader configLoader;
+    [Inject] private DifficultyProvider difficultySettings;
+
+    public int CurrentHealth { get; set; }
 
     private float rotationSpeed;
     private float moveSpeed;
-
     private float minSpeed;
     private float maxSpeed;
     private float minSpeedRotation;
     private float maxSpeedRotation;
     private Vector3 moveDirection;
-
-    public int CurrentHealth { get; set; }
-
-    [Inject] private DifficultyProvider difficultySettings;
+    private AsteroidFragmentConfig config;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<PlayerPart>() || collision.GetComponent<Projectile>())
+        {
+            this.TakeDamage();
+        }
+    }
 
     public void StartUP()
     {
-        var config = AsteroidFragmentConfigLoader.LoadConfig();
+        config = configLoader.LoadConfig();
         if (config == null)
         {
             Debug.LogError("AsteroidFragmentConfig not loaded!");
@@ -67,14 +73,6 @@ public class AsteroidFragment : MonoBehaviour, IEnemy, IHealth
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
             transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
             await UniTask.Yield();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.GetComponent<PlayerPart>() || collision.GetComponent<Projectile>())
-        {
-            this.TakeDamage();
         }
     }
 }

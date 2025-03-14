@@ -14,12 +14,12 @@ public class AsteroidConfig
     public int maxFragments;
 }
 
-public static class AsteroidConfigLoader
+public class AsteroidConfigLoader
 {
     private static readonly string directoryPath = Application.streamingAssetsPath;
     private static readonly string filePath = Path.Combine(directoryPath, "asteroid_config.json");
 
-    public static AsteroidConfig LoadConfig()
+    public AsteroidConfig LoadConfig()
     {
         if (!File.Exists(filePath))
         {
@@ -45,6 +45,12 @@ public static class AsteroidConfigLoader
             Debug.LogError("Failed to read config file. Creating a new one.");
             return CreateDefaultConfig();
         }
+    }
+
+    public static void SaveConfig(AsteroidConfig config)
+    {
+        string json = JsonUtility.ToJson(config, true);
+        File.WriteAllText(filePath, json);
     }
 
     private static AsteroidConfig CreateDefaultConfig()
@@ -78,11 +84,5 @@ public static class AsteroidConfigLoader
                config.healthHard != 0 &&
                config.minFragments != 0 &&
                config.maxFragments != 0;
-    }
-
-    public static void SaveConfig(AsteroidConfig config)
-    {
-        string json = JsonUtility.ToJson(config, true);
-        File.WriteAllText(filePath, json);
     }
 }

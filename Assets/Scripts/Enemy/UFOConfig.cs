@@ -12,12 +12,12 @@ public class UFOConfig
     public int healthHard;
 }
 
-public static class UFOConfigLoader
+public class UFOConfigLoader
 {
     private static readonly string directoryPath = Application.streamingAssetsPath;
     private static readonly string filePath = Path.Combine(Application.streamingAssetsPath, "ufo_config.json");
 
-    public static UFOConfig LoadConfig()
+    public UFOConfig LoadConfig()
     {
         if (!File.Exists(filePath))
         {
@@ -44,6 +44,13 @@ public static class UFOConfigLoader
             return CreateDefaultConfig();
         }
     }
+
+    public static void SaveConfig(UFOConfig config)
+    {
+        string json = JsonUtility.ToJson(config, true);
+        File.WriteAllText(filePath, json);
+    }
+
 
     private static UFOConfig CreateDefaultConfig()
     {
@@ -72,11 +79,5 @@ public static class UFOConfigLoader
                config.healthEasy != 0 &&
                config.healthMedium != 0 &&
                config.healthHard != 0;
-    }
-
-    public static void SaveConfig(UFOConfig config)
-    {
-        string json = JsonUtility.ToJson(config, true);
-        File.WriteAllText(filePath, json);
     }
 }

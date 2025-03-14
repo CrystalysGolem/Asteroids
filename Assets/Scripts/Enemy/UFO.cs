@@ -4,35 +4,43 @@ using Zenject;
 
 public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
 {
+    [Inject] private UFOConfigLoader configLoader;
+    [Inject] private PlayerMove playerMovement;
+    [Inject] private DifficultyProvider difficultySettings;
+    [Inject] private ScoreProvider scoreManager;
+
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+    public GameObject GameObject => gameObject;
     public int CurrentHealth { get; set; }
+    public bool IsInvincible { get; set; }
 
     private float moveSpeed;
     private float rotationSpeed;
     private Vector3 targetPosition;
-
-    private UFOConfig config;
-
-    public bool IsInvincible { get; set; }
-
-    public SpriteRenderer SpriteRenderer => spriteRenderer;
-    public GameObject GameObject => gameObject;
     private SpriteRenderer spriteRenderer;
-
-    [Inject] private PlayerMove playerMovement;
-    [Inject] private DifficultyProvider difficultySettings;
-    [Inject] private ScoreProvider scoreManager;
-    public class Factory : PlaceholderFactory<UFO> { }
-
+    private UFOConfig config;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         StartUP();
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((collision.GetComponent<PlayerPart>() != null || collision.GetComponent<Projectile>() != null) && !IsInvincible)
+        {
+            this.TakeDamage();
+            if (!gameObject.activeSelf)
+            {
+                scoreManager.AddDestroyedUFO(1);
+            }
+            this.HandleHitVisualsWithDelay().Forget();
+        }
+    }
 
     public void StartUP()
     {
-        config = UFOConfigLoader.LoadConfig();
+        config = configLoader.LoadConfig();
         if (config == null)
         {
             Debug.LogError("UFOConfig not loaded!");
@@ -92,23 +100,9 @@ public class UFO : MonoBehaviour, IInvincible, IEnemy, IHealth
             gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if ((collision.CompareTag("Player") || collision.CompareTag("Projectile")) && !IsInvincible)
-        {
-            this.TakeDamage();
-            if (!gameObject.activeSelf)
-            {
-                scoreManager.AddDestroyedUFO(1);
-            }
-            this.HandleHitVisualsWithDelay().Forget();
-        }
-    }
-
     private async UniTaskVoid HandleHitVisualsWithDelay()
     {
         await UniTask.Delay(75);
         this.HandleHitVisuals().Forget();
     }
-
 }

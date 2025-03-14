@@ -13,14 +13,15 @@ public class MusicSaveData
 
 public class MusicProvider : MonoBehaviour
 {
+    [Inject] private OptionsProvider optionsManager;
 
-    [Header("Music player and music itself")]
     public AudioSource musicSource;
     public AudioClip[] musicTracks;
+    public int currentTrackIndex = 0;
+    public float trackTime = 0f;
 
-    private int currentTrackIndex = 0;
-    private float trackTime = 0f;
-    [Inject] private OptionsProvider optionsManager;
+    private int SecondsInMilliseconds = 1000;
+
     private static string saveFilePath => Path.Combine(Application.persistentDataPath, "music_save.json");
 
     private void Start()
@@ -85,7 +86,7 @@ public class MusicProvider : MonoBehaviour
         while (true && this != null)
         {
             SaveMusicState();
-            await UniTask.Delay(1000);
+            await UniTask.Delay(SecondsInMilliseconds);
         }
     }
 
